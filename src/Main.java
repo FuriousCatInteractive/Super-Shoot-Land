@@ -1,9 +1,12 @@
 import Screens.*;
+import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
 
-//pur connaitre la taille de la fenetre
 import java.awt.*;
+
+//pur connaitre la taille de la fenetre
+//import java.awt.*;
 
 /**
  * Created by coco on 14-11-16.
@@ -18,7 +21,7 @@ public class Main {
         int WINDOW_H = (int)tailleEcran.getHeight();
         int WINDOW_W= (int)tailleEcran.getWidth();
 
-        RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W, WINDOW_H), "Projet POO",-1);//-=fullscreen
+        RenderWindow window1 = new RenderWindow(new VideoMode(700, 700), "Projet POO");//-=fullscreen
         window1.setFramerateLimit(60);
         window1.setKeyRepeatEnabled(true);
 

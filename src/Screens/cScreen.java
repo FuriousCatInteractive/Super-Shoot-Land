@@ -3,6 +3,8 @@ package Screens;
 import org.jsfml.audio.Sound;
 import org.jsfml.audio.SoundBuffer;
 import org.jsfml.graphics.*;
+import org.jsfml.system.Vector2f;
+import org.w3c.dom.css.Rect;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -12,14 +14,17 @@ import java.util.ArrayList;
  * Created by coco on 14-11-16.
  */
 public class cScreen {
+    public Color dark_green = new Color(35,67,49, 255);
+    public Color background_green = new Color(83,122,62, 255);
+    public Color logo_green = new Color(167,186, 74, 255);
+    public Color light_green = new Color(211,226,154, 255);
 
     protected Sound sound;
     protected Font fontScreen;
-    protected ArrayList<Text> texts;
+    protected ArrayList<Drawable> screenObject = new ArrayList();
 
     public cScreen() {
         fontScreen = new Font();
-        texts = new ArrayList();
     }
 
     public int Run(RenderWindow App){ return  0;}
@@ -40,7 +45,29 @@ public class cScreen {
 
         text1.setOrigin(text1.getLocalBounds().width/2, text1.getGlobalBounds().height/2);
         text1.setPosition(posX, posY);
-        texts.add(text1);
+        screenObject.add(text1);
+    }
+
+    protected void loadImage(String path, int posX, int posY){
+        Sprite background = new Sprite();
+        try {
+            Texture maTexture = new Texture();
+            maTexture.loadFromFile(Paths.get(path)); // on charge la texture qui se trouve dans notre dossier assets
+            background.setTexture(maTexture); // on applique la texture à notre sprite
+        } catch (IOException e) {
+            System.err.println("Failed to load the image:");
+            e.printStackTrace();
+        }
+        background.setPosition(posX, posY);
+        screenObject.add(background);
+    }
+
+    protected void newRect(int weight, int height, int posX, int posY,Color color){
+        RectangleShape rect;
+        rect = new RectangleShape(new Vector2f(weight, height));
+        rect.setFillColor(color);
+        rect.setPosition(posX, posY);
+        screenObject.add(rect);
     }
 
     protected void startMusic(String path)

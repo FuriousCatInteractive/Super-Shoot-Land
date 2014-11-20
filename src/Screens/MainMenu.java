@@ -6,6 +6,9 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 /**
  * Created by coco on 14-11-16.
  */
@@ -25,22 +28,33 @@ public class MainMenu extends cScreen implements iMenu{
         nb_choix_menu = 3;
     }
 
-    public int Run(RenderWindow App){
+    private void loadScreenObjects(RenderWindow App){
+        loadFont( "res/font/Volter__28Goldfish_29.ttf");
 
-        loadFont( "res/font/KGBlankSpaceSketch.ttf");
-
-        int taille_Font_base = 40;
-
-        loadText("Play", App.getSize().x/2,App.getSize().y/2-50,taille_Font_base);
-        loadText("Config", App.getSize().x/2,App.getSize().y/2,taille_Font_base);
-        loadText("Exit", App.getSize().x/2,App.getSize().y/2+50,taille_Font_base);
+        int taille_Font_base = 60;
+        int offsetX =App.getSize().x/8;
+        int offsety = App.getSize().y/13;
+        loadText("Play", 2*App.getSize().x/3+offsetX,App.getSize().y/3+offsety,taille_Font_base);
+        loadText("Config", App.getSize().x/2+offsetX,App.getSize().y/2+offsety,taille_Font_base);
+        loadText("Exit", App.getSize().x/3+offsetX,2*App.getSize().y/3+offsety,taille_Font_base);
 
         loadText("Titre", App.getSize().x/2,40,2*taille_Font_base);
+        ((Text)screenObject.get(3)).setColor(light_green);
         loadText("Furious Cat Interactive ",App.getSize().x/2, App.getSize().y-25,20);
+        ((Text)screenObject.get(4)).setColor(light_green);
+        newRect(App.getSize().x, App.getSize().y/5, 0 ,0, dark_green);
+        newRect(App.getSize().x, App.getSize().y/11, 0 ,10*App.getSize().y/11, dark_green);
+        loadImage("res/img/logo.png",App.getSize().x/6,App.getSize().y/4);
+        ((Sprite)screenObject.get(7)).setScale(0.75f,0.75f);
+    }
+
+    public int Run(RenderWindow App){
+
+        loadScreenObjects(App);
 
         boolean Running = true;
 
-        startMusic("res/sound/king.it.ogg");
+        startMusic("res/sound/tower.ogg");
 
 
         while (Running)
@@ -51,9 +65,10 @@ public class MainMenu extends cScreen implements iMenu{
 
             menuSelectionne(menu);
 
-            App.clear();
-            for(int i=0 ;i<texts.size();i++)
-                App.draw(texts.get(i));
+            App.clear(background_green);
+            for(int i=screenObject.size()-1 ;i>-1;i--) {
+                App.draw(screenObject.get(i));
+            }
             App.display();
         }
 
@@ -89,7 +104,7 @@ public class MainMenu extends cScreen implements iMenu{
             event.asMouseEvent();
             pos = Mouse.getPosition(App);
             for (int i = 0; i < nb_choix_menu; i++)
-                if (texts.get(i).getGlobalBounds().contains((float) pos.x, (float) pos.y))
+                if ( ((Text)screenObject.get(i)).getGlobalBounds().contains((float) pos.x, (float) pos.y))
                     menu = i;
         }
 
@@ -136,9 +151,9 @@ public class MainMenu extends cScreen implements iMenu{
     public void menuSelectionne(int numero){
         for(int i =0; i<nb_choix_menu;i++)        {
             if(i==numero)
-                texts.get(i).setColor(Color.BLUE);
+                ((Text)screenObject.get(i)).setColor(light_green);
             else
-                texts.get(i).setColor(Color.WHITE);
+                ((Text)screenObject.get(i)).setColor(dark_green);
         }
     }
 
