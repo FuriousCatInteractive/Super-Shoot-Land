@@ -18,7 +18,7 @@ public class MainMenu extends cScreen implements iMenu{
     private int menu;
     private int nb_choix_menu;
 
-    private final int play = -1;
+    private final int play = 2;
     private final int config = -1;
     private final int exit = -1;
 
@@ -30,22 +30,26 @@ public class MainMenu extends cScreen implements iMenu{
 
     private void loadScreenObjects(RenderWindow App){
         loadFont( "res/font/Volter__28Goldfish_29.ttf");
+        int AppX = App.getSize().x;
+        int AppY = App.getSize().y;
+        int taille_Font_base = (int)(0.09*AppY);
+        int offsetX =AppX/4;
+        int offsety = AppY/20;
+        loadText("Play", AppX/2+offsetX,AppY/3+offsety,taille_Font_base);
+        loadText("Config", AppX/2+offsetX,AppY/2+offsety,taille_Font_base);
+        loadText("Exit", AppX/2+offsetX,2*AppY/3+offsety,taille_Font_base);
 
-        int taille_Font_base = 60;
-        int offsetX =App.getSize().x/8;
-        int offsety = App.getSize().y/13;
-        loadText("Play", 2*App.getSize().x/3+offsetX,App.getSize().y/3+offsety,taille_Font_base);
-        loadText("Config", App.getSize().x/2+offsetX,App.getSize().y/2+offsety,taille_Font_base);
-        loadText("Exit", App.getSize().x/3+offsetX,2*App.getSize().y/3+offsety,taille_Font_base);
-
-        loadText("Titre", App.getSize().x/2,40,2*taille_Font_base);
+        loadText("Titre", AppX/2,AppY/20,2*taille_Font_base);
         ((Text)screenObject.get(3)).setColor(light_green);
-        loadText("Furious Cat Interactive ",App.getSize().x/2, App.getSize().y-25,20);
+        loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20,taille_Font_base/2);
         ((Text)screenObject.get(4)).setColor(light_green);
-        newRect(App.getSize().x, App.getSize().y/5, 0 ,0, dark_green);
-        newRect(App.getSize().x, App.getSize().y/11, 0 ,10*App.getSize().y/11, dark_green);
-        loadImage("res/img/logo.png",App.getSize().x/6,App.getSize().y/4);
-        ((Sprite)screenObject.get(7)).setScale(0.75f,0.75f);
+        newRect(AppX, AppY/5, 0 ,0, dark_green);
+        newRect(AppX, 10, 0 ,AppY/5, light_green);
+        newRect(AppX, AppY/11, 0 ,10*AppY/11, dark_green);
+        newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
+        loadImage("res/img/logo.png",(int)((float)AppX/12),AppY/3);
+        System.out.println(500/(float)AppX);
+        ((Sprite)screenObject.get(screenObject.size()-1)).setScale(0.0016f*AppY,0.0016f*AppY);
     }
 
     public int Run(RenderWindow App){

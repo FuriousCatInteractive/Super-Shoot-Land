@@ -12,9 +12,6 @@ import org.jsfml.window.event.Event;
 public interface iMenu {
 
 
-
-
-
     public int eventManager(RenderWindow App);
 
     public int mouseManager(Event event, RenderWindow App);
