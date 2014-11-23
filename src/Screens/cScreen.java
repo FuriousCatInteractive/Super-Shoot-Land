@@ -10,14 +10,16 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import static Graphics.EntityTexture.loadTexture;
+
 /**
  * Created by coco on 14-11-16.
  */
 public class cScreen {
-    public Color dark_green = new Color(35,67,49, 255);
-    public Color background_green = new Color(83,122,62, 255);
-    public Color logo_green = new Color(167,186, 74, 255);
-    public Color light_green = new Color(211,226,154, 255);
+    public static final Color dark_green = new Color(35,67,49, 255);
+    public static final Color background_green = new Color(83,122,62, 255);
+    public static final Color logo_green = new Color(167,186, 74, 255);
+    public static final Color light_green = new Color(211,226,154, 255);
 
     protected Sound sound;
     protected Font fontScreen;
@@ -88,4 +90,11 @@ public class cScreen {
         sound.play();
         //sound.setVolume(40.0f);
     }
+
+   public void loadSpriteSheet(String path, float scale){
+       Sprite mario = new Sprite();
+       mario.setTexture(loadTexture(path));
+       mario.setScale(scale,scale);
+       screenObject.add(mario);
+   }
 }

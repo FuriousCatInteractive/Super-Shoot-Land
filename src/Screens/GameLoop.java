@@ -1,5 +1,7 @@
 package Screens;
 
+import Entities.Player;
+import Graphics.EntityTexture;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -8,6 +10,8 @@ import org.jsfml.window.event.Event;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+
+import static Graphics.EntityTexture.*;
 
 /**
  * Created by coco on 14-11-16.
@@ -18,9 +22,11 @@ public class GameLoop extends cScreen {
     private int menu;
     private int nb_choix_menu;
 
-    private final int play = -1;
-    private final int config = -1;
+    private final int mainMenu = 1;
     private final int exit = -1;
+
+    int[] state = IDLE;
+    boolean direction = true;
 
     public GameLoop() {
         pos = new Vector2i(0, 0);
@@ -31,7 +37,10 @@ public class GameLoop extends cScreen {
     private void loadScreenObjects(RenderWindow App) {
         loadFont("res/font/Volter__28Goldfish_29.ttf");
         int taille_Font_base = 40;
+        int AppX = App.getSize().x;
+        int AppY = App.getSize().y;
         loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
+        loadSpriteSheet("res/img/mario-spritesheet.png", 0.007f*AppY);
     }
 
     public int Run(RenderWindow App) {
@@ -42,14 +51,22 @@ public class GameLoop extends cScreen {
 
         startMusic("res/sound/tower.ogg");
 
-
         while (Running) {
+
             int returnValue = eventManager(App);
             if (returnValue <= 50)
                 return returnValue;
 
-            App.clear(background_green);
+            App.clear(Color.RED);
             for (int i = screenObject.size() - 1; i > -1; i--) {
+                if (screenObject.get(i) instanceof Sprite) {
+                    updateTexture((Sprite) screenObject.get(i), decideState(state), direction);
+                   if(decideState(SHOOT)==SHOOT[SHOOT.length-1] && state==SHOOT){
+                        state=IDLE;
+                    }
+                    System.out.println("state "+decideState(state)+" "+ EntityTexture.dureeeAnimation);
+                    //((Sprite) screenObject.get(i)).setPosition(App.getSize().x / 2, App.getSize().y / 2);
+                }
                 App.draw(screenObject.get(i));
             }
             App.display();
@@ -66,8 +83,6 @@ public class GameLoop extends cScreen {
             if (event.type == event.type.CLOSED) {
                 return (exit);
             }
-
-
             int returnValueKeyboard = keyboardManager(event, App);
             if (returnValueKeyboard <= 50)
                 return returnValueKeyboard;
@@ -83,22 +98,41 @@ public class GameLoop extends cScreen {
         if (event.type == Event.Type.KEY_PRESSED) {
             event.asKeyEvent();
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE))
-                return exit;
-
-            if (Keyboard.isKeyPressed(Keyboard.Key.DOWN)) {
+            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)) {
+                sound.stop();
+                return mainMenu;
             }
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.UP)) {
+            if (Keyboard.isKeyPressed(Keyboard.Key.LEFT)) {
+                state=WALK;
+                direction=LEFT;
+            }
+           else if (Keyboard.isKeyPressed(Keyboard.Key.V)) {
+                state=SHOOT;
+            }
+            else if (Keyboard.isKeyPressed(Keyboard.Key.SPACE)) {
+                state=JUMP;
+            }
 
+            else if (Keyboard.isKeyPressed(Keyboard.Key.RIGHT)) {
+                state=WALK;
+                direction=RIGHT;
             }
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
             }
         }
+        else if(event.type == Event.Type.KEY_RELEASED){
+            if(state==WALK)
+                state=IDLE;
+
+
+
+        }
         //si on ne quitte pas cet écran
         return 100;
     }
+
 }
 
 

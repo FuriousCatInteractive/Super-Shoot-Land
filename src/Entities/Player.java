@@ -1,9 +1,11 @@
 package Entities;
 
+import org.jsfml.graphics.Sprite;
+
 /**
  * Created by coco on 14-11-20.
  */
-public class Player {
+public class Player extends Sprite{
 
     private int posX, posY;
 

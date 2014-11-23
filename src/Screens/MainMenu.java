@@ -48,8 +48,8 @@ public class MainMenu extends cScreen implements iMenu{
         newRect(AppX, AppY/11, 0 ,10*AppY/11, dark_green);
         newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
         loadImage("res/img/logo.png",(int)((float)AppX/12),AppY/3);
-        System.out.println(500/(float)AppX);
-        ((Sprite)screenObject.get(screenObject.size()-1)).setScale(0.0016f*AppY,0.0016f*AppY);
+       // System.out.println(500/(float)AppX);
+        ((Sprite)screenObject.get(screenObject.size()-1)).setScale(0.0017f*AppY,0.0017f*AppY);
     }
 
     public int Run(RenderWindow App){
