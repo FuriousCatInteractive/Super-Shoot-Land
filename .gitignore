@@ -13,3 +13,4 @@ hs_err_pid*
 
 .idea/
 res/jsfml-test-Dec02_2013/
+*.iml
