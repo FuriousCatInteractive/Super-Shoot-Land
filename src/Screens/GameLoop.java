@@ -81,6 +81,7 @@ public class GameLoop extends cScreen {
         for (Event event : App.pollEvents()) {
             // Window closed
             if (event.type == event.type.CLOSED) {
+                screenObject.clear();
                 return (exit);
             }
             int returnValueKeyboard = keyboardManager(event, App);
@@ -100,6 +101,7 @@ public class GameLoop extends cScreen {
 
             if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)) {
                 sound.stop();
+                screenObject.clear();
                 return mainMenu;
             }
 

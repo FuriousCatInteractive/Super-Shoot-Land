@@ -87,6 +87,7 @@ public class MainMenu extends cScreen implements iMenu{
             // Window closed
             if (event.type == event.type.CLOSED)
             {
+                screenObject.clear();
                 return (exit);
             }
 
@@ -116,6 +117,7 @@ public class MainMenu extends cScreen implements iMenu{
         if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
             event.asMouseEvent();
             sound.stop();
+            screenObject.clear();
             return choixValide();
         }
 
@@ -128,8 +130,11 @@ public class MainMenu extends cScreen implements iMenu{
         if (event.type == Event.Type.KEY_PRESSED){
             event.asKeyEvent();
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE))
+            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)){
+                screenObject.clear();
                 return  exit;
+            }
+
 
             if (Keyboard.isKeyPressed(Keyboard.Key.DOWN)){
                 menu++;
@@ -145,6 +150,7 @@ public class MainMenu extends cScreen implements iMenu{
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
                 sound.stop();
+                screenObject.clear();
                 return choixValide();
             }
         }

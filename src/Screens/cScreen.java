@@ -97,4 +97,10 @@ public class cScreen {
        mario.setScale(scale,scale);
        screenObject.add(mario);
    }
+
+    protected void deleteScreenObject(){
+       //for (int i=0; i<screenObject.size();i++){
+           screenObject.clear();
+       //}
+    }
 }
