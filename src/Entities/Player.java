@@ -7,10 +7,12 @@ import org.jsfml.graphics.Sprite;
  */
 public class Player extends Sprite{
 
-    private int posX, posY;
+    private float posX, posY;
 
     public Player(){
         posX=posY=0;
     }
+
+
 
 }

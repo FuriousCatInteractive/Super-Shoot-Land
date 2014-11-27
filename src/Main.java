@@ -23,7 +23,7 @@ public class Main {
 
         RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO",-1);//-1=fullscreen
         window1.setFramerateLimit(60);
-        window1.setKeyRepeatEnabled(true);
+       // window1.setKeyRepeatEnabled(true);
 
         // création d'une vue à partir de la zone rectangulaire du monde 2D à voir
         View view1 = new View(new FloatRect(0, 0, WINDOW_W, WINDOW_H));

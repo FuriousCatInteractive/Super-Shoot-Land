@@ -39,11 +39,11 @@ public class EntityTexture {
         sprite.setTextureRect(new IntRect(x*SPRITE_W, y*SPRITE_H, SPRITE_W, SPRITE_H));
         if(direction == LEFT && sprite.getScale().x>0){//flip selon x
             sprite.setScale(-1.0f*sprite.getScale().x,sprite.getScale().y);
-            sprite.move(sprite.getGlobalBounds().width,0);
+            //sprite.move(-1*sprite.getGlobalBounds().width,0);
         }
         else if(direction == RIGHT && sprite.getScale().x<0){//flip selon x
             sprite.setScale(-1.0f*sprite.getScale().x,sprite.getScale().y);
-            sprite.move(-sprite.getGlobalBounds().width,0);
+            //sprite.move(sprite.getGlobalBounds().width,0);
         }
 
     }
