@@ -37,37 +37,39 @@ public class EntityTexture {
     public static void updateTexture(Player sprite){
         int y = decideState(sprite)/10;
         int x = decideState(sprite)%10;
-        System.out.println(decideState(sprite));
+      //  System.out.println(decideState(sprite));
         sprite.setTextureRect(new IntRect(x*SPRITE_W, y*SPRITE_H, SPRITE_W, SPRITE_H));
-        if(sprite.getVitesseX()<0 && sprite.getScale().x>0){//flip selon x
-            sprite.state=WALK;
-            sprite.setScale(-1.0f*sprite.getScale().x,sprite.getScale().y);
-            sprite.move(sprite.getGlobalBounds().width,0);
+        if(sprite.state!=JUMP) {
+            if (sprite.getVitesseX() < 0 && sprite.getScale().x > 0) {//flip selon x
+                sprite.state = WALK;
+                sprite.setScale(-1.0f * sprite.getScale().x, sprite.getScale().y);
+                sprite.move(sprite.getGlobalBounds().width, 0);
+            } else if (sprite.getVitesseX() > 0 && sprite.getScale().x < 0) {//flip selon x
+                sprite.state = WALK;
+                sprite.setScale(-1.0f * sprite.getScale().x, sprite.getScale().y);
+                sprite.move(-1.0f * sprite.getGlobalBounds().width, 0);
+            } else if (sprite.getVitesseX() == 0 && sprite.state!=SHOOT)
+                sprite.state = IDLE;
         }
-        else if(sprite.getVitesseX()>0 && sprite.getScale().x<0){//flip selon x
-            sprite.state=WALK;
-            sprite.setScale(-1.0f*sprite.getScale().x,sprite.getScale().y);
-            sprite.move(-1.0f*sprite.getGlobalBounds().width,0);
-        }
-        else if(sprite.getVitesseX()==0)
-            sprite.state=IDLE;
 
     }
 
     public static int decideState(Player p){
-        if(p.state == WALK || p.state == SHOOT) {
+        if(p.state == WALK) {
             int compteurMax = dureeeAnimation * p.state.length;
             compteur = ((compteur >= compteurMax - 1) ? 0 : (compteur + 1));
             return p.state[compteur / dureeeAnimation];
         }
         else if(p.state == JUMP){
-            if(p.getVitesseY()>0)
+            if(p.getVitesseY()<2)
                 return p.state[0];
+            if(p.getVitesseY()>2)
+                return p.state[1];
             else
                 return  p.state[p.state.length-1];
         }
         else
-            return 0;
+            return IDLE[0];
     }
 
     public static Texture loadTexture(String imagePath) {

@@ -24,8 +24,9 @@ public class GameLoop extends cScreen {
     private final int mainMenu = 1;
     private final int exit = -1;
 
-    int[] state = IDLE;
+    // int[] state = IDLE;
     boolean direction = true;
+    Player p1;
 
     float yorigin=0;////////////////////////////////////////////////////////////////////
 
@@ -39,9 +40,13 @@ public class GameLoop extends cScreen {
         int AppY = App.getSize().y;
         loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
         loadSpriteSheet("res/img/mario-spritesheet.png", 0.007f*AppY);
+        p1 = new Player();
+        p1 = (Player)screenObject.get(screenObject.size()-1);
     }
 
     public int Run(RenderWindow App) {
+
+
 
         loadScreenObjects(App);
 
@@ -56,7 +61,6 @@ public class GameLoop extends cScreen {
         float t = 0;
         double v_x = Math.cos(angle_init)*v_init;
         double v_y = Math.sin(angle_init)*v_init;
-        FloatRect posMarioRel = new FloatRect(0,0,0,0);
         boolean up =true;
 
         ((Sprite)screenObject.get(screenObject.size()-1)).setPosition(App.getSize().x/2, App.getSize().y/2);
@@ -65,52 +69,50 @@ public class GameLoop extends cScreen {
 
         while (Running) {
 
+            p1 = ((Player)screenObject.get(screenObject.size()-1));
+
             int returnValue = eventManager(App);
             if (returnValue <= 50)
                 return returnValue;
 
-
-            //posMarioAbs.x = 200;
-            //  posMarioAbs.y = 300-(mario->h);
-
             //On calcule la valeur relative de y:
-            float posMarioRelleft=0f;//(float)(v_x*t);
-            float posMarioReltop=(int)((v_y*t)-((g*t*t)/2000));
-
+            p1.setVitesseY((float) (-1.0f*((v_y*t)-((g*t*t)/2000))));
             //On calcule maintenant les valeurs absolues
-            ((Sprite)screenObject.get(screenObject.size()-1)).move(posMarioRelleft,-posMarioReltop);
+            p1.move(p1.getVitesseX(),1.0f*p1.getVitesseY());
+            //System.out.println("-->"+p1.getVitesseY()+" state "+p1.state[0]);
 
-
-            if(state==JUMP) {
-               // System.out.println("up="+up+" t="+t);
+            if(p1.state==JUMP) {
+               //  System.out.println("up="+up+" t="+t);
                 if (up)
-                    t += 0.7f;
+                    t += 0.70f;
                 else
                     t -= 0.7f;
             }
-
+            float diff= yorigin-p1.getGlobalBounds().top;
+           // System.out.println("diff=========================="+diff);
             // FIN EVOLUTION
             //Avec en bonus une petite mise a 0 des coordonnees lorsque mario s'en va trop loin :)
-            if(yorigin-((Sprite)(screenObject.get(screenObject.size()-1))).getGlobalBounds().top>50) {
+            if(yorigin-p1.getGlobalBounds().top>5*p1.getLocalBounds().height) {
                 //t = 0.1f;
+
                 up=false;
             }
             else if(isGrounded()) {
                 //t = 0.1f;
                 t=0;
                 up=true;
-                state=IDLE;
+
+                if(p1.getVitesseX()!=0)
+                    p1.state=WALK;
+               else
+                    p1.state=IDLE;
+
             }
 
             App.clear(Color.RED);
+            updateTexture(p1);
+            screenObject.set(screenObject.size()-1, p1);
             for (int i = screenObject.size() - 1; i > -1; i--) {
-                if (screenObject.get(i) instanceof Sprite) {
-                    /*updateTexture((Sprite) screenObject.get(i), decideState(state), direction);
-                    if(decideState(SHOOT)==SHOOT[SHOOT.length-1] && state==SHOOT){
-                        state=IDLE;
-                    } */
-                    //((Sprite) screenObject.get(i)).setPosition(App.getSize().x / 2, App.getSize().y / 2);
-                }
                 App.draw(screenObject.get(i));
             }
             App.display();
@@ -139,12 +141,12 @@ public class GameLoop extends cScreen {
 
 
     public int keyboardManager(Event event, RenderWindow App) {
-        float vitesse = App.getSize().x/200;
+        float vitesse = App.getSize().x/150;
         //Sprite mario =  (Sprite)screenObject.get(screenObject.size()-1);
         //Key pressed
-        
+
         //TODO fichier de config xml pour binder les touches du clavier
-        
+
         if (event.type == Event.Type.KEY_PRESSED) {
             event.asKeyEvent();
 
@@ -154,46 +156,55 @@ public class GameLoop extends cScreen {
                 return mainMenu;
             }
 
-            if ((KeyboardActions.isMovingLeft())) {
-                ((Sprite)screenObject.get(screenObject.size()-1)).move(-vitesse,0);
-                state=WALK;
-                direction=LEFT;
 
-            }
-            else if ((KeyboardActions.isAttacking())) {
-                state=SHOOT;
+            if ((KeyboardActions.isAttacking())) {
+                p1.state=SHOOT;
+                System.out.println("shhot "+p1.state[0]);
             }
             else if (KeyboardActions.isJumping()) {
-                state=JUMP;
-                yorigin=  ((Sprite)screenObject.get(screenObject.size()-1)).getGlobalBounds().top;
+                   yorigin=  p1.getGlobalBounds().top;
+                if(p1.state==WALK)
+                {
+                   // System.out.println(p1.getVitesseX());
+                    p1.setVitesseX(p1.getVitesseX());
+                }
+                p1.state=JUMP;
             }
-
+            if ((KeyboardActions.isMovingLeft())) {
+                p1.setVitesseX(-vitesse);
+                direction=LEFT;
+                if(p1.state!=JUMP)
+                    p1.state=WALK;
+            }
             else if ((KeyboardActions.isMovingRight())) {
-                ((Sprite)screenObject.get(screenObject.size()-1)).move(vitesse,0);
-                state=WALK;
+                p1.setVitesseX(vitesse);
                 direction=RIGHT;
+                if(p1.state!=JUMP)
+                    p1.state=WALK;
 
             }
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
             }
         }
-        
+
         else if(event.type == Event.Type.KEY_RELEASED){
-            if(state==WALK)
-                state=IDLE;
-
-
-
+            if(p1.state==WALK ){
+                p1.setVitesseX(0);
+                p1.state=IDLE;
+                System.out.println("key released");
+            }
+           /* else if( p1.state==JUMP && )
+                p1.setVitesseX(0);*/
         }
         //si on ne quitte pas cet écran
         return 100;
     }
 
     public boolean isGrounded(){
-        float diff = 600-((Sprite)(screenObject.get(screenObject.size()-1))).getGlobalBounds().top;
+        float diff = 600-p1.getGlobalBounds().top;
         if(diff<0){
-            ((Sprite)(screenObject.get(screenObject.size()-1))).move(0,diff);
+            p1.move(0, diff);
             return true;
         }
 

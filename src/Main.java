@@ -39,12 +39,12 @@ public class Main {
         System.out.println("début du jeu");
 
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int WINDOW_H = (int)tailleEcran.getHeight();
-        int WINDOW_W = (int)tailleEcran.getWidth();
+        int WINDOW_H = 700;//(int)tailleEcran.getHeight();
+        int WINDOW_W = 700;//(int)tailleEcran.getWidth();
 
-        RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO",-1);//-1=fullscreen
+        RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO"/*,-1*/);//-1=fullscreen
         window1.setFramerateLimit(60);
-       // window1.setKeyRepeatEnabled(true);
+        window1.setKeyRepeatEnabled(true);
 
         // création d'une vue à partir de la zone rectangulaire du monde 2D à voir
         View view1 = new View(new FloatRect(0, 0, WINDOW_W, WINDOW_H));
