@@ -54,12 +54,11 @@ public class MainMenu extends cScreen implements iMenu{
 
     public int Run(RenderWindow App){
 
+        startMusic("res/sound/theme-ssb.ogg");
+
         loadScreenObjects(App);
 
         boolean Running = true;
-
-        startMusic("res/sound/tower.ogg");
-
 
         while (Running)
         {

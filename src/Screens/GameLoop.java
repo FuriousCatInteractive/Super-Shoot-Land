@@ -80,7 +80,7 @@ public class GameLoop extends cScreen {
 
 
             if(state==JUMP) {
-                System.out.println("up="+up+" t="+t);
+               // System.out.println("up="+up+" t="+t);
                 if (up)
                     t += 0.7f;
                 else
