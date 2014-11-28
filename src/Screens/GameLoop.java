@@ -151,6 +151,7 @@ public class GameLoop extends cScreen {
                 screenObject.clear();
                 return mainMenu;
             }
+            
 
             if (Keyboard.isKeyPressed(Keyboard.Key.LEFT)) {
                 ((Sprite)screenObject.get(screenObject.size()-1)).move(-vitesse,0);
