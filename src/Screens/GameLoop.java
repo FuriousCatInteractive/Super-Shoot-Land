@@ -162,6 +162,7 @@ public class GameLoop extends cScreen {
             }
             else if ((KeyboardActions.isAttacking())) {
                 state=SHOOT;
+                //TODO projectiles 
             }
             else if (KeyboardActions.isJumping()) {
                 state=JUMP;
