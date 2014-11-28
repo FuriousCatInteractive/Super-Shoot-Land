@@ -105,10 +105,10 @@ public class GameLoop extends cScreen {
             App.clear(Color.RED);
             for (int i = screenObject.size() - 1; i > -1; i--) {
                 if (screenObject.get(i) instanceof Sprite) {
-                    updateTexture((Sprite) screenObject.get(i), decideState(state), direction);
+                    /*updateTexture((Sprite) screenObject.get(i), decideState(state), direction);
                     if(decideState(SHOOT)==SHOOT[SHOOT.length-1] && state==SHOOT){
                         state=IDLE;
-                    }
+                    } */
                     //((Sprite) screenObject.get(i)).setPosition(App.getSize().x / 2, App.getSize().y / 2);
                 }
                 App.draw(screenObject.get(i));
