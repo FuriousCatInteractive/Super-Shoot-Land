@@ -1,5 +1,6 @@
 package Screens;
 
+import Entities.Player;
 import org.jsfml.audio.Sound;
 import org.jsfml.audio.SoundBuffer;
 import org.jsfml.graphics.*;
@@ -92,7 +93,7 @@ public class cScreen {
     }
 
    public void loadSpriteSheet(String path, float scale){
-       Sprite mario = new Sprite();
+       Player mario = new Player();
        mario.setTexture(loadTexture(path));
        mario.setScale(scale,scale);
        screenObject.add(mario);

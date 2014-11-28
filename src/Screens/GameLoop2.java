@@ -1,33 +1,33 @@
 package Screens;
 
+import Entities.MovingEntity;
 import Entities.Player;
-import Graphics.EntityTexture;
-import org.jsfml.graphics.*;
-import org.jsfml.system.Vector2i;
+import org.jsfml.graphics.Color;
+import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Sprite;
 import org.jsfml.window.Keyboard;
-import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
-
-import java.io.IOException;
-import java.nio.file.Paths;
 
 import static Graphics.EntityTexture.*;
 
 /**
  * Created by coco on 14-11-16.
  */
-public class GameLoop extends cScreen {
+public class GameLoop2 extends cScreen {
 
 
     private final int mainMenu = 1;
     private final int exit = -1;
 
-    int[] state = IDLE;
+
     boolean direction = true;
+    Player p1;
+
 
     float yorigin=0;////////////////////////////////////////////////////////////////////
 
-    public GameLoop() {
+    public GameLoop2() {
     }
 
     private void loadScreenObjects(RenderWindow App) {
@@ -37,6 +37,8 @@ public class GameLoop extends cScreen {
         int AppY = App.getSize().y;
         loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
         loadSpriteSheet("res/img/mario-spritesheet.png", 0.007f*AppY);
+        p1 = new Player();
+        p1 = (Player)screenObject.get(screenObject.size()-1);
     }
 
     public int Run(RenderWindow App) {
@@ -54,32 +56,31 @@ public class GameLoop extends cScreen {
         float t = 0;
         double v_x = Math.cos(angle_init)*v_init;
         double v_y = Math.sin(angle_init)*v_init;
-        FloatRect posMarioRel = new FloatRect(0,0,0,0);
         boolean up =true;
 
-        ((Sprite)screenObject.get(screenObject.size()-1)).setPosition(App.getSize().x/2, App.getSize().y/2);
+        p1.setPosition(App.getSize().x/2, App.getSize().y/2);
 
         startMusic("res/sound/tower.ogg");
 
         while (Running) {
+
+            p1 = ((Player)screenObject.get(screenObject.size()-1));
 
             int returnValue = eventManager(App);
             if (returnValue <= 50)
                 return returnValue;
 
 
-            //posMarioAbs.x = 200;
-            //  posMarioAbs.y = 300-(mario->h);
 
             //On calcule la valeur relative de y:
-            float posMarioRelleft=0f;//(float)(v_x*t);
+            float posMarioRelleft=p1.getVitesseX();//(float)(v_x*t);
             float posMarioReltop=(int)((v_y*t)-((g*t*t)/2000));
 
             //On calcule maintenant les valeurs absolues
-            ((Sprite)screenObject.get(screenObject.size()-1)).move(posMarioRelleft,-posMarioReltop);
+            p1.move(p1.getVitesseX(),-posMarioReltop);
 
 
-            if(state==JUMP) {
+            if(p1.state==JUMP) {
                // System.out.println("up="+up+" t="+t);
                 if (up)
                     t += 0.7f;
@@ -89,7 +90,7 @@ public class GameLoop extends cScreen {
 
             // FIN EVOLUTION
             //Avec en bonus une petite mise a 0 des coordonnees lorsque mario s'en va trop loin :)
-            if(yorigin-((Sprite)(screenObject.get(screenObject.size()-1))).getGlobalBounds().top>50) {
+            if(yorigin-p1.getGlobalBounds().top>50) {
                 //t = 0.1f;
                 up=false;
             }
@@ -97,19 +98,14 @@ public class GameLoop extends cScreen {
                 //t = 0.1f;
                 t=0;
                 up=true;
-                state=IDLE;
+                p1.state=IDLE;
             }
 
             App.clear(Color.RED);
+            updateTexture(p1);
+            screenObject.set(screenObject.size()-1, p1);
             for (int i = screenObject.size() - 1; i > -1; i--) {
-              //  if (screenObject.get(i) instanceof Sprite) {
-                    //updateTexture((Sprite) screenObject.get(i), decideState(state), direction);
-                    //if(decideState(SHOOT)==SHOOT[SHOOT.length-1] && state==SHOOT){
-                      //  state=IDLE;
-                 //   }
-                    //((Sprite) screenObject.get(i)).setPosition(App.getSize().x / 2, App.getSize().y / 2);
-              //  }
-                App.draw(screenObject.get(i));
+                   App.draw(screenObject.get(i));
             }
             App.display();
         }
@@ -137,8 +133,7 @@ public class GameLoop extends cScreen {
 
 
     public int keyboardManager(Event event, RenderWindow App) {
-        float vitesse = App.getSize().x/200;
-        //Sprite mario =  (Sprite)screenObject.get(screenObject.size()-1);
+
         //Key pressed
         
         //TODO fichier de config xml pour binder les touches du clavier
@@ -153,23 +148,20 @@ public class GameLoop extends cScreen {
             }
 
             if (Keyboard.isKeyPressed(Keyboard.Key.LEFT)) {
-                ((Sprite)screenObject.get(screenObject.size()-1)).move(-vitesse,0);
-                state=WALK;
-                direction=LEFT;
+
+                p1.setVitesseX(-MovingEntity.vitesse);
 
             }
             else if (Keyboard.isKeyPressed(Keyboard.Key.V)) {
-                state=SHOOT;
+                p1.state=SHOOT;
             }
             else if (Keyboard.isKeyPressed(Keyboard.Key.SPACE)) {
-                state=JUMP;
+                p1.state=JUMP;
                 yorigin=  ((Sprite)screenObject.get(screenObject.size()-1)).getGlobalBounds().top;
             }
 
             else if (Keyboard.isKeyPressed(Keyboard.Key.RIGHT)) {
-                ((Sprite)screenObject.get(screenObject.size()-1)).move(vitesse,0);
-                state=WALK;
-                direction=RIGHT;
+                p1.setVitesseX(MovingEntity.vitesse);
 
             }
 
@@ -177,8 +169,8 @@ public class GameLoop extends cScreen {
             }
         }
         else if(event.type == Event.Type.KEY_RELEASED){
-            if(state==WALK)
-                state=IDLE;
+            if(p1.state==WALK)
+                p1.setVitesseX(0);
 
 
 
