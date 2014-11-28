@@ -1,29 +1,14 @@
-import Entities.KeyBinding;
-import Screens.*;
-import Tools.Const;
-import Tools.GameConfig;
-import Tools.XmlKeyBindingsParser;
 
+import Screens.*;
+import Tools.GameConfig;
 import org.jsfml.graphics.FloatRect;
-import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
 import org.jsfml.window.VideoMode;
 
-
-
-
-
-
-
-
 //pour connaitre la taille de la fenetre
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
+
 
 /**
  * Created by coco on 14-11-16.
@@ -34,15 +19,14 @@ public class Main {
     	
     	//Initialisation de la configuration de jeu
     	GameConfig.configKeyBindings();
-    	
 
         System.out.println("début du jeu");
 
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int WINDOW_H = 700;//(int)tailleEcran.getHeight();
-        int WINDOW_W = 700;//(int)tailleEcran.getWidth();
+        int WINDOW_H = (int)tailleEcran.getHeight();
+        int WINDOW_W = (int)tailleEcran.getWidth();
 
-        RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO"/*,-1*/);//-1=fullscreen
+        RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO",-1);//-1=fullscreen
         window1.setFramerateLimit(60);
         window1.setKeyRepeatEnabled(true);
 
