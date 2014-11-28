@@ -1,12 +1,29 @@
+import Entities.KeyBinding;
 import Screens.*;
+import Tools.Const;
+import Tools.GameConfig;
+import Tools.XmlKeyBindingsParser;
+
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
 import org.jsfml.window.VideoMode;
 
+
+
+
+
+
+
+
 //pour connaitre la taille de la fenetre
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by coco on 14-11-16.
@@ -14,6 +31,10 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) {
+    	
+    	//Initialisation de la configuration de jeu
+    	GameConfig.configKeyBindings();
+    	
 
         System.out.println("début du jeu");
 
