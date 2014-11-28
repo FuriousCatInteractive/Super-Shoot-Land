@@ -2,6 +2,8 @@ package Screens;
 
 import Entities.Player;
 import Graphics.EntityTexture;
+import Tools.KeyboardActions;
+
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -102,13 +104,13 @@ public class GameLoop extends cScreen {
 
             App.clear(Color.RED);
             for (int i = screenObject.size() - 1; i > -1; i--) {
-              //  if (screenObject.get(i) instanceof Sprite) {
-                    //updateTexture((Sprite) screenObject.get(i), decideState(state), direction);
-                    //if(decideState(SHOOT)==SHOOT[SHOOT.length-1] && state==SHOOT){
-                      //  state=IDLE;
-                 //   }
+                if (screenObject.get(i) instanceof Sprite) {
+                    updateTexture((Sprite) screenObject.get(i), decideState(state), direction);
+                    if(decideState(SHOOT)==SHOOT[SHOOT.length-1] && state==SHOOT){
+                        state=IDLE;
+                    }
                     //((Sprite) screenObject.get(i)).setPosition(App.getSize().x / 2, App.getSize().y / 2);
-              //  }
+                }
                 App.draw(screenObject.get(i));
             }
             App.display();
@@ -146,28 +148,27 @@ public class GameLoop extends cScreen {
         if (event.type == Event.Type.KEY_PRESSED) {
             event.asKeyEvent();
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)) {
+            if (KeyboardActions.quitKeyPressed()) {
                 sound.stop();
                 screenObject.clear();
                 return mainMenu;
             }
-            
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.LEFT)) {
+            if ((KeyboardActions.isMovingLeft())) {
                 ((Sprite)screenObject.get(screenObject.size()-1)).move(-vitesse,0);
                 state=WALK;
                 direction=LEFT;
 
             }
-            else if (Keyboard.isKeyPressed(Keyboard.Key.V)) {
+            else if ((KeyboardActions.isAttacking())) {
                 state=SHOOT;
             }
-            else if (Keyboard.isKeyPressed(Keyboard.Key.SPACE)) {
+            else if (KeyboardActions.isJumping()) {
                 state=JUMP;
                 yorigin=  ((Sprite)screenObject.get(screenObject.size()-1)).getGlobalBounds().top;
             }
 
-            else if (Keyboard.isKeyPressed(Keyboard.Key.RIGHT)) {
+            else if ((KeyboardActions.isMovingRight())) {
                 ((Sprite)screenObject.get(screenObject.size()-1)).move(vitesse,0);
                 state=WALK;
                 direction=RIGHT;
@@ -177,6 +178,7 @@ public class GameLoop extends cScreen {
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
             }
         }
+        
         else if(event.type == Event.Type.KEY_RELEASED){
             if(state==WALK)
                 state=IDLE;
