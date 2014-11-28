@@ -140,6 +140,9 @@ public class GameLoop extends cScreen {
         float vitesse = App.getSize().x/200;
         //Sprite mario =  (Sprite)screenObject.get(screenObject.size()-1);
         //Key pressed
+        
+        //TODO fichier de config xml pour binder les touches du clavier
+        
         if (event.type == Event.Type.KEY_PRESSED) {
             event.asKeyEvent();
 
