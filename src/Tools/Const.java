@@ -11,6 +11,7 @@ public class Const {
 	
 	//Chemins d'accès
 	public final static String XML_BINDINGS_PATH = "src/Assets/bindings.xml";
+	public final static String TEX_PARTICLE_PATH = "src/Assets/particle.png";
 	
 	//Ensemble des actions (saut, mouvement...) référencés pour les key bindings
 	public final static String A_MOVE_LEFT = "MOVE_LEFT";

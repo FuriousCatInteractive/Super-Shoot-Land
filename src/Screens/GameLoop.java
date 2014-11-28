@@ -2,9 +2,11 @@ package Screens;
 
 import Entities.Player;
 import Graphics.EntityTexture;
+import Tools.Const;
 import Tools.KeyboardActions;
 
 import org.jsfml.graphics.*;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
@@ -28,7 +30,8 @@ public class GameLoop extends cScreen {
     boolean direction = true;
 
     float yorigin=0;////////////////////////////////////////////////////////////////////
-
+    private Sprite marioClone;
+    
     public GameLoop() {
     }
 
@@ -60,7 +63,7 @@ public class GameLoop extends cScreen {
         boolean up =true;
 
         ((Sprite)screenObject.get(screenObject.size()-1)).setPosition(App.getSize().x/2, App.getSize().y/2);
-
+        marioClone = ((Sprite)screenObject.get(screenObject.size()-1));
         startMusic("res/sound/tower.ogg");
 
         while (Running) {
@@ -163,6 +166,8 @@ public class GameLoop extends cScreen {
             else if ((KeyboardActions.isAttacking())) {
                 state=SHOOT;
                 //TODO projectiles 
+                shootParticle();
+                
             }
             else if (KeyboardActions.isJumping()) {
                 state=JUMP;
@@ -189,6 +194,35 @@ public class GameLoop extends cScreen {
         }
         //si on ne quitte pas cet écran
         return 100;
+    }
+    
+    /**
+     * Méthode pour tirer des projectiles
+     */
+    public void shootParticle()
+    {
+    	Texture particuleTex = new Texture();
+    	Sprite sprite = new Sprite();
+    	try {
+    		particuleTex .loadFromFile(Paths.get(Const.TEX_PARTICLE_PATH));
+    		particuleTex .setSmooth(true);
+			sprite.setTexture(particuleTex);
+			sprite.setPosition(marioClone.getPosition());
+			screenObject.add(sprite);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	if(direction == LEFT)
+    	{
+    		
+    	}
+    	
+    	else if(direction == RIGHT)
+    	{
+    		
+    	}
     }
 
     public boolean isGrounded(){
