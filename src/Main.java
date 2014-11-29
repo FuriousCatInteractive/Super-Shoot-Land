@@ -1,4 +1,5 @@
 
+import Level.Level;
 import Screens.*;
 import Tools.GameConfig;
 import org.jsfml.graphics.FloatRect;
@@ -16,11 +17,14 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) {
-    	
+
+        System.out.println("début du jeu");
+
     	//Initialisation de la configuration de jeu
     	GameConfig.configKeyBindings();
 
-        System.out.println("début du jeu");
+        Level lvltest = new Level(10,20);
+
 
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int WINDOW_H =600;// (int)tailleEcran.getHeight();
