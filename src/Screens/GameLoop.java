@@ -10,6 +10,7 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -29,6 +30,8 @@ public class GameLoop extends cScreen {
     Player p1;
 
     float yorigin=0;////////////////////////////////////////////////////////////////////
+    private boolean enaMoveFinJUMP;
+
 
     public GameLoop() {
     }
@@ -82,17 +85,17 @@ public class GameLoop extends cScreen {
             //System.out.println("-->"+p1.getVitesseY()+" state "+p1.state[0]);
 
             if(p1.state==JUMP) {
-               //  System.out.println("up="+up+" t="+t);
+                //  System.out.println("up="+up+" t="+t);
                 if (up)
                     t += 0.70f;
                 else
                     t -= 0.7f;
             }
-            float diff= yorigin-p1.getGlobalBounds().top;
-           // System.out.println("diff=========================="+diff);
+
+
             // FIN EVOLUTION
             //Avec en bonus une petite mise a 0 des coordonnees lorsque mario s'en va trop loin :)
-            if(yorigin-p1.getGlobalBounds().top>5*p1.getLocalBounds().height) {
+            if(yorigin-p1.getGlobalBounds().top>4*p1.getLocalBounds().height) {
                 //t = 0.1f;
 
                 up=false;
@@ -102,10 +105,13 @@ public class GameLoop extends cScreen {
                 t=0;
                 up=true;
 
-                if(p1.getVitesseX()!=0)
+                if(/*p1.getVitesseX()!=0 &&*/ enaMoveFinJUMP==true)
                     p1.state=WALK;
-               else
+                else{
+                    p1.setVitesseX(0);
                     p1.state=IDLE;
+                }
+
 
             }
 
@@ -158,51 +164,67 @@ public class GameLoop extends cScreen {
 
 
             if ((KeyboardActions.isAttacking())) {
-                p1.state=SHOOT;
-                System.out.println("shhot "+p1.state[0]);
+                if(p1.state!=JUMP)
+                {
+                    p1.state=SHOOT;
+                }
+
+               // System.out.println("shhot "+p1.state[0]);
             }
             else if (KeyboardActions.isJumping()) {
-                   yorigin=  p1.getGlobalBounds().top;
+                yorigin=  p1.getGlobalBounds().top;
                 if(p1.state==WALK)
                 {
-                   // System.out.println(p1.getVitesseX());
+                    // System.out.println(p1.getVitesseX());
                     p1.setVitesseX(p1.getVitesseX());
                 }
                 p1.state=JUMP;
+                enaMoveFinJUMP=false;
             }
             if ((KeyboardActions.isMovingLeft())) {
                 p1.setVitesseX(-vitesse);
                 direction=LEFT;
                 if(p1.state!=JUMP)
                     p1.state=WALK;
+                else if(p1.state==JUMP){
+                    //System.out.println("continue saut");
+                    enaMoveFinJUMP=true;
+                }
             }
             else if ((KeyboardActions.isMovingRight())) {
                 p1.setVitesseX(vitesse);
                 direction=RIGHT;
                 if(p1.state!=JUMP)
                     p1.state=WALK;
-
+                else if(p1.state==JUMP){
+                   // System.out.println("continue saut");
+                    enaMoveFinJUMP=true;
+                }
             }
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
             }
         }
 
-        else if(event.type == Event.Type.KEY_RELEASED){
-            if(p1.state==WALK ){
+        else if(event.type == Event.Type.KEY_RELEASED) {
+           org.jsfml.window.event.KeyEvent keyev =  event.asKeyEvent();// == Keyboard.Key.SPACE;
+
+            if (p1.state == WALK){
+                p1.state = IDLE;
                 p1.setVitesseX(0);
-                p1.state=IDLE;
-                System.out.println("key released");
             }
-           /* else if( p1.state==JUMP && )
-                p1.setVitesseX(0);*/
+            else if ((p1.state == JUMP && (keyev.key == Keyboard.Key.LEFT || keyev.key == Keyboard.Key.RIGHT) )) {
+               // System.out.println("-------------->jey left relachée");
+                enaMoveFinJUMP=false;
+            }
+
         }
         //si on ne quitte pas cet écran
         return 100;
     }
 
     public boolean isGrounded(){
-        float diff = 600-p1.getGlobalBounds().top;
+        float diff =400-p1.getGlobalBounds().top;
         if(diff<0){
             p1.move(0, diff);
             return true;
