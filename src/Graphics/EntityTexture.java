@@ -15,11 +15,11 @@ import java.nio.file.Paths;
  */
 public class EntityTexture {
 
-    public static final int SPRITE_H  = 16  ;
-    public static final int SPRITE_W  = 15;
+
 
     public static final int SPRITESHEET_H = 5;
     public static final int SPRITESHEET_W = 4;
+
 
     public static final int IDLE[]   = {00};
     public static final int WALK[]   = {10, 11, 12, 13};
@@ -35,6 +35,9 @@ public class EntityTexture {
 
 
     public static void updateTexture(Player sprite){
+
+        int SPRITE_H  = (int)sprite.getImage_h()/SPRITESHEET_H;
+        int SPRITE_W  = (int)sprite.getImage_w()/SPRITESHEET_W;
         int y = decideState(sprite)/10;
         int x = decideState(sprite)%10;
         //System.out.println(decideState(sprite));

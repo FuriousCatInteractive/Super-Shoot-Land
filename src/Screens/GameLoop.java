@@ -42,15 +42,15 @@ public class GameLoop extends cScreen {
         int AppX = App.getSize().x;
         int AppY = App.getSize().y;
         loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
-        loadSpriteSheet("res/img/mario-spritesheet.png", 0.007f*AppY);
+        loadSpriteSheet("res/img/pikachu-spritesheet.png", 0.007f*AppY);
         p1 = new Player();
         p1 = (Player)screenObject.get(screenObject.size()-1);
     }
 
     public int Run(RenderWindow App) {
 
-
-
+      //  System.out.println("--------------------->test");fg
+//fgfds
         loadScreenObjects(App);
 
         boolean Running = true;

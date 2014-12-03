@@ -75,6 +75,7 @@ public class cScreen {
 
     protected void startMusic(String path)
     {
+
         SoundBuffer soundBuffer = new SoundBuffer();
         try {
             soundBuffer.loadFromFile(Paths.get(path));
@@ -93,8 +94,11 @@ public class cScreen {
     }
 
    public void loadSpriteSheet(String path, float scale){
+       System.out.println(path);
        Player mario = new Player();
        mario.setTexture(loadTexture(path));
+       mario.setImage_h(mario.getLocalBounds ().height);
+       mario.setImage_w(mario.getLocalBounds ().width);
        mario.setScale(scale,scale);
        screenObject.add(mario);
    }
