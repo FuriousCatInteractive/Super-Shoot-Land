@@ -44,7 +44,6 @@ public class InputMananger extends Thread {
 
     public int keyboardManager(Event event, RenderWindow App) {
 
-        //TODO fichier de config xml pour binder les touches du clavier
 
         if (event.type == Event.Type.KEY_PRESSED) {
             event.asKeyEvent();
@@ -54,7 +53,7 @@ public class InputMananger extends Thread {
             }
 
             if ((KeyboardActions.isAttacking())) {
-                GameLoop.p1.PLayerShoot();
+                GameLoop.p1.PlayerShoot();
             }
             else if (KeyboardActions.isJumping()) {
                 GameLoop.p1.PLayerJump();
@@ -71,10 +70,7 @@ public class InputMananger extends Thread {
         }
 
         else if(event.type == Event.Type.KEY_RELEASED) {
-            org.jsfml.window.event.KeyEvent keyev =  event.asKeyEvent();// == Keyboard.Key.SPACE;
-
-
-            if ( (keyev.key == Keyboard.Key.LEFT || keyev.key == Keyboard.Key.RIGHT) ) {
+            if (KeyboardActions.movementKeyReleased(event)) {
                 // System.out.println("-------------->jey left relachée");
                 GameLoop.p1.PlayerIdle();
             }

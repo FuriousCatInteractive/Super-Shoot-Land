@@ -84,7 +84,7 @@ public class Player extends MovingEntity implements  Runnable{
     /**
      * appellée quand touche shoot appuyée
      */
-    public void PLayerShoot(){
+    public void PlayerShoot(){
         if( state!=JUMP)
         {
              state=SHOOT;
