@@ -1,12 +1,17 @@
 package Entities;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Texture;
 
+import Screens.GameLoop;
+import Tools.Const;
 import static Graphics.EntityTexture.*;
-import static Graphics.EntityTexture.JUMP;
-import static Graphics.EntityTexture.WALK;
 
 /**
  * Created by coco on 14-11-20.
@@ -34,10 +39,13 @@ public class Player extends MovingEntity implements  Runnable{
     public int[] state = IDLE;
 
     private String perso;
+    
+    private ArrayList<Particle> particles; //particules tirées par le joueur
 
     public Player(){
         hitbox = new IntRect((FloatRect) this.getGlobalBounds());
         perso="mario";
+        particles = new ArrayList<Particle>();
     }
 
     /**
@@ -87,7 +95,40 @@ public class Player extends MovingEntity implements  Runnable{
     public void PlayerShoot(){
         if( state!=JUMP)
         {
-            state=SHOOT;
+             state=SHOOT;
+             Texture tex = new Texture();
+             Sprite s = new Sprite();
+             
+             try {
+            	
+            	 	//FIXME particule selon le personnage ?
+     				tex.loadFromFile(Paths.get("res/img/logo.png"));
+     				tex.setSmooth(true);
+     				s.setTexture(tex);
+     				Particle particle = new Particle(this, s, this.getGlobalBounds().left, this.getGlobalBounds().top);
+
+     			
+     				if(direction == RIGHT)
+	     			{
+	     				particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
+	     				
+	     			}
+	     			
+	     			else
+	     			{
+	     				particle.setMoveXDirection(Const.PARTICLE_MOVE_X_LEFT);
+	     			}
+	     			
+     				particles.add(particle);
+	     			GameLoop.screenObject.add(particle.getSprite());
+     			
+     		} 
+             
+             catch (IOException e) {
+     			// TODO Auto-generated catch block
+     			e.printStackTrace();
+     		}
+             
         }
     }
 
@@ -145,6 +186,17 @@ public class Player extends MovingEntity implements  Runnable{
         else
             return false;
     }
+    
+    /**
+     * Méthode pour déplacer les particules tirées
+     */
+    public void moveParticles()
+    {
+        for(Particle p : particles)
+        {
+        	//p.changePosition(p.getMoveXDirection()*(p.getXPos()+p.getSpeed()), p.getYPos());
+        }
+    }
 
     /**
      * pour le thread
@@ -154,6 +206,7 @@ public class Player extends MovingEntity implements  Runnable{
         updatePplayerPhysics();
         updateTexture(this);
         updateHitbox();
+        moveParticles();
     }
 
     public String getPerso() {
@@ -167,7 +220,7 @@ public class Player extends MovingEntity implements  Runnable{
 
     public void updateHitbox(){
         if(perso.equals("pikachu")){
-            System.out.println("pika!");
+            //System.out.println("pika!");
             IntRect big =  new IntRect(this.getGlobalBounds());
             int x =0;
             int y = big.top+big.height/3;
@@ -180,7 +233,7 @@ public class Player extends MovingEntity implements  Runnable{
 
             hitbox=new IntRect(x,y,w,h);
 
-            System.out.println("hitbox="+hitbox);
+           //System.out.println("hitbox="+hitbox);
         }
     }
 }

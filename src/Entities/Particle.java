@@ -1,7 +1,8 @@
 package Entities;
-
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
+
+import Tools.Const;
 
 
 /**
@@ -12,67 +13,92 @@ import org.jsfml.graphics.Texture;
  *
  */
 public class Particle {
-	
-	private Texture texture;
+
 	private Sprite sprite;
 	private float xPos, yPos;
-	
+	private int moveXDirection;
+	private float speed;
+	private Player owner;
+
 	/**
 	 * Constructeur de particle
-	 * @param texture
-	 * @param sprite
-	 */
-	public Particle(Texture texture, Sprite sprite) {
-		super();
-		this.texture = texture;
-		this.sprite = sprite;
-	}
-	
-	/**
-	 * Constructeur de particle
-	 * @param texture
 	 * @param sprite
 	 * @param xPos
 	 * @param yPos
 	 */
-	public Particle(Texture texture, Sprite sprite, float xPos, float yPos) {
+	public Particle(Player owner, Sprite sprite, float xPos, float yPos) {
 		super();
-		this.texture = texture;
+		this.owner = owner;
 		this.sprite = sprite;
 		this.xPos = xPos;
 		this.yPos = yPos;
+		sprite.setPosition(xPos, yPos);
+		sprite.setScale(Const.PARTICLE_SCALE_X, Const.PARTICLE_SCALE_Y);
+		setSpeed(Const.PARTICLE_SPEED);
 	}
-	public Texture getTexture() {
-		return texture;
+	
+	/**
+	 * Méthode pour changer la position de la particule
+	 * @param newX
+	 * @param newY
+	 */
+	public void movePosition(float newX, float newY)
+	{
+		xPos = newX;
+		yPos = newY;
+		sprite.setPosition(newX, newY);
 	}
-	public void setTexture(Texture texture) {
-		this.texture = texture;
+
+	public Player getOwner() {
+		return owner;
 	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+
+
+
 	public Sprite getSprite() {
 		return sprite;
 	}
+
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
 	}
-	
-	public float getxPos() {
+
+	public float getXPos() {
 		return xPos;
 	}
-	
-	public void setxPos(float xPos) {
+
+	public void setYPos(float xPos) {
 		this.xPos = xPos;
 	}
-	
-	public float getyPos() {
+
+	public float getYPos() {
 		return yPos;
 	}
-	
-	public void setyPos(float yPos) {
+
+	public void setXPos(float yPos) {
 		this.yPos = yPos;
+	}
+
+	public int getMoveXDirection() {
+		return moveXDirection;
+	}
+
+	public void setMoveXDirection(int moveXDirection) {
+		this.moveXDirection = moveXDirection;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
 	}
 	
 	
-	
-	
-
 }
+
