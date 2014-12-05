@@ -42,11 +42,7 @@ public class InputMananger extends Thread {
         return 100;
     }
 
-
     public int keyboardManager(Event event, RenderWindow App) {
-
-        //Sprite mario =  (Sprite)screenObject.get(screenObject.size()-1);
-        //Key pressed
 
         //TODO fichier de config xml pour binder les touches du clavier
 
@@ -64,7 +60,6 @@ public class InputMananger extends Thread {
                 GameLoop.p1.PLayerJump();
             }
             if ((KeyboardActions.isMovingLeft())) {
-                System.out.println("test gauche");
                 GameLoop.p1.PLayerWalk(LEFT);
             }
             else if ((KeyboardActions.isMovingRight())) {
@@ -83,12 +78,8 @@ public class InputMananger extends Thread {
                 // System.out.println("-------------->jey left relachée");
                 GameLoop.p1.PlayerIdle();
             }
-
-
         }
         //si on ne quitte pas cet écran
         return 100;
     }
-
-
 }

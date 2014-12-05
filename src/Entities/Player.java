@@ -1,6 +1,7 @@
 package Entities;
 
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 
 import static Graphics.EntityTexture.*;
@@ -32,11 +33,19 @@ public class Player extends MovingEntity implements  Runnable{
 
     public int[] state = IDLE;
 
-    public Player(){
+    private String perso;
 
+    public Player(){
+        hitbox = new IntRect((FloatRect) this.getGlobalBounds());
+        perso="mario";
     }
 
+    /**
+     * vérifit et met à jour les variables du player
+     */
     public void updatePplayerPhysics(){
+
+
         //On calcule la valeur relative de y:
          setVitesseY((float) (-1.0f*(( v_y* t)-((Player.g* t* t)/2000))));
         //On calcule maintenant les valeurs absolues
@@ -72,12 +81,19 @@ public class Player extends MovingEntity implements  Runnable{
         }
     }
 
+    /**
+     * appellée quand touche shoot appuyée
+     */
     public void PLayerShoot(){
         if( state!=JUMP)
         {
              state=SHOOT;
         }
     }
+
+    /**
+     * appellée quand touche jump appuyée
+     */
     public  void PLayerJump() {
          yorigin =  getGlobalBounds().top;
         if ( state == WALK) {
@@ -88,6 +104,9 @@ public class Player extends MovingEntity implements  Runnable{
          enaMoveFinJUMP = false;
     }
 
+    /**
+     * appellée quand touche gauche ou droite appuyée
+     */
     public  void PLayerWalk(boolean dir) {
         if(dir==LEFT)
              setVitesseX(- vitesse);
@@ -103,6 +122,9 @@ public class Player extends MovingEntity implements  Runnable{
         }
     }
 
+    /**
+     * appellée quand touche gauche ou droie relachée
+     */
     public  void PlayerIdle(){
         if (state == WALK){
             state = IDLE;
@@ -111,6 +133,9 @@ public class Player extends MovingEntity implements  Runnable{
         enaMoveFinJUMP=false;
     }
 
+    /**
+     * vérifit que le joueur est au sol
+     */
     public boolean isGrounded(){
         float diff =400-getGlobalBounds().top;
         if(diff<0){
@@ -121,10 +146,32 @@ public class Player extends MovingEntity implements  Runnable{
             return false;
     }
 
-
+    /**
+     * pour le thread
+     */
     @Override
     public void run() {
         updatePplayerPhysics();
         updateTexture(this);
+        updateHitbox();
+    }
+
+    public String getPerso() {
+        return perso;
+    }
+
+    public void setPerso(String perso) {
+        this.perso = perso;
+    }
+
+
+    public void updateHitbox(){
+        if(perso.equals("pikachu")){
+            System.out.println("pika!");
+            IntRect big =  new IntRect(this.getGlobalBounds());
+            hitbox=new IntRect(big.left+big.width/3,       big.top+big.height/3,
+                               big.width/4,                (int) (big.height/1.55));
+            System.out.println("hitbox="+hitbox);
+        }
     }
 }

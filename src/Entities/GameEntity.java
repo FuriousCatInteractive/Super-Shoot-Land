@@ -1,6 +1,7 @@
 package Entities;
 
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 
 /**
@@ -8,11 +9,20 @@ import org.jsfml.graphics.Sprite;
  */
 public class GameEntity extends Sprite {
 
-    protected FloatRect hitbox;
-
+    protected IntRect hitbox;
 
     public GameEntity(){
-        hitbox = new FloatRect(this.getTextureRect());
+       //hitbox = new IntRect(this.getTextureRect());
     }
+
+
+    public IntRect getHitbox() {
+        return hitbox;
+    }
+
+    public void setHitbox(IntRect hitbox) {
+        this.hitbox = hitbox;
+    }
+
 
 }

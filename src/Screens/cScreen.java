@@ -100,7 +100,7 @@ public class cScreen {
        mario.setImage_h(mario.getLocalBounds ().height);
        mario.setImage_w(mario.getLocalBounds ().width);
        mario.setScale(scale,scale);
-      return mario;
+       return mario;
    }
 
     protected void deleteScreenObject(){
