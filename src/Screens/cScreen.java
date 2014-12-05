@@ -22,9 +22,9 @@ public class cScreen {
     public static final Color logo_green = new Color(167,186, 74, 255);
     public static final Color light_green = new Color(211,226,154, 255);
 
-    protected Sound sound;
+    protected static Sound sound;
     protected Font fontScreen;
-    protected ArrayList<Drawable> screenObject = new ArrayList();
+    public static ArrayList<Drawable> screenObject = new ArrayList();
 
     public cScreen() {
         fontScreen = new Font();
