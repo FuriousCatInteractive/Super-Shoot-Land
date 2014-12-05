@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Description des bindings de touches clavier -->
 <!-- Codes:
-fleches : ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT
+fleches : UP, DOWN, LEFT, RIGHT
 Lettres : toutes
 Espace : SPACE
+Echap : ESCAPE
 -->
 <bindings>
 
 	<bind type="MOVE_LEFT">
-		<key name="ARROW_LEFT"></key>
+		<key name="LEFT">X</key>
 		<key name="A"></key>
 	</bind>
 	
 	<bind type="MOVE_RIGHT">
-		<key name="ARROW_RIGHT"></key>
+		<key name="RIGHT"></key>
 		<key name="D"></key>
 	</bind>
 	
@@ -23,6 +24,10 @@ Espace : SPACE
 	
 	<bind type="ATTACK">
 		<key name="V"></key>
+	</bind>
+	
+	<bind type="QUIT">
+		<key name="ESCAPE"></key>
 	</bind>
 
 </bindings>
