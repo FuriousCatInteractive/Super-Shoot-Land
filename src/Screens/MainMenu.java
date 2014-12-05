@@ -19,7 +19,7 @@ public class MainMenu extends cScreen implements iMenu{
     private int nb_choix_menu;
 
     private final int play = 2;
-    private final int config = -1;
+    private final int config = 1;
     private final int exit = -1;
 
     public MainMenu() {

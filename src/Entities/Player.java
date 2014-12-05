@@ -27,9 +27,9 @@ public class Player extends MovingEntity implements  Runnable{
     public  float yorigin=0;////////////////////////////////////////////////////////////////////
     public boolean enaMoveFinJUMP;
 
-   public boolean direction = true;
+    public boolean direction = true;
 
-   public float vitesse = 4;//App.getSize().x/150;
+    public float vitesse = 4;//App.getSize().x/150;
 
     public int[] state = IDLE;
 
@@ -47,17 +47,17 @@ public class Player extends MovingEntity implements  Runnable{
 
 
         //On calcule la valeur relative de y:
-         setVitesseY((float) (-1.0f*(( v_y* t)-((Player.g* t* t)/2000))));
+        setVitesseY((float) (-1.0f*(( v_y* t)-((Player.g* t* t)/2000))));
         //On calcule maintenant les valeurs absolues
-         move( getVitesseX(),1.0f* getVitesseY());
+        move( getVitesseX(),1.0f* getVitesseY());
         //System.out.println("-->"+ getVitesseY()+" state "+ state[0]);
 
         if( state==JUMP) {
             //  System.out.println("up="+up+" t="+t);
             if ( up)
-                 t += 0.70f;
+                t += 0.70f;
             else
-                 t -= 0.7f;
+                t -= 0.7f;
         }
 
         // FIN EVOLUTION
@@ -65,18 +65,18 @@ public class Player extends MovingEntity implements  Runnable{
         if( yorigin- getGlobalBounds().top>4* getLocalBounds().height) {
             //t = 0.1f;
 
-             up=false;
+            up=false;
         }
         else if(isGrounded()) {
             //t = 0.1f;
-             t=0;
-             up=true;
+            t=0;
+            up=true;
 
             if(/* getVitesseX()!=0 &&*/  enaMoveFinJUMP==true)
-                 state=WALK;
+                state=WALK;
             else{
-                 setVitesseX(0);
-                 state=IDLE;
+                setVitesseX(0);
+                state=IDLE;
             }
         }
     }
@@ -87,7 +87,7 @@ public class Player extends MovingEntity implements  Runnable{
     public void PLayerShoot(){
         if( state!=JUMP)
         {
-             state=SHOOT;
+            state=SHOOT;
         }
     }
 
@@ -95,13 +95,13 @@ public class Player extends MovingEntity implements  Runnable{
      * appellée quand touche jump appuyée
      */
     public  void PLayerJump() {
-         yorigin =  getGlobalBounds().top;
+        yorigin =  getGlobalBounds().top;
         if ( state == WALK) {
             // System.out.println( getVitesseX());
-             setVitesseX( getVitesseX());
+            setVitesseX( getVitesseX());
         }
-         state = JUMP;
-         enaMoveFinJUMP = false;
+        state = JUMP;
+        enaMoveFinJUMP = false;
     }
 
     /**
@@ -109,13 +109,13 @@ public class Player extends MovingEntity implements  Runnable{
      */
     public  void PLayerWalk(boolean dir) {
         if(dir==LEFT)
-             setVitesseX(- vitesse);
+            setVitesseX(- vitesse);
         else
-             setVitesseX( vitesse);
+            setVitesseX( vitesse);
 
-         direction = dir;
+        direction = dir;
         if ( state != JUMP)
-             state = WALK;
+            state = WALK;
         else if ( state == JUMP) {
             //System.out.println("continue saut");
             enaMoveFinJUMP = true;
@@ -169,8 +169,17 @@ public class Player extends MovingEntity implements  Runnable{
         if(perso.equals("pikachu")){
             System.out.println("pika!");
             IntRect big =  new IntRect(this.getGlobalBounds());
-            hitbox=new IntRect(big.left+big.width/3,       big.top+big.height/3,
-                               big.width/4,                (int) (big.height/1.55));
+            int x =0;
+            int y = big.top+big.height/3;
+            int w = big.width/4;
+            int h =(int) (big.height/1.55);
+            if(direction==RIGHT)
+                x = big.left+big.width/4;
+            else
+                x = big.left+big.width-big.width/4-big.width/4;
+
+            hitbox=new IntRect(x,y,w,h);
+
             System.out.println("hitbox="+hitbox);
         }
     }
