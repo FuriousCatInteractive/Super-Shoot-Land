@@ -10,7 +10,7 @@ import static Graphics.EntityTexture.WALK;
 /**
  * Created by coco on 14-11-20.
  */
-public class Player extends MovingEntity{
+public class Player extends MovingEntity implements  Runnable{
 
     // Les variables de la troisieme methode
     //Variables méthode 2:
@@ -51,7 +51,6 @@ public class Player extends MovingEntity{
                  t -= 0.7f;
         }
 
-
         // FIN EVOLUTION
         //Avec en bonus une petite mise a 0 des coordonnees lorsque mario s'en va trop loin :)
         if( yorigin- getGlobalBounds().top>4* getLocalBounds().height) {
@@ -70,10 +69,7 @@ public class Player extends MovingEntity{
                  setVitesseX(0);
                  state=IDLE;
             }
-
-
         }
-
     }
 
     public void PLayerShoot(){
@@ -121,11 +117,14 @@ public class Player extends MovingEntity{
             move(0, diff);
             return true;
         }
-
         else
             return false;
     }
 
 
-
+    @Override
+    public void run() {
+        updatePplayerPhysics();
+        updateTexture(this);
+    }
 }

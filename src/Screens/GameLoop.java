@@ -22,7 +22,6 @@ import static Graphics.EntityTexture.*;
  */
 public class GameLoop extends cScreen {
 
-
     public final static int mainMenu = 1;
     public final static int exit = -1;
     public static int returnValue=1000;
@@ -40,9 +39,7 @@ public class GameLoop extends cScreen {
         int AppX = App.getSize().x;
         int AppY = App.getSize().y;
         loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
-        loadSpriteSheet("res/img/pikachu-spritesheet.png", 0.007f*AppY);
-        p1 = new Player();
-        p1 = (Player)screenObject.get(screenObject.size()-1);
+        p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f*AppY);
     }
 
     public int Run(RenderWindow App) {
@@ -52,25 +49,24 @@ public class GameLoop extends cScreen {
 
         boolean Running = true;
 
-        ((Sprite)screenObject.get(screenObject.size()-1)).setPosition(App.getSize().x/2, App.getSize().y/2);
+       p1.setPosition(App.getSize().x / 2, App.getSize().y / 2);
 
         startMusic("res/sound/tower.ogg");
         inputGL.start();
+        Thread threaPlayer1 = new Thread(p1);
+        threaPlayer1.start();
 
         while (Running) {
-
-            p1 = ((Player)screenObject.get(screenObject.size()-1));
-            p1.updatePplayerPhysics();
 
            //returnvalue mis à jour par thread input
             inputGL.run();
             if (returnValue <= 50)
                 return returnValue;
 
+            p1.run();
 
             App.clear(Color.RED);
-            updateTexture(p1);
-            screenObject.set(screenObject.size()-1, p1);
+            App.draw(p1);
             for (int i = screenObject.size() - 1; i > -1; i--) {
                 App.draw(screenObject.get(i));
             }
@@ -87,5 +83,4 @@ public class GameLoop extends cScreen {
         return nextMenu;
     }
 }
-
 

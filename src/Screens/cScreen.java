@@ -93,14 +93,14 @@ public class cScreen {
         //sound.setVolume(40.0f);
     }
 
-   public void loadSpriteSheet(String path, float scale){
+   public Player loadPlayer(String path, float scale){
        System.out.println(path);
        Player mario = new Player();
        mario.setTexture(loadTexture(path));
        mario.setImage_h(mario.getLocalBounds ().height);
        mario.setImage_w(mario.getLocalBounds ().width);
        mario.setScale(scale,scale);
-       screenObject.add(mario);
+      return mario;
    }
 
     protected void deleteScreenObject(){
