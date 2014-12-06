@@ -107,6 +107,7 @@ public class Player extends MovingEntity implements  Runnable{
      			
      				if(direction == RIGHT)
 	     			{
+     					particle.setXPos(this.getGlobalBounds().left+this.getGlobalBounds().width);
 	     				particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
 	     				
 	     			}
@@ -189,9 +190,20 @@ public class Player extends MovingEntity implements  Runnable{
      */
     public void moveParticles()
     {
-        for(Particle p : particles)
+        moveLoop : for(Particle p : particles)
         {
-        	//p.changePosition(p.getMoveXDirection()*(p.getXPos()+p.getSpeed()), p.getYPos());
+        	if(p.isExpired())
+        	{
+        		particles.remove(p);
+        		GameLoop.screenObject.remove(p.getSprite());
+        		break moveLoop;
+        	}
+        	
+        	else
+        	{
+        		p.move();
+        	}
+        	
         }
     }
 

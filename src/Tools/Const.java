@@ -26,7 +26,8 @@ public class Const {
 	public final static float PARTICLE_SCALE_Y = 0.1f;
 	public final static int PARTICLE_MOVE_X_LEFT = -1;
 	public final static int PARTICLE_MOVE_X_RIGHT = 1;
-	public final static float PARTICLE_SPEED = 0.1f;
+	public final static float PARTICLE_SPEED = 6f; //pixels
+	public final static long PARTICLE_LIFETIME = 1000; //millisecondes
 	
 
 }

@@ -1,4 +1,6 @@
 package Entities;
+import java.util.concurrent.TimeUnit;
+
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 
@@ -16,9 +18,11 @@ public class Particle {
 
 	private Sprite sprite;
 	private float xPos, yPos;
-	private int moveXDirection;
-	private float speed;
+	private int moveXDirection; //direction de la particule
+	private float speed; //vitesse
 	private Player owner;
+	private long emitTime, lifeTime; //temps au début, durée de vie de la particule
+	private boolean isExpired; //la particule doit être détruite
 
 	/**
 	 * Constructeur de particle
@@ -35,6 +39,8 @@ public class Particle {
 		sprite.setPosition(xPos, yPos);
 		sprite.setScale(Const.PARTICLE_SCALE_X, Const.PARTICLE_SCALE_Y);
 		setSpeed(Const.PARTICLE_SPEED);
+		setLifeTime(Const.PARTICLE_LIFETIME);
+		emitTime = System.currentTimeMillis();
 	}
 	
 	/**
@@ -42,11 +48,27 @@ public class Particle {
 	 * @param newX
 	 * @param newY
 	 */
-	public void movePosition(float newX, float newY)
+	public void move()
 	{
-		xPos = newX;
-		yPos = newY;
-		sprite.setPosition(newX, newY);
+		long curTime = System.currentTimeMillis();
+		
+		//Conversion de la durée de vie en nanoseconds pour comparaison
+		//long lifeTimeNs = TimeUnit.NANOSECONDS.convert(lifeTime, TimeUnit.MILLISECONDS);
+		
+		System.out.println("EMIT TIME = "+emitTime+ ", CURTIME = "+curTime + ", LIFETIME NS ="+lifeTime);
+		//Tant que la durée de vie n'est pas atteinte on déplace la particule
+		if(curTime - emitTime <= lifeTime)
+		{
+			xPos += speed * moveXDirection;
+			sprite.setPosition(xPos, yPos);
+		}
+		
+		//Si durée de vie atteinte, la particule est à détruire
+		else
+		{
+			isExpired = true;
+		}
+			
 	}
 
 	public Player getOwner() {
@@ -66,7 +88,11 @@ public class Particle {
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
 	}
-
+	
+	public void setXPos(float xPos) {
+		this.xPos = xPos;
+	}
+	
 	public float getXPos() {
 		return xPos;
 	}
@@ -79,9 +105,6 @@ public class Particle {
 		return yPos;
 	}
 
-	public void setXPos(float yPos) {
-		this.yPos = yPos;
-	}
 
 	public int getMoveXDirection() {
 		return moveXDirection;
@@ -98,6 +121,31 @@ public class Particle {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
+
+	public long getLifeTime() {
+		return lifeTime;
+	}
+
+	public void setLifeTime(long lifeTime) {
+		this.lifeTime = lifeTime;
+	}
+
+	public long getEmitTime() {
+		return emitTime;
+	}
+
+	public void setEmitTime(long emitTime) {
+		this.emitTime = emitTime;
+	}
+
+	public boolean isExpired() {
+		return isExpired;
+	}
+
+	public void setExpired(boolean isExpired) {
+		this.isExpired = isExpired;
+	}
+	
 	
 	
 }
