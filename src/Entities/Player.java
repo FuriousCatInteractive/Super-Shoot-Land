@@ -192,7 +192,8 @@ public class Player extends MovingEntity implements  Runnable{
     {
         moveLoop : for(Particle p : particles)
         {
-        	if(p.isExpired())
+        	//Si durée de vie atteinte ou collision
+        	if(p.isExpired() || p.collided(GameLoop.screenObject))
         	{
         		particles.remove(p);
         		GameLoop.screenObject.remove(p.getSprite());

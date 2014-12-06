@@ -1,6 +1,10 @@
 package Entities;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 
@@ -23,6 +27,7 @@ public class Particle {
 	private Player owner;
 	private long emitTime, lifeTime; //temps au début, durée de vie de la particule
 	private boolean isExpired; //la particule doit être détruite
+	private IntRect hitbox;
 
 	/**
 	 * Constructeur de particle
@@ -41,8 +46,9 @@ public class Particle {
 		setSpeed(Const.PARTICLE_SPEED);
 		setLifeTime(Const.PARTICLE_LIFETIME);
 		emitTime = System.currentTimeMillis();
+		hitbox = new IntRect((FloatRect)sprite.getGlobalBounds());
 	}
-	
+
 	/**
 	 * Méthode pour changer la position de la particule
 	 * @param newX
@@ -51,24 +57,40 @@ public class Particle {
 	public void move()
 	{
 		long curTime = System.currentTimeMillis();
-		
-		//Conversion de la durée de vie en nanoseconds pour comparaison
-		//long lifeTimeNs = TimeUnit.NANOSECONDS.convert(lifeTime, TimeUnit.MILLISECONDS);
-		
-		System.out.println("EMIT TIME = "+emitTime+ ", CURTIME = "+curTime + ", LIFETIME NS ="+lifeTime);
+
+		//System.out.println("EMIT TIME = "+emitTime+ ", CURTIME = "+curTime + ", LIFETIME NS ="+lifeTime);
 		//Tant que la durée de vie n'est pas atteinte on déplace la particule
 		if(curTime - emitTime <= lifeTime)
 		{
 			xPos += speed * moveXDirection;
 			sprite.setPosition(xPos, yPos);
+			hitbox = new IntRect(sprite.getGlobalBounds());
 		}
-		
+
 		//Si durée de vie atteinte, la particule est à détruire
 		else
 		{
 			isExpired = true;
 		}
-			
+
+	}
+
+	public boolean collided(ArrayList<Drawable> array)
+	{
+		for (int i = array.size()-1; i > -1; i--) 
+		{
+
+			if (array.get(i) instanceof GameEntity) 
+			{
+				if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) 
+				{
+					System.out.println("collision particule");
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public Player getOwner() {
@@ -88,11 +110,11 @@ public class Particle {
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
 	}
-	
+
 	public void setXPos(float xPos) {
 		this.xPos = xPos;
 	}
-	
+
 	public float getXPos() {
 		return xPos;
 	}
@@ -145,8 +167,18 @@ public class Particle {
 	public void setExpired(boolean isExpired) {
 		this.isExpired = isExpired;
 	}
+
+	public IntRect getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(IntRect hitbox) {
+		this.hitbox = hitbox;
+	}
 	
 	
-	
+
+
+
 }
 
