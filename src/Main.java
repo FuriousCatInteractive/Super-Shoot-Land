@@ -23,7 +23,7 @@ public class Main {
     	//Initialisation de la configuration de jeu
     	GameConfig.configKeyBindings();
 
-        Level lvltest = new Level(10,20);
+
 
 
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();

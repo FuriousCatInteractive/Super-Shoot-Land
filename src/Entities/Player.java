@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import org.jsfml.graphics.FloatRect;
-import org.jsfml.graphics.IntRect;
-import org.jsfml.graphics.Sprite;
-import org.jsfml.graphics.Texture;
+import org.jsfml.graphics.*;
 
 import Screens.GameLoop;
 import Tools.Const;
@@ -207,6 +204,9 @@ public class Player extends MovingEntity implements  Runnable{
         updateTexture(this);
         updateHitbox();
         moveParticles();
+        synchronized (GameLoop.screenObject) {
+            verifCollision(GameLoop.screenObject);
+        }
     }
 
     public String getPerso() {
@@ -234,6 +234,18 @@ public class Player extends MovingEntity implements  Runnable{
             hitbox=new IntRect(x,y,w,h);
 
            //System.out.println("hitbox="+hitbox);
+        }
+    }
+
+    public void verifCollision(ArrayList<Drawable> array) {
+        for (int i = array.size()-1; i > -1; i--) {
+            if (array.get(i) instanceof GameEntity) {
+                if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) {
+                 //  vitesseY=0;
+                  // vitesseX=0;
+                    System.out.println("collision");
+                }
+            }
         }
     }
 }

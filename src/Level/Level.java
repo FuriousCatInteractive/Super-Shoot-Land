@@ -1,5 +1,7 @@
 package Level;
 
+import org.jsfml.graphics.RenderWindow;
+
 import java.util.Random;
 
 /**
@@ -8,8 +10,8 @@ import java.util.Random;
 public class Level {
 
     public int[][] mapBinaire;
-    int largeur;
-    int hauteur;
+
+   private int largeur, hauteur;
 
     /**
      * constructeur par défault 10 lignes 10 colonnes
@@ -103,5 +105,21 @@ public class Level {
                 }
             }
         }
+    }
+
+    public int getLargeur() {
+        return largeur;
+    }
+
+    public void setLargeur(int largeur) {
+        this.largeur = largeur;
+    }
+
+    public int getHauteur() {
+        return hauteur;
+    }
+
+    public void setHauteur(int hauteur) {
+        this.hauteur = hauteur;
     }
 }

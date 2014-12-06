@@ -1,5 +1,6 @@
 package Screens;
 
+import Entities.GameEntity;
 import Entities.Player;
 import org.jsfml.audio.Sound;
 import org.jsfml.audio.SoundBuffer;
@@ -52,7 +53,11 @@ public class cScreen {
     }
 
     protected void loadImage(String path, int posX, int posY){
-        Sprite background = new Sprite();
+        loadImage(path, posX, posY,1.0f,1.0f);
+    }
+
+    protected void loadImage(String path, int posX, int posY, float sizeX, float sizeY){
+        GameEntity background = new GameEntity();
         try {
             Texture maTexture = new Texture();
             maTexture.loadFromFile(Paths.get(path)); // on charge la texture qui se trouve dans notre dossier assets
@@ -61,7 +66,9 @@ public class cScreen {
             System.err.println("Failed to load the image:");
             e.printStackTrace();
         }
+        background.setScale(sizeX/background.getGlobalBounds().width,sizeY/background.getGlobalBounds().height);
         background.setPosition(posX, posY);
+        background.setHitbox(new IntRect(posX,posY,(int)(background.getGlobalBounds().width), (int) background.getGlobalBounds().height));
         screenObject.add(background);
     }
 
