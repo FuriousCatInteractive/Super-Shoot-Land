@@ -96,11 +96,11 @@ public class BootSplash extends cScreen{
 
         //Never reaching this point normally, but just in case, exit the application
         System.out.println("bootsplash finit");
-        /*try {
+        try {
             loader.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
         return (1);
     }
 
