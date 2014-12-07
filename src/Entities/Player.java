@@ -24,7 +24,8 @@ public class Player extends MovingEntity implements  Runnable{
     public  float t = 0;
     public double v_x = Math.cos(angle_init)*v_init;
     public double v_y = Math.sin(angle_init)*v_init;
-    public boolean up =true;
+    public boolean up =false;
+    public boolean down =false;
 
     public  float yorigin=0;////////////////////////////////////////////////////////////////////
     public boolean enaMoveFinJUMP;
@@ -36,52 +37,53 @@ public class Player extends MovingEntity implements  Runnable{
     public int[] state = IDLE;
 
     private String perso;
-    
+
+    private boolean isCollied;
+    private boolean isGrounded;
+
     private ArrayList<Particle> particles; //particules tirées par le joueur
 
     public Player(){
         hitbox = new IntRect((FloatRect) this.getGlobalBounds());
         perso="mario";
         particles = new ArrayList<Particle>();
+        isCollied = false;
+        isGrounded=false;
     }
 
     /**
      * vérifit et met à jour les variables du player
      */
-    public void updatePplayerPhysics(){
-
+    public void updatePplayerPhysics() {
 
         //On calcule la valeur relative de y:
-        setVitesseY((float) (-1.0f*(( v_y* t)-((Player.g* t* t)/2000))));
+        setVitesseY((float) (-1.0f * ((v_y * t) - ((Player.g * t * t) / 2000))));
         //On calcule maintenant les valeurs absolues
-        move( getVitesseX(),1.0f* getVitesseY());
+        movePerso(getVitesseX(), 1.0f * getVitesseY());
         //System.out.println("-->"+ getVitesseY()+" state "+ state[0]);
 
-        if( state==JUMP) {
+        if (state == JUMP /*|| */) {
             //  System.out.println("up="+up+" t="+t);
-            if ( up)
+            if (up) {
                 t += 0.70f;
-            else
+                if (yorigin - getGlobalBounds().top > 4 * getLocalBounds().height) {
+                    down=true;
+                    up = false;
+                }
+            } else if(!up){
                 t -= 0.7f;
-        }
-
-        // FIN EVOLUTION
-        //Avec en bonus une petite mise a 0 des coordonnees lorsque mario s'en va trop loin :)
-        if( yorigin- getGlobalBounds().top>4* getLocalBounds().height) {
-            //t = 0.1f;
-
-            up=false;
-        }
-        else if(isGrounded()) {
-            //t = 0.1f;
-            t=0;
-            up=true;
-
-            if(/* getVitesseX()!=0 &&*/  enaMoveFinJUMP==true)
-                state=WALK;
-            else{
-                setVitesseX(0);
-                state=IDLE;
+                down=true;
+                if (isGrounded) {
+                    t = 0;
+                    up = false;
+                    down=false;
+                    if (/* getVitesseX()!=0 &&*/  enaMoveFinJUMP == true)
+                        state = WALK;
+                    else {
+                        setVitesseX(0);
+                        state = IDLE;
+                    }
+                }
             }
         }
     }
@@ -92,40 +94,40 @@ public class Player extends MovingEntity implements  Runnable{
     public void PlayerShoot(){
         if( state!=JUMP)
         {
-             state=SHOOT;
-             Texture tex = new Texture();
-             Sprite s = new Sprite();
-             
-             try {
-            	
-            	 	//FIXME particule selon le personnage ?
-     				tex.loadFromFile(Paths.get("res/img/logo.png"));
-     				tex.setSmooth(true);
-     				s.setTexture(tex);
-     				Particle particle = new Particle(this, s, this.getGlobalBounds().left, this.getGlobalBounds().top);
+            state=SHOOT;
+            Texture tex = new Texture();
+            Sprite s = new Sprite();
 
-     			
-     				if(direction == RIGHT)
-	     			{
-	     				particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
-	     				
-	     			}
-	     			
-	     			else
-	     			{
-	     				particle.setMoveXDirection(Const.PARTICLE_MOVE_X_LEFT);
-	     			}
-	     			
-     				particles.add(particle);
-	     			GameLoop.screenObject.add(particle.getSprite());
-     			
-     		} 
-             
-             catch (IOException e) {
-     			// TODO Auto-generated catch block
-     			e.printStackTrace();
-     		}
-             
+            try {
+
+                //FIXME particule selon le personnage ?
+                tex.loadFromFile(Paths.get("res/img/logo.png"));
+                tex.setSmooth(true);
+                s.setTexture(tex);
+                Particle particle = new Particle(this, s, this.getGlobalBounds().left, this.getGlobalBounds().top);
+
+
+                if(direction == RIGHT)
+                {
+                    particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
+
+                }
+
+                else
+                {
+                    particle.setMoveXDirection(Const.PARTICLE_MOVE_X_LEFT);
+                }
+
+                particles.add(particle);
+                GameLoop.screenObject.add(particle.getSprite());
+
+            }
+
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -140,23 +142,28 @@ public class Player extends MovingEntity implements  Runnable{
         }
         state = JUMP;
         enaMoveFinJUMP = false;
+        isGrounded=false;
+        up=true;
+        down=false;
     }
 
     /**
      * appellée quand touche gauche ou droite appuyée
      */
     public  void PLayerWalk(boolean dir) {
-        if(dir==LEFT)
-            setVitesseX(- vitesse);
-        else
-            setVitesseX( vitesse);
+        if(isCollied==false) {
+            if (dir == LEFT)
+                setVitesseX(-vitesse);
+            else
+                setVitesseX(vitesse);
 
-        direction = dir;
-        if ( state != JUMP)
-            state = WALK;
-        else if ( state == JUMP) {
-            //System.out.println("continue saut");
-            enaMoveFinJUMP = true;
+            direction = dir;
+            if (state != JUMP)
+                state = WALK;
+            else if (state == JUMP) {
+                //System.out.println("continue saut");
+                enaMoveFinJUMP = true;
+            }
         }
     }
 
@@ -171,19 +178,7 @@ public class Player extends MovingEntity implements  Runnable{
         enaMoveFinJUMP=false;
     }
 
-    /**
-     * vérifit que le joueur est au sol
-     */
-    public boolean isGrounded(){
-        float diff =400-getGlobalBounds().top;
-        if(diff<0){
-            move(0, diff);
-            return true;
-        }
-        else
-            return false;
-    }
-    
+
     /**
      * Méthode pour déplacer les particules tirées
      */
@@ -191,7 +186,7 @@ public class Player extends MovingEntity implements  Runnable{
     {
         for(Particle p : particles)
         {
-        	//p.changePosition(p.getMoveXDirection()*(p.getXPos()+p.getSpeed()), p.getYPos());
+            //p.changePosition(p.getMoveXDirection()*(p.getXPos()+p.getSpeed()), p.getYPos());
         }
     }
 
@@ -200,12 +195,21 @@ public class Player extends MovingEntity implements  Runnable{
      */
     @Override
     public void run() {
-        updatePplayerPhysics();
-        updateTexture(this);
-        updateHitbox();
+
         moveParticles();
+        updatePplayerPhysics();
+        //  isGrounded(GameLoop.screenObject);
+      //
         synchronized (GameLoop.screenObject) {
-            verifCollision(GameLoop.screenObject);
+            if(verifCollision(GameLoop.screenObject)!=0){
+                updateTexture(this);
+                updateHitbox();
+            }
+            else {
+                //movePerso(-vitesseX,-vitesseY);
+                //vitesseY = -vitesseY;
+                // up=false;
+            }
         }
     }
 
@@ -217,35 +221,92 @@ public class Player extends MovingEntity implements  Runnable{
         this.perso = perso;
     }
 
-
+    /**
+     * déplace la hitbox en même temps que le perso
+     */
     public void updateHitbox(){
         if(perso.equals("pikachu")){
             //System.out.println("pika!");
             IntRect big =  new IntRect(this.getGlobalBounds());
-            int x =0;
-            int y = big.top+big.height/3;
+            int x = big.left+big.width/2-big.width/8;
+            int y = big.top+big.height-(int) (big.height/1.55);
             int w = big.width/4;
             int h =(int) (big.height/1.55);
-            if(direction==RIGHT)
-                x = big.left+big.width/4;
-            else
-                x = big.left+big.width-big.width/4-big.width/4;
-
             hitbox=new IntRect(x,y,w,h);
 
-           //System.out.println("hitbox="+hitbox);
+            //System.out.println("hitbox="+hitbox);
         }
     }
 
-    public void verifCollision(ArrayList<Drawable> array) {
+    /**
+     * vérifit les collisions avec le reste des éléments du jeu
+     * @param array
+     */
+    public int verifCollision(ArrayList<Drawable> array) {
+        IntRect hitboxTemp = new IntRect(hitbox.left/*+(int)vitesseX*/,hitbox.top+(int)vitesseY,hitbox.width,hitbox.height);
         for (int i = array.size()-1; i > -1; i--) {
             if (array.get(i) instanceof GameEntity) {
-                if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) {
-                 //  vitesseY=0;
-                  // vitesseX=0;
-                    System.out.println("collision");
+                IntRect res = (hitboxTemp.intersection(((GameEntity) array.get(i)).getHitbox()));
+                if (res != null){
+
+
+                    //vérifit si les pieds sur terre
+                    int lim = hitboxTemp.top + hitboxTemp.height;
+
+                    int resbottom = res.top + res.height;
+                    // System.out.println("top="+hitboxTemp.top +  " bottom res=" + resbottom +" "+down);
+
+
+
+
+
+                 /*   if (hitboxTemp.top <= resbottom && up ) {
+
+                        System.out.println("headed ");
+                        int diff = hitbox.top - resbottom;
+                        movePerso(0, -diff+1);
+                        vitesseY=0;
+                        up=false;
+                        t=0;
+                    }*/
+
+                    System.out.println("vy=" + vitesseY);
+                  if (res.top <= lim && !up && res.top > hitbox.top) {
+                        int diff = hitbox.top + hitbox.height - res.top;
+                        movePerso(0, -diff - 2);
+                        System.out.println("groundeed " + diff);
+                        isGrounded = true;
+                        down=false;
+                    }
+                    else if(state != JUMP) {
+                      vitesseX=0;
+                      movePerso(res.width*(direction?-1:1),0);
+                  }
+
+
+
+                    //vérifit si se cogne la tête
+
+
+
+                    // else
+                    //  {
+
+                    //}
+
+
+
+                    return 0;
                 }
             }
         }
+
+        //System.out.println(" a pa collision");
+        return 10;
+    }
+
+    public void movePerso(float dx, float dy){
+        super.move(dx,dy);
+        hitbox=new IntRect(hitbox.left+(int)dx,hitbox.top+(int)dy,hitbox.width,hitbox.height);
     }
 }

@@ -46,7 +46,7 @@ public class GameLoop extends cScreen {
         int taille_Font_base = 40;
         int AppX = App.getSize().x;
         int AppY = App.getSize().y;
-        loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
+       // loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
         p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f*AppY);
         p1.setPerso("pikachu");
         lvltest = new Level(20,(AppX/AppY)*20);
@@ -68,7 +68,7 @@ public class GameLoop extends cScreen {
 
 
 
-        startMusic("res/sound/tower.ogg");
+        //startMusic("res/sound/tower.ogg");
         inputGL.start();
         Thread threaPlayer1 = new Thread(p1);
         threaPlayer1.start();

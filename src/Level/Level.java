@@ -44,7 +44,7 @@ public class Level {
              remplirLigne(i, 1);
 
         //ensuite on supprime un certain pourcentage de lignes
-        Random hasard = new Random();
+        Random hasard = new Random(12);
        // hasard.nextInt(hauteur);
         remplirLigne(0,0);
         remplirLigne(1,0);
@@ -98,9 +98,9 @@ public class Level {
             }
             else{
                 compteur++;
-                System.out.println(compteur);
+              //  System.out.println(compteur);
                 if(compteur==3){
-                    System.out.println("---"+i);
+                   //System.out.println("---"+i);
                     remplirLigne(i-1,1);
                 }
             }
