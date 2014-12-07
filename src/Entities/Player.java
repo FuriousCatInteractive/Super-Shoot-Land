@@ -94,40 +94,42 @@ public class Player extends MovingEntity implements  Runnable{
     public void PlayerShoot(){
         if( state!=JUMP)
         {
-            state=SHOOT;
-            Texture tex = new Texture();
-            Sprite s = new Sprite();
 
-            try {
+             state=SHOOT;
+             Texture tex = new Texture();
+             Sprite s = new Sprite();
+             
+             try {
+            	
+            	 	//FIXME particule selon le personnage ?
+     				tex.loadFromFile(Paths.get("res/img/logo.png"));
+     				tex.setSmooth(true);
+     				s.setTexture(tex);
+     				Particle particle = new Particle(this, s, this.getGlobalBounds().left, this.getGlobalBounds().top);
 
-                //FIXME particule selon le personnage ?
-                tex.loadFromFile(Paths.get("res/img/logo.png"));
-                tex.setSmooth(true);
-                s.setTexture(tex);
-                Particle particle = new Particle(this, s, this.getGlobalBounds().left, this.getGlobalBounds().top);
-
-
-                if(direction == RIGHT)
-                {
-                    particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
-
-                }
-
-                else
-                {
-                    particle.setMoveXDirection(Const.PARTICLE_MOVE_X_LEFT);
-                }
-
-                particles.add(particle);
-                GameLoop.screenObject.add(particle.getSprite());
-
-            }
-
-            catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
+     			
+     				if(direction == RIGHT)
+	     			{
+     					particle.setXPos(this.getGlobalBounds().left+this.getGlobalBounds().width);
+	     				particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
+	     				
+	     			}
+	     			
+	     			else
+	     			{
+	     				particle.setMoveXDirection(Const.PARTICLE_MOVE_X_LEFT);
+	     			}
+	     			
+     				particles.add(particle);
+	     			GameLoop.screenObject.add(particle.getSprite());
+     			
+     		} 
+             
+             catch (IOException e) {
+     			// TODO Auto-generated catch block
+     			e.printStackTrace();
+     		}
+             
         }
     }
 
@@ -184,9 +186,22 @@ public class Player extends MovingEntity implements  Runnable{
      */
     public void moveParticles()
     {
-        for(Particle p : particles)
+        moveLoop : for(Particle p : particles)
         {
-            //p.changePosition(p.getMoveXDirection()*(p.getXPos()+p.getSpeed()), p.getYPos());
+        	//Si durée de vie atteinte ou collision
+        	if(p.isExpired() || p.collided(GameLoop.screenObject))
+        	{
+        		particles.remove(p);
+        		GameLoop.screenObject.remove(p.getSprite());
+        		break moveLoop;
+        	}
+        	
+        	else
+        	{
+        		p.move();
+        	}
+        	
+
         }
     }
 

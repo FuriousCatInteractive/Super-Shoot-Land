@@ -1,4 +1,10 @@
 package Entities;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import org.jsfml.graphics.Drawable;
+import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 
@@ -16,9 +22,12 @@ public class Particle {
 
 	private Sprite sprite;
 	private float xPos, yPos;
-	private int moveXDirection;
-	private float speed;
+	private int moveXDirection; //direction de la particule
+	private float speed; //vitesse
 	private Player owner;
+	private long emitTime, lifeTime; //temps au début, durée de vie de la particule
+	private boolean isExpired; //la particule doit être détruite
+	private IntRect hitbox;
 
 	/**
 	 * Constructeur de particle
@@ -35,18 +44,53 @@ public class Particle {
 		sprite.setPosition(xPos, yPos);
 		sprite.setScale(Const.PARTICLE_SCALE_X, Const.PARTICLE_SCALE_Y);
 		setSpeed(Const.PARTICLE_SPEED);
+		setLifeTime(Const.PARTICLE_LIFETIME);
+		emitTime = System.currentTimeMillis();
+		hitbox = new IntRect((FloatRect)sprite.getGlobalBounds());
 	}
-	
+
 	/**
 	 * Méthode pour changer la position de la particule
 	 * @param newX
 	 * @param newY
 	 */
-	public void movePosition(float newX, float newY)
+	public void move()
 	{
-		xPos = newX;
-		yPos = newY;
-		sprite.setPosition(newX, newY);
+		long curTime = System.currentTimeMillis();
+
+		//System.out.println("EMIT TIME = "+emitTime+ ", CURTIME = "+curTime + ", LIFETIME NS ="+lifeTime);
+		//Tant que la durée de vie n'est pas atteinte on déplace la particule
+		if(curTime - emitTime <= lifeTime)
+		{
+			xPos += speed * moveXDirection;
+			sprite.setPosition(xPos, yPos);
+			hitbox = new IntRect(sprite.getGlobalBounds());
+		}
+
+		//Si durée de vie atteinte, la particule est à détruire
+		else
+		{
+			isExpired = true;
+		}
+
+	}
+
+	public boolean collided(ArrayList<Drawable> array)
+	{
+		for (int i = array.size()-1; i > -1; i--) 
+		{
+
+			if (array.get(i) instanceof GameEntity) 
+			{
+				if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) 
+				{
+					System.out.println("collision particule");
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public Player getOwner() {
@@ -67,6 +111,10 @@ public class Particle {
 		this.sprite = sprite;
 	}
 
+	public void setXPos(float xPos) {
+		this.xPos = xPos;
+	}
+
 	public float getXPos() {
 		return xPos;
 	}
@@ -79,9 +127,6 @@ public class Particle {
 		return yPos;
 	}
 
-	public void setXPos(float yPos) {
-		this.yPos = yPos;
-	}
 
 	public int getMoveXDirection() {
 		return moveXDirection;
@@ -98,7 +143,42 @@ public class Particle {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
+
+	public long getLifeTime() {
+		return lifeTime;
+	}
+
+	public void setLifeTime(long lifeTime) {
+		this.lifeTime = lifeTime;
+	}
+
+	public long getEmitTime() {
+		return emitTime;
+	}
+
+	public void setEmitTime(long emitTime) {
+		this.emitTime = emitTime;
+	}
+
+	public boolean isExpired() {
+		return isExpired;
+	}
+
+	public void setExpired(boolean isExpired) {
+		this.isExpired = isExpired;
+	}
+
+	public IntRect getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(IntRect hitbox) {
+		this.hitbox = hitbox;
+	}
 	
 	
+
+
+
 }
 
