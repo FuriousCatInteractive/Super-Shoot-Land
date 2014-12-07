@@ -40,7 +40,7 @@ public class Main {
 
         //Applications variables
         cScreen[] Screens = new cScreen[3];
-        int screen = 0;
+        int screen = 2;
         Screens[0] = new BootSplash();
         Screens[1] = new MainMenu();
         Screens[2] = new GameLoop();

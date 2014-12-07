@@ -137,16 +137,18 @@ public class Player extends MovingEntity implements  Runnable {
      * appellée quand touche jump appuyée
      */
     public void PLayerJump() {
-        yorigin = getGlobalBounds().top;
-        if (state == WALK) {
-            // System.out.println( getVitesseX());
-            setVitesseX(getVitesseX());
+        if(isGrounded) {
+            yorigin = getGlobalBounds().top;
+            if (state == WALK) {
+                // System.out.println( getVitesseX());
+                setVitesseX(getVitesseX());
+            }
+            state = JUMP;
+            enaMoveFinJUMP = false;
+            isGrounded = false;
+            up = true;
+            down = false;
         }
-        state = JUMP;
-        enaMoveFinJUMP = false;
-        isGrounded = false;
-        up = true;
-        down = false;
     }
 
     /**
