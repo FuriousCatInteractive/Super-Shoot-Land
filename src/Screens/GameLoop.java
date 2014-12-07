@@ -46,10 +46,15 @@ public class GameLoop extends cScreen {
         int taille_Font_base = 40;
         int AppX = App.getSize().x;
         int AppY = App.getSize().y;
-       // loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
+
+     //   loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
+
         p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f*AppY);
         p1.setPerso("pikachu");
         lvltest = new Level(20,(AppX/AppY)*20);
+        loadLevelToGame(App);
+        loadImage("res/img/stage1.png",0,0, AppX,AppY);
+        ((GameEntity)screenObject.get(screenObject.size()-1)).setHitbox(new IntRect(0,0,0,0));
     }
 
     /**
@@ -68,11 +73,11 @@ public class GameLoop extends cScreen {
 
 
 
-        //startMusic("res/sound/tower.ogg");
+        startMusic("res/sound/tower.ogg");
         inputGL.start();
         Thread threaPlayer1 = new Thread(p1);
         threaPlayer1.start();
-        loadLevelToGame(App);
+
 
         while (Running) {
 
@@ -106,13 +111,14 @@ public class GameLoop extends cScreen {
      */
     public void afficher(RenderWindow App){
         App.clear(Color.RED);
-        App.draw(p1);
-        afficherHitbox(App,p1);
+
+      //  afficherHitbox(App,p1);
         for (int i = screenObject.size() - 1; i > -1; i--) {
             App.draw(screenObject.get(i));
-            if(screenObject.get(i) instanceof GameEntity)
-                afficherHitbox(App, (GameEntity) screenObject.get(i));
+            //if(screenObject.get(i) instanceof GameEntity)
+            //    afficherHitbox(App, (GameEntity) screenObject.get(i));
         }
+        App.draw(p1);
         App.display();
     }
 

@@ -41,25 +41,19 @@ public class Level {
 
         //on commence en remplissant de 1
         for(int i =0;i<hauteur;i++)
-             remplirLigne(i, 1);
+             remplirLigne(i, 0);
 
         //ensuite on supprime un certain pourcentage de lignes
-        Random hasard = new Random(12);
+        Random hasard = new Random();
        // hasard.nextInt(hauteur);
         remplirLigne(0,0);
         remplirLigne(1,0);
-        for(int i =2;i<(hauteur*90)/100;i++) 
-                remplirLigne(hasard.nextInt(hauteur),0);
-
-        verifLigneAdjacentes();
-
-        for(int i =0;i<hauteur;i++) {
-
-            if(mapBinaire[i][0]==1)
-                for(int j = 0;j<hasard.nextInt((largeur*60)/100)+1; j++)
-                    mapBinaire[i][hasard.nextInt(largeur)]=0;
-            mapBinaire[i][0]=0;
-            mapBinaire[i][largeur-1]=0;
+        int amplitude = 3;
+        for(int i =2;i<hauteur-1;i+=hasard.nextInt(1)+3) {
+            for (int j = 0; j<hasard.nextInt(3)+1; j++){
+                int pos = hasard.nextInt(largeur - 2 * amplitude) + amplitude;
+                createPlateforme(i, 1, pos - hasard.nextInt(amplitude)-1, pos + hasard.nextInt(amplitude)+1);
+            }
         }
     }
 
@@ -81,31 +75,23 @@ public class Level {
      * @param val
      */
     private void remplirLigne(int numLigne, int val){
-        for(int j =0; j<largeur;j++){
+           createPlateforme(numLigne,val,0, largeur);
+    }
+
+    /**
+     * créer une plateforme
+     * @param numLigne
+     * @param val
+     * @param début
+     * @param fin
+     */
+    private void createPlateforme(int numLigne, int val, int début, int fin){
+        for(int j =début; j<fin;j++){
             mapBinaire[numLigne][j]=val;
         }
     }
 
-    /**
-     * vérifit et suppimme si deux lignes côté à côtes sont pleines
-     */
-    private void verifLigneAdjacentes(){
-        int compteur=1;
-        for(int i=2;i<hauteur-1;i++){
-            if(mapBinaire[i+1][4]==1){
-                compteur=1;
-                remplirLigne(i,0);
-            }
-            else{
-                compteur++;
-              //  System.out.println(compteur);
-                if(compteur==3){
-                   //System.out.println("---"+i);
-                    remplirLigne(i-1,1);
-                }
-            }
-        }
-    }
+
 
     public int getLargeur() {
         return largeur;
