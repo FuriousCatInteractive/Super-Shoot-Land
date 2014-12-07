@@ -83,11 +83,11 @@ public class Level {
      * créer une plateforme
      * @param numLigne
      * @param val
-     * @param début
+     * @param debut
      * @param fin
      */
-    private void createPlateforme(int numLigne, int val, int début, int fin){
-        for(int j =début; j<fin;j++){
+    private void createPlateforme(int numLigne, int val, int debut, int fin){
+        for(int j =debut; j<fin;j++){
             mapBinaire[numLigne][j]=val;
         }
     }
