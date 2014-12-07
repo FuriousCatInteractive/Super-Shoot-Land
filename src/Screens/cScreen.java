@@ -25,6 +25,7 @@ public class cScreen {
 
     protected static Sound musicBackground;
     protected static Sound musicStage1;
+    protected static Sound gameOver;
     protected Font fontScreen;
     public static ArrayList<Drawable> screenObject = new ArrayList();
 

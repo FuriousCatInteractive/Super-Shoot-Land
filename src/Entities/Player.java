@@ -41,6 +41,9 @@ public class Player extends MovingEntity implements  Runnable {
     private boolean isCollied;
     private boolean isGrounded;
 
+    private final int HP_Max=100;
+    private int HP;
+
     private ArrayList<Particle> particles; //particules tirées par le joueur
 
     public Player() {
@@ -49,6 +52,7 @@ public class Player extends MovingEntity implements  Runnable {
         particles = new ArrayList<Particle>();
         isCollied = false;
         isGrounded = false;
+        HP=HP_Max;
     }
 
     /**
@@ -205,11 +209,10 @@ public class Player extends MovingEntity implements  Runnable {
      */
     @Override
     public void run() {
-
+        // while (GameLoop.gameState==GameLoop.Running) {
         moveParticles();
         updatePplayerPhysics();
-        //  isGrounded(GameLoop.screenObject);
-        //
+        verifOutOfTableau();
         synchronized (GameLoop.screenObject) {
             if (verifCollision(GameLoop.screenObject) != 0) {
                 updateTexture(this);
@@ -220,6 +223,7 @@ public class Player extends MovingEntity implements  Runnable {
                 // up=false;
             }
         }
+        //  }
     }
 
     public String getPerso() {
@@ -303,17 +307,37 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     private boolean isGrounded(ArrayList<Drawable> array) {
-       // System.out.println("test");
+        // System.out.println("test");
         IntRect hitboxTemp = new IntRect(hitbox.left/*+(int)vitesseX*/, hitbox.top +15, hitbox.width, hitbox.height);
         for (int i = array.size() - 1; i > -1; i--) {
             if (array.get(i) instanceof GameEntity) {
                 IntRect res = (hitboxTemp.intersection(((GameEntity) array.get(i)).getHitbox()));
                 if (res != null) {
-                  //  System.out.println("test gronded");
+                    //  System.out.println("test gronded");
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private void verifOutOfTableau(){
+        if(hitbox.top>=GameLoop.AppY){
+            HP=0;
+            System.out.println("player dead");
+        }
+    }
+
+    public boolean isDead(){
+        if(HP<=0)
+            return true;
+        else
+            return  false;
+    }
+
+    public void playerReset(){
+        HP=100;
+        state=IDLE;
+        setPosition(GameLoop.AppX/2,GameLoop.AppY/2 );
     }
 }

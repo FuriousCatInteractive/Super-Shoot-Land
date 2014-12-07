@@ -7,6 +7,7 @@ import InputGameLoop.InputMananger;
 import Level.Level;
 import Tools.KeyboardActions;
 
+import org.jsfml.audio.Sound;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -32,9 +33,18 @@ public class GameLoop extends cScreen {
     public static Player p1;
     public Level lvltest ;
 
+    public static int AppX;
+    public static int AppY;
+
     private InputMananger inputGL;
 
+    public final static int Running=1;
+    public final static int Pause=0;
+    public static int gameState;
+
     public GameLoop() {
+        gameState=Running;
+
     }
 
     /**
@@ -44,17 +54,17 @@ public class GameLoop extends cScreen {
     private void loadScreenObjects(RenderWindow App) {
         loadFont("res/font/Volter__28Goldfish_29.ttf");
         int taille_Font_base = 40;
-        int AppX = App.getSize().x;
-        int AppY = App.getSize().y;
+        AppX = App.getSize().x;
+        AppY = App.getSize().y;
 
-     //   loadText("play", App.getSize().x / 2, 40, 2 * taille_Font_base);
+        loadImage("res/img/stage1.png",0,0, AppX,AppY);
+        ((GameEntity)screenObject.get(screenObject.size()-1)).setHitbox(new IntRect(0,0,0,0));
 
         p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f*AppY);
         p1.setPerso("pikachu");
         lvltest = new Level(20,(AppX/AppY)*20);
         loadLevelToGame(App);
-        loadImage("res/img/stage1.png",0,0, AppX,AppY);
-        ((GameEntity)screenObject.get(screenObject.size()-1)).setHitbox(new IntRect(0,0,0,0));
+
     }
 
     /**
@@ -63,24 +73,20 @@ public class GameLoop extends cScreen {
      * @return
      */
     public int Run(RenderWindow App) {
-
+        gameState=Running;
         loadScreenObjects(App);
         inputGL= new InputMananger(App);
 
-        boolean Running = true;
-
-        p1.setPosition(App.getSize().x / 2, App.getSize().y / 2);
-
-
-
+        p1.playerReset();
 
         musicStage1.play();
         inputGL.start();
-        Thread threaPlayer1 = new Thread(p1);
-        threaPlayer1.start();
+       // Thread threaPlayer1 = new Thread(p1);
+       // threaPlayer1.start();
 
 
-        while (Running) {
+
+        while (gameState == Running) {
 
             //returnvalue mis à jour par thread input
             inputGL.run();
@@ -88,7 +94,15 @@ public class GameLoop extends cScreen {
                 return returnValue;
 
             p1.run();
+            if(p1.isDead())
+                messageDefaite();
+            afficher(App);
+        }
+        while(gameState == Pause){
 
+            inputGL.run();
+            if(returnValue <= 50)
+                return mainMenu;
             afficher(App);
         }
         //Never reaching this point normally, but just in case, exit the application
@@ -113,8 +127,8 @@ public class GameLoop extends cScreen {
     public void afficher(RenderWindow App){
         App.clear(Color.RED);
 
-      //  afficherHitbox(App,p1);
-        for (int i = screenObject.size() - 1; i > -1; i--) {
+        //  afficherHitbox(App,p1);
+        for (int i = 0; i <  screenObject.size() ; i++) {
             App.draw(screenObject.get(i));
             //if(screenObject.get(i) instanceof GameEntity)
             //    afficherHitbox(App, (GameEntity) screenObject.get(i));
@@ -141,6 +155,20 @@ public class GameLoop extends cScreen {
                     loadImage("res/img/block.png", j*w_block,i*h_block, w_block, h_block);
             }
         }
+    }
+
+    private  int  messageDefaite(){
+        musicStage1.stop();
+
+
+        gameOver.play();
+        newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);
+        loadText("Game Over!", AppX / 2, AppY/2-20, 40);
+        loadText("(Appuyez sur une \"ESC\" pour revenir au menu)", AppX / 2, AppY/2+20, 20);
+        gameState=Pause;
+
+        return 2;
+
     }
 }
 
