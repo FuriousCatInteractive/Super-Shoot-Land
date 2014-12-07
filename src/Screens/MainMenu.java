@@ -39,7 +39,7 @@ public class MainMenu extends cScreen implements iMenu{
         loadText("Config", AppX/2+offsetX,AppY/2+offsety,taille_Font_base);
         loadText("Exit", AppX/2+offsetX,2*AppY/3+offsety,taille_Font_base);
 
-        loadText("Titre", AppX/2,AppY/20,2*taille_Font_base);
+        loadText("Super Shoot Land", AppX/2,AppY/15,(int)1.1*taille_Font_base);
         ((Text)screenObject.get(3)).setColor(light_green);
         loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20,taille_Font_base/2);
         ((Text)screenObject.get(4)).setColor(light_green);

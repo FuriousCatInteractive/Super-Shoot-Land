@@ -48,8 +48,9 @@ public class Level {
        // hasard.nextInt(hauteur);
         remplirLigne(0,0);
         remplirLigne(1,0);
+        remplirLigne(2,0);
         int amplitude = 3;
-        for(int i =2;i<hauteur-1;i+=hasard.nextInt(1)+3) {
+        for(int i =3;i<hauteur-1;i+=hasard.nextInt(1)+3) {
             for (int j = 0; j<hasard.nextInt(3)+1; j++){
                 int pos = hasard.nextInt(largeur - 2 * amplitude) + amplitude;
                 createPlateforme(i, 1, pos - hasard.nextInt(amplitude)-1, pos + hasard.nextInt(amplitude)+1);
