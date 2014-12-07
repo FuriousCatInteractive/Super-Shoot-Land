@@ -23,7 +23,8 @@ public class cScreen {
     public static final Color logo_green = new Color(167,186, 74, 255);
     public static final Color light_green = new Color(211,226,154, 255);
 
-    protected static Sound sound;
+    protected static Sound musicBackground;
+    protected static Sound musicStage1;
     protected Font fontScreen;
     public static ArrayList<Drawable> screenObject = new ArrayList();
 
@@ -80,9 +81,9 @@ public class cScreen {
         screenObject.add(rect);
     }
 
-    protected void startMusic(String path)
+    protected static Sound loadMusic(String path)
     {
-
+        Sound sound1 = new Sound();
         SoundBuffer soundBuffer = new SoundBuffer();
         try {
             soundBuffer.loadFromFile(Paths.get(path));
@@ -94,10 +95,11 @@ public class cScreen {
         }
 
         //Create a sound and set its buffer
-        sound = new Sound();
-        sound.setBuffer(soundBuffer);
-        sound.play();
+        //sound = new Sound();
+        sound1.setBuffer(soundBuffer);
+        //sound.play();
         //sound.setVolume(40.0f);
+        return sound1;
     }
 
    public Player loadPlayer(String path, float scale){

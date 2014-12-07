@@ -1,5 +1,6 @@
 package Screens;
 
+import org.jsfml.audio.Sound;
 import org.jsfml.graphics.*;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
@@ -19,7 +20,11 @@ public class BootSplash extends cScreen{
     private boolean ok;
     private boolean ok2;
 
+    private Sound miaou;
+    MusicLoader loader;
+
     public void BootSplashInit(RenderWindow fenetre){
+
 
         maTexture = new Texture(); // déclaration d'une texture
         cat = new Sprite();
@@ -43,6 +48,8 @@ public class BootSplash extends cScreen{
         alpha=0;
         ok = false;
         ok2=false;
+
+        miaou = loadMusic("res/sound/Meow.ogg");
     }
 
     public int Run(RenderWindow App){
@@ -51,6 +58,10 @@ public class BootSplash extends cScreen{
         BootSplashInit(App);
         long debut_bootsplash = System.currentTimeMillis();
         int duree=5000;
+
+        loader = new MusicLoader();
+        loader.start();
+        //loader.run();
 
         while (System.currentTimeMillis()-debut_bootsplash<duree && Running)
         {
@@ -85,6 +96,11 @@ public class BootSplash extends cScreen{
 
         //Never reaching this point normally, but just in case, exit the application
         System.out.println("bootsplash finit");
+        /*try {
+            loader.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         return (1);
     }
 
@@ -106,8 +122,10 @@ public class BootSplash extends cScreen{
         }
         else if(ok2==true)
         {
-            this.startMusic("res/sound/Meow.ogg");
+            //this.startMusic("res/sound/Meow.ogg", );
+            miaou.play();
             ok2=false;
         }
     }
+
 }

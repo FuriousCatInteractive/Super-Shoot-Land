@@ -54,7 +54,8 @@ public class MainMenu extends cScreen implements iMenu{
 
     public int Run(RenderWindow App){
 
-        startMusic("res/sound/theme-ssb.ogg");
+
+        musicBackground.play();
 
         loadScreenObjects(App);
 
@@ -115,7 +116,7 @@ public class MainMenu extends cScreen implements iMenu{
         //click de la souris
         if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
             event.asMouseEvent();
-            sound.stop();
+            musicBackground.stop();
             screenObject.clear();
             return choixValide();
         }
@@ -148,7 +149,7 @@ public class MainMenu extends cScreen implements iMenu{
             }
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
-                sound.stop();
+                musicBackground.stop();
                 screenObject.clear();
                 return choixValide();
             }

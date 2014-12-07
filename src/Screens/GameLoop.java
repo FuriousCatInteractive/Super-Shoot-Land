@@ -73,7 +73,8 @@ public class GameLoop extends cScreen {
 
 
 
-        startMusic("res/sound/tower.ogg");
+
+        musicStage1.play();
         inputGL.start();
         Thread threaPlayer1 = new Thread(p1);
         threaPlayer1.start();
@@ -100,7 +101,7 @@ public class GameLoop extends cScreen {
      * @return
      */
     public static int retourne(int nextMenu){
-        sound.stop();
+        musicStage1.stop();
         screenObject.clear();
         return nextMenu;
     }
