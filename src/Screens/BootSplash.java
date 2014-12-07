@@ -72,8 +72,8 @@ public class BootSplash extends cScreen{
                 if (event.type == event.type.CLOSED)
                     return (-1);
 
-                if(event.type == Event.Type.MOUSE_BUTTON_RELEASED)
-                    return 1;
+                //if(event.type == Event.Type.MOUSE_BUTTON_RELEASED)
+                   // return 1;
 
                 //Key pressed
                 if (event.type == Event.Type.KEY_PRESSED)
@@ -81,8 +81,8 @@ public class BootSplash extends cScreen{
                     event.asKeyEvent();
                     if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE))
                         return (-1);
-                    else
-                        return 1;
+                  //  else
+                       // return 1;
                 }
             }
 
