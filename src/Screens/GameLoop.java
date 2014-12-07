@@ -60,10 +60,36 @@ public class GameLoop extends cScreen {
         loadImage("res/img/stage1.png",0,0, AppX,AppY);
         ((GameEntity)screenObject.get(screenObject.size()-1)).setHitbox(new IntRect(0,0,0,0));
 
-        p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f*AppY);
-        p1.setPerso("pikachu");
+        loadPerso(SelectPerso.persoSelect);
         lvltest = new Level(20,(AppX/AppY)*20);
         loadLevelToGame(App);
+
+    }
+
+    /**
+     * charge le perso coorespondant au num
+     * sélectionnéà l'écran précédent
+     */
+    public void loadPerso(int num){
+
+        switch (num) {
+            case Player.PIKACHU:
+                p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
+                break;
+            case Player.MARIO:
+                p1 = loadPlayer("res/img/mario-spritesheet.png", 0.007f * AppY);
+                break;
+            case Player.LINK:
+                p1 = loadPlayer("res/img/link-spritesheet.png", 0.007f * AppY);
+                break;
+            case Player.MEGAMAN:
+                p1 = loadPlayer("res/img/megaman-spritesheet.png", 0.007f * AppY);
+                break;
+            default:
+                p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
+                break;
+        }
+        p1.setPerso(num);
 
     }
 
@@ -81,10 +107,8 @@ public class GameLoop extends cScreen {
 
         musicStage1.play();
         inputGL.start();
-       // Thread threaPlayer1 = new Thread(p1);
-       // threaPlayer1.start();
-
-
+        // Thread threaPlayer1 = new Thread(p1);
+        // threaPlayer1.start();
 
         while (gameState == Running) {
 
@@ -127,13 +151,14 @@ public class GameLoop extends cScreen {
     public void afficher(RenderWindow App){
         App.clear(Color.RED);
 
-        //  afficherHitbox(App,p1);
+
         for (int i = 0; i <  screenObject.size() ; i++) {
             App.draw(screenObject.get(i));
             //if(screenObject.get(i) instanceof GameEntity)
             //    afficherHitbox(App, (GameEntity) screenObject.get(i));
         }
         App.draw(p1);
+       // afficherHitbox(App,p1);
         App.display();
     }
 
@@ -147,8 +172,8 @@ public class GameLoop extends cScreen {
     }
 
     public  void loadLevelToGame(RenderWindow App){
-        int h_block = App.getSize().y/lvltest.getHauteur();
-        int w_block = App.getSize().x/lvltest.getLargeur();
+        int h_block = AppY/lvltest.getHauteur();
+        int w_block = AppX/lvltest.getLargeur();
         for(int i =0;i<lvltest.getHauteur();i++) {
             for (int j = 0; j < lvltest.getLargeur(); j++) {
                 if(lvltest.mapBinaire[i][j]==1)
@@ -159,7 +184,6 @@ public class GameLoop extends cScreen {
 
     private  int  messageDefaite(){
         musicStage1.stop();
-
 
         gameOver.play();
         newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);

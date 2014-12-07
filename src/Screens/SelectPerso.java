@@ -1,5 +1,6 @@
 package Screens;
 
+import Entities.Player;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -23,25 +24,25 @@ public class SelectPerso extends cScreen implements iMenu{
     private final int exit = -1;
     private final int mainMenu = 1;
 
-    private int persoSelect;
+    private int AppX;
+    private int AppY;
+
+    public static int persoSelect;
 
     public SelectPerso() {
         pos = new Vector2i(0,0);
         menu = 0;
-        nb_choix_menu = 6;
+        nb_choix_menu = 4;
         persoSelect=1;
     }
 
     private void loadScreenObjects(RenderWindow App){
         loadFont( "res/font/Volter__28Goldfish_29.ttf");
-        int AppX = App.getSize().x;
-        int AppY = App.getSize().y;
+        AppX = App.getSize().x;
+        AppY = App.getSize().y;
         int taille_Font_base = (int)(0.06*AppY);
         int offsetX =AppX/3-20;
         int offsety = AppY/20;
-        loadText("Play", AppX/2+offsetX,AppY/3+offsety,taille_Font_base);
-        loadText("Retour", AppX/2+offsetX,AppY/3+3*offsety,taille_Font_base);
-
 
         int hauteur_min = AppY/8;
         int largeur_min = AppX/8;
@@ -60,26 +61,27 @@ public class SelectPerso extends cScreen implements iMenu{
         loadImage("res/img/miniature_link.png",origin_x_min, origin_y_min+2*(ecart_min+hauteur_min), largeur_min,hauteur_min );
         loadImage("res/img/miniature_megaman.png",origin_x_min, origin_y_min+3*(ecart_min+hauteur_min), largeur_min,hauteur_min );
 
-        loadText("Select your Character", AppX/2,AppY/15,(int)1.1*taille_Font_base);
+        loadText("Select your Character", AppX/2,AppY/15,(int)1.6*taille_Font_base);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
+
+        loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20, (int) (taille_Font_base/1.5));
         ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
 
         newRect(AppX, AppY/5, 0 ,0, dark_green);
         newRect(AppX, 10, 0 ,AppY/5, light_green);
         newRect(AppX, AppY/11, 0 ,10*AppY/11, dark_green);
         newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
-
-        // System.out.println(500/(float)AppX);
-       // ((Sprite)screenObject.get(screenObject.size()-1)).setScale(0.0017f*AppY,0.0017f*AppY);
     }
 
     public int Run(RenderWindow App){
-
 
         musicBackground.play();
 
         loadScreenObjects(App);
 
         boolean Running = true;
+
+        loadImagePerso(persoSelect);
 
         while (Running)
         {
@@ -88,6 +90,10 @@ public class SelectPerso extends cScreen implements iMenu{
                 return  returnValue;
 
             menuSelectionne(menu);
+
+            screenObject.remove(screenObject.size()-1);
+            loadImagePerso(menu+1);
+
 
             App.clear(background_green);
             for(int i=screenObject.size()-1 ;i>-1;i--) {
@@ -135,6 +141,7 @@ public class SelectPerso extends cScreen implements iMenu{
 
         //click de la souris
         if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
+            persoSelect=menu+1;
             event.asMouseEvent();
             musicBackground.stop();
             screenObject.clear();
@@ -152,7 +159,7 @@ public class SelectPerso extends cScreen implements iMenu{
 
             if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)){
                 screenObject.clear();
-                return  exit;
+                return  mainMenu;
             }
 
 
@@ -169,13 +176,11 @@ public class SelectPerso extends cScreen implements iMenu{
             }
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
-                if(menu == 0 || menu == 1) {
+                    persoSelect=menu+1;
                     musicBackground.stop();
                     screenObject.clear();
                     return choixValide();
-                }
-                else
-                    persoSelect=menu-1;
+
             }
         }
         //si on ne quitte pas cet écran
@@ -184,7 +189,7 @@ public class SelectPerso extends cScreen implements iMenu{
 
     public void menuSelectionne(int numero){
         for(int i =0; i<nb_choix_menu;i++)        {
-            if(i==numero || i==persoSelect+1)
+            if( i==menu)
                 ((Text)screenObject.get(i)).setColor(light_green);
             else
                 ((Text)screenObject.get(i)).setColor(dark_green);
@@ -192,15 +197,35 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     public int choixValide(){
-        int returnvalue =100;
-        switch (menu){
-            case 0:
-                returnvalue = play;
-                break;
-            case 1:
-                returnvalue = mainMenu;
-                break;
-          }
+        int   returnvalue = play;
         return returnvalue;
+    }
+
+    /**
+     * charge le perso coorespondant au num
+     * sélectionnéà l'écran précédent
+     */
+    public void loadImagePerso(int num)        {
+        int x = AppX/15;
+        int y = AppY/3;
+        int w = AppX/4;
+        int h = AppY/2;
+        switch (num) {
+            case Player.PIKACHU:
+                loadImage("res/img/max_pikachu.png", x, y, w, h);
+                break;
+            case Player.MARIO:
+                loadImage("res/img/max_mario.png",x, y, w, h);
+                break;
+            case Player.LINK:
+                loadImage("res/img/max_link.png", x, y, w, h);
+                break;
+            case Player.MEGAMAN:
+                loadImage("res/img/max_megaman.png", x, y, w, h);
+                break;
+            default:
+                loadImage("res/img/max_pikachu.png", x, y, w, h);
+                break;
+        }
     }
 }

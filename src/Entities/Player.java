@@ -36,7 +36,7 @@ public class Player extends MovingEntity implements  Runnable {
 
     public int[] state = IDLE;
 
-    private String perso;
+    private int perso;
 
     private boolean isCollied;
     private boolean isGrounded;
@@ -44,11 +44,16 @@ public class Player extends MovingEntity implements  Runnable {
     private final int HP_Max=100;
     private int HP;
 
+    public final static int PIKACHU = 1;
+    public final static int MARIO = 2;
+    public final static int LINK = 3;
+    public final static int MEGAMAN = 4;
+
     private ArrayList<Particle> particles; //particules tirées par le joueur
 
     public Player() {
         hitbox = new IntRect((FloatRect) this.getGlobalBounds());
-        perso = "mario";
+        perso = PIKACHU;
         particles = new ArrayList<Particle>();
         isCollied = false;
         isGrounded = false;
@@ -116,7 +121,7 @@ public class Player extends MovingEntity implements  Runnable {
                 tex.setSmooth(true);
                 s.setTexture(tex);
                 Particle particle = new Particle(this, s);
-                particle.setPosition(getHitbox().left, getHitbox().top+getHitbox().height/2);
+                particle.setPosition(getHitbox().left, getHitbox().top+getHitbox().height/6);
 
                 if (direction == RIGHT) {
                     particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
@@ -225,11 +230,11 @@ public class Player extends MovingEntity implements  Runnable {
         //  }
     }
 
-    public String getPerso() {
+    public int getPerso() {
         return perso;
     }
 
-    public void setPerso(String perso) {
+    public void setPerso(int perso) {
         this.perso = perso;
     }
 
@@ -237,18 +242,21 @@ public class Player extends MovingEntity implements  Runnable {
      * déplace la hitbox en même temps que le perso
      */
     public void updateHitbox() {
-        if (perso.equals("pikachu")) {
-            //System.out.println("pika!");
-            IntRect big = new IntRect(this.getGlobalBounds());
-            int x = big.left + big.width / 2 - big.width / 8;
-            int y = big.top + big.height - (int) (big.height / 1.55);
-            int w = big.width / 4;
-            int h = (int) (big.height / 1.55);
-            hitbox = new IntRect(x, y, w, h);
+        IntRect big = new IntRect(this.getGlobalBounds());
+        int x, y, w, h;
 
-            //System.out.println("hitbox="+hitbox);
-        }
+        //System.out.println("pika!");
+        x = big.left + big.width / 2 - big.width / 6;
+        y = big.top + big.height - (int) (big.height / 1.75);
+        w = big.width / 3;
+        h = (int) (big.height / 1.75);
+        hitbox = new IntRect(x, y, w, h);
+
+
+        //System.out.println("hitbox="+hitbox);
     }
+
+
 
     /**
      * vérifit les collisions avec le reste des éléments du jeu
