@@ -112,14 +112,13 @@ public class Player extends MovingEntity implements  Runnable {
             try {
 
                 //FIXME particule selon le personnage ?
-                tex.loadFromFile(Paths.get("res/img/logo.png"));
+                tex.loadFromFile(Paths.get(Const.IMG_PATH+"particle.png"));
                 tex.setSmooth(true);
                 s.setTexture(tex);
-                Particle particle = new Particle(this, s, this.getGlobalBounds().left, this.getGlobalBounds().top);
-
+                Particle particle = new Particle(this, s);
+                particle.setPosition(getHitbox().left, getHitbox().top+getHitbox().height/2);
 
                 if (direction == RIGHT) {
-                    particle.setXPos(this.getGlobalBounds().left + this.getGlobalBounds().width);
                     particle.setMoveXDirection(Const.PARTICLE_MOVE_X_RIGHT);
 
                 } else {

@@ -31,6 +31,7 @@ public class Particle {
 
 	/**
 	 * Constructeur de particle
+	 * @param owner
 	 * @param sprite
 	 * @param xPos
 	 * @param yPos
@@ -47,6 +48,31 @@ public class Particle {
 		setLifeTime(Const.PARTICLE_LIFETIME);
 		emitTime = System.currentTimeMillis();
 		hitbox = new IntRect((FloatRect)sprite.getGlobalBounds());
+	}
+	
+	/**
+	 * Constructeur de particle
+	 * @param owner
+	 * @param sprite
+	 * @param xPos
+	 * @param yPos
+	 */
+	public Particle(Player owner, Sprite sprite) {
+		super();
+		this.owner = owner;
+		this.sprite = sprite;
+		sprite.setScale(Const.PARTICLE_SCALE_X, Const.PARTICLE_SCALE_Y);
+		setSpeed(Const.PARTICLE_SPEED);
+		setLifeTime(Const.PARTICLE_LIFETIME);
+		emitTime = System.currentTimeMillis();
+		hitbox = new IntRect((FloatRect)sprite.getGlobalBounds());
+	}
+	
+	public void setPosition(float x, float y)
+	{
+		xPos = x;
+		yPos = y;
+		sprite.setPosition(xPos,yPos);
 	}
 
 	/**
@@ -79,14 +105,17 @@ public class Particle {
 	{
 		for (int i = array.size()-1; i > -1; i--) 
 		{
-
 			if (array.get(i) instanceof GameEntity) 
 			{
-				if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) 
+				if(array.get(i) != owner)
 				{
-					System.out.println("collision particule");
-					return true;
+					if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) 
+					{
+						System.out.println("collision particule");
+						return true;
+					}	
 				}
+				
 			}
 		}
 
