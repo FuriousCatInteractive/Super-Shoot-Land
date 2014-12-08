@@ -19,6 +19,8 @@ public class MusicLoader extends Thread {
         cScreen.shoot = cScreen.loadMusic("res/sound/shoot.ogg");
         cScreen.pick = cScreen.loadMusic("res/sound/pick.ogg");
         cScreen.select= cScreen.loadMusic("res/sound/select.ogg");
+        cScreen.hit = cScreen.loadMusic("res/sound/hit2.ogg");
+        cScreen.jump = cScreen.loadMusic("res/sound/jump2.ogg");
         System.out.println("fin loadmusic");
     }
 }

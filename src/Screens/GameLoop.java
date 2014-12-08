@@ -111,17 +111,18 @@ public class GameLoop extends cScreen {
      * @return
      */
     public int Run(RenderWindow App) {
+
         musicBackground.stop();
         gameState=Running;
         loadScreenObjects(App);
         inputGL= new InputMananger(App);
 
-        p1.playerReset();
         p1.setPlayerNumber(Const.PLAYER1);
+        p1.playerReset();
         screenObject.add(p1);
-       
-        p2.playerReset();   
+
         p2.setPlayerNumber(Const.PLAYER2);
+        p2.playerReset();
         screenObject.add(p2);
         
         musicStage1.play();
