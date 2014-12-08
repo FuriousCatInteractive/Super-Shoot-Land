@@ -10,12 +10,10 @@ Echap : ESCAPE
 
 	<bind type="MOVE_LEFT">
 		<key name="LEFT">X</key>
-		<key name="A"></key>
 	</bind>
 	
 	<bind type="MOVE_RIGHT">
 		<key name="RIGHT"></key>
-		<key name="D"></key>
 	</bind>
 	
 	<bind type="JUMP">

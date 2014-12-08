@@ -45,7 +45,6 @@ public class Main {
         Screens[1] = new MainMenu();
         Screens[4] = new SelectMode();
         Screens[5] = new SelectPersoLocal();
-        Screens[6] = new GameLoopLocal();
         Screens[3] = new SelectPerso();
         Screens[2] = new GameLoop();
 

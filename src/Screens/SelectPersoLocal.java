@@ -102,12 +102,15 @@ public class SelectPersoLocal extends cScreen{
 
         while (Running)
         {
+
+
             int returnValue = eventManager(App);
             if(returnValue<=50)
                 return  returnValue;
 
             menuSelectionne(menu, 1);
             menuSelectionne(menu2, 2);
+
 
             screenObject.remove(screenObject.size()-1);
             loadImagePerso(menu+1,1);
@@ -216,9 +219,15 @@ public class SelectPersoLocal extends cScreen{
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
                 ok1=true;
                 if(ok1 && ok2) {
-                    persoSelect1 = menu + 1;
+
+                    persoSelect1=menu+1;
+                    persoSelect2=menu2+1;
+                    System.out.println("p1= "+persoSelect1);
+                    System.out.println("p2= "+persoSelect2);
                     musicBackground.stop();
                     screenObject.clear();
+                    ok2=false;
+                    ok2=false;
                     return choixValide();
                 }
 
@@ -241,9 +250,15 @@ public class SelectPersoLocal extends cScreen{
                 ok2=true;
 
                 if(ok1 && ok2) {
+
+                    persoSelect1=menu+1;
                     persoSelect2=menu2+1;
+                    System.out.println("p1= "+persoSelect1);
+                    System.out.println("p2= "+persoSelect2);
                     musicBackground.stop();
                     screenObject.clear();
+                    ok2=false;
+                    ok2=false;
                     return choixValide();
                 }
 
@@ -276,7 +291,7 @@ public class SelectPersoLocal extends cScreen{
      * @return
      */
     public int choixValide(){
-        int   returnvalue = gameLoopLocal;
+        int   returnvalue = play;
         return returnvalue;
     }
 

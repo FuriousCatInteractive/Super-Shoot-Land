@@ -1,5 +1,6 @@
 package Tools;
 
+import Screens.SelectMode;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.KeyEvent;
@@ -42,7 +43,7 @@ public class KeyboardActions {
 					}
 				}
 			}
-		}
+  		}
 		
 		
 		/*if(event.type == Event.Type.KEY_RELEASED)

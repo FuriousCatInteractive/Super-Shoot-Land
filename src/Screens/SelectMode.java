@@ -17,6 +17,8 @@ public class SelectMode extends cScreen implements iMenu{
     private int menu;
     private int nb_choix_menu;
 
+    public static boolean local;
+
 
 
     /**
@@ -204,9 +206,11 @@ public class SelectMode extends cScreen implements iMenu{
         int returnvalue =100;
         switch (menu){
             case 0:
+                local=true;
                 returnvalue = selectPersoLocal;
                 break;
             case 1:
+                local=false;
                 returnvalue = selectPerso;/////////////////////////////////////////////////////////////////////
                 break;
             case 2:

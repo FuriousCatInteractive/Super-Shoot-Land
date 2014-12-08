@@ -29,6 +29,7 @@ public class GameLoop extends cScreen {
     public static int returnValue=1000;
 
     public static Player p1;
+    public static Player p2;
     public Level lvltest ;
 
     public static int AppX;
@@ -58,7 +59,15 @@ public class GameLoop extends cScreen {
         loadImage("res/img/stage1.png",0,0, AppX,AppY);
         ((GameEntity)screenObject.get(screenObject.size()-1)).setHitbox(new IntRect(0,0,0,0));
 
-        loadPerso(SelectPerso.persoSelect);
+        if(SelectMode.local){
+            System.out.println("play locally");
+            p1 = loadPerso(SelectPersoLocal.persoSelect1);
+            p2 = loadPerso(SelectPersoLocal.persoSelect2);
+        }
+        else {
+            p1 = loadPerso(SelectPerso.persoSelect);
+        }
+
         lvltest = new Level(20,(AppX/AppY)*20);
         loadLevelToGame(App);
 
@@ -68,26 +77,27 @@ public class GameLoop extends cScreen {
      * charge le perso coorespondant au num
      * sélectionnéà l'écran précédent
      */
-    public void loadPerso(int num){
-
+    public Player loadPerso(int num){
+        Player p;
         switch (num) {
             case Player.PIKACHU:
-                p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
                 break;
             case Player.MARIO:
-                p1 = loadPlayer("res/img/mario-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer("res/img/mario-spritesheet.png", 0.007f * AppY);
                 break;
             case Player.LINK:
-                p1 = loadPlayer("res/img/link-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer("res/img/link-spritesheet.png", 0.007f * AppY);
                 break;
             case Player.MEGAMAN:
-                p1 = loadPlayer("res/img/megaman-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer("res/img/megaman-spritesheet.png", 0.007f * AppY);
                 break;
             default:
-                p1 = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
                 break;
         }
-        p1.setPerso(num);
+        p.setPerso(num);
+        return p;
 
     }
 
@@ -102,6 +112,7 @@ public class GameLoop extends cScreen {
         inputGL= new InputMananger(App);
 
         p1.playerReset();
+        p2.playerReset();
 
         musicStage1.play();
         inputGL.start();
@@ -116,6 +127,7 @@ public class GameLoop extends cScreen {
                 return returnValue;
 
             p1.run();
+            p2.run();
             if(p1.isDead())
                 messageDefaite();
             afficher(App);
@@ -156,6 +168,7 @@ public class GameLoop extends cScreen {
             //    afficherHitbox(App, (GameEntity) screenObject.get(i));
         }
         App.draw(p1);
+        App.draw(p2);
        // afficherHitbox(App,p1);
         App.display();
     }

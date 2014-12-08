@@ -1,6 +1,7 @@
 package InputGameLoop;
 
 import Screens.GameLoop;
+import Screens.SelectMode;
 import Tools.KeyboardActions;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Keyboard;
@@ -79,14 +80,33 @@ public class InputMananger extends Thread {
                 GameLoop.p1.PLayerWalk(RIGHT);
             }
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
+            if (SelectMode.local) {
+                if (Keyboard.isKeyPressed(Keyboard.Key.R)) {
+                    GameLoop.p2.PlayerShoot();
+                }
+                else if (Keyboard.isKeyPressed(Keyboard.Key.T)) {
+                    GameLoop.p2.PLayerJump();
+                }
+                if (Keyboard.isKeyPressed(Keyboard.Key.Q)) {
+                    GameLoop.p2.PLayerWalk(LEFT);
+                }
+                else if (Keyboard.isKeyPressed(Keyboard.Key.D)) {
+                    GameLoop.p2.PLayerWalk(RIGHT);
+                }
             }
+
+
         }
 
         else if(event.type == Event.Type.KEY_RELEASED) {
             if (KeyboardActions.movementKeyReleased(event)) {
                 // System.out.println("-------------->jey left relachée");
                 GameLoop.p1.PlayerIdle();
+            }
+            if (SelectMode.local) {
+                if (KeyboardActions.movementKeyReleased(event)) {
+                    GameLoop.p2.PlayerIdle();
+                }
             }
         }
         //si on ne quitte pas cet écran
