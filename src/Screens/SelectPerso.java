@@ -56,9 +56,9 @@ public class SelectPerso extends cScreen implements iMenu{
 
 
         loadImage("res/img/miniature_pikachu.png",origin_x_min, origin_y_min, largeur_min,hauteur_min );
-        loadImage("res/img/miniature_pikachu.png",origin_x_min, origin_y_min+1*(ecart_min+hauteur_min), largeur_min,hauteur_min );
-        loadImage("res/img/miniature_pikachu.png",origin_x_min, origin_y_min+2*(ecart_min+hauteur_min), largeur_min,hauteur_min );
-        loadImage("res/img/miniature_pikachu.png",origin_x_min, origin_y_min+3*(ecart_min+hauteur_min), largeur_min,hauteur_min );
+        loadImage("res/img/miniature_mario.png",origin_x_min, origin_y_min+1*(ecart_min+hauteur_min), largeur_min,hauteur_min );
+        loadImage("res/img/miniature_link.png",origin_x_min, origin_y_min+2*(ecart_min+hauteur_min), largeur_min,hauteur_min );
+        loadImage("res/img/miniature_megaman.png",origin_x_min, origin_y_min+3*(ecart_min+hauteur_min), largeur_min,hauteur_min );
 
         loadText("Select your Character", AppX/2,AppY/15,(int)1.1*taille_Font_base);
         ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
