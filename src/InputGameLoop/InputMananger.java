@@ -66,58 +66,44 @@ public class InputMananger extends Thread {
 			event.asKeyEvent();
 			
 			int activePlayer = KeyboardActions.getPlayerKey(event);
-			
-			switch(activePlayer)
-			{
-				case Const.PLAYER1:
-					
+
 					if (KeyboardActions.quitKeyPressed()) {
 						return GameLoop.retourne(GameLoop.mainMenu);
 					}
 
-					if ((KeyboardActions.isAttacking())) {
+					if ((KeyboardActions.isAttacking(GameLoop.p1))) {
 						System.out.println("PLAYER 1 SHOT");
 						cScreen.shoot.play();
 						GameLoop.p1.PlayerShoot();
 					}
-					else if (KeyboardActions.isJumping()) {
+					else if (KeyboardActions.isJumping(GameLoop.p1)) {
 						GameLoop.p1.PLayerJump();
 					}
-					if ((KeyboardActions.isMovingLeft())) {
+					if ((KeyboardActions.isMovingLeft(GameLoop.p1))) {
 						GameLoop.p1.PLayerWalk(LEFT);
 					}
-					else if ((KeyboardActions.isMovingRight())) {
+					else if ((KeyboardActions.isMovingRight(GameLoop.p1))) {
 						GameLoop.p1.PLayerWalk(RIGHT);
 					}
-				break;
-					
-				case Const.PLAYER2:
-					
+
 					if (KeyboardActions.quitKeyPressed()) {
 						return GameLoop.retourne(GameLoop.mainMenu);
 					}
 
-					if ((KeyboardActions.isAttacking())) {
+					if ((KeyboardActions.isAttacking(GameLoop.p2))) {
 						System.out.println("PLAYER 2 SHOT");
 						cScreen.shoot.play();
 						GameLoop.p2.PlayerShoot();
 					}
-					else if (KeyboardActions.isJumping()) {
+					else if (KeyboardActions.isJumping(GameLoop.p2)) {
 						GameLoop.p2.PLayerJump();
 					}
-					if ((KeyboardActions.isMovingLeft())) {
+					if ((KeyboardActions.isMovingLeft(GameLoop.p2))) {
 						GameLoop.p2.PLayerWalk(LEFT);
 					}
-					else if ((KeyboardActions.isMovingRight())) {
+					else if ((KeyboardActions.isMovingRight(GameLoop.p2))) {
 						GameLoop.p2.PLayerWalk(RIGHT);
 					}
-				break;
-				
-				default:
-					break;
-					
-				
-			}
 
 			
 

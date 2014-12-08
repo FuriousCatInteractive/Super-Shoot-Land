@@ -207,7 +207,7 @@ public class SelectPersoLocal extends cScreen{
 			{
 				case Const.PLAYER1:
 
-		            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)){
+		            if (KeyboardActions.quitKeyPressed()){
 		                screenObject.clear();
 		                return  mainMenu;
 		            }
@@ -250,7 +250,7 @@ public class SelectPersoLocal extends cScreen{
 		            }
 
 		            if (KeyboardActions.isAttacking()) {
-		            	cScreen.pick.play();
+		            	cScreen.select.play();
 		                ok2=true;
 		            }
 		            
@@ -268,7 +268,7 @@ public class SelectPersoLocal extends cScreen{
                  cScreen.getReady.play();
                  
                  try {
-					Thread.sleep((long) cScreen.getReady.getBuffer().getDuration().asSeconds()+800);
+					Thread.sleep((long) cScreen.getReady.getBuffer().getDuration().asSeconds()+500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -276,9 +276,7 @@ public class SelectPersoLocal extends cScreen{
                  screenObject.clear();
                  ok2=false;
                  ok2=false;
-                 return choixValide();
-                 
-				
+                 return choixValide();	
 			}
 			
 			

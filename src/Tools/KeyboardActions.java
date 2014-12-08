@@ -262,6 +262,227 @@ public class KeyboardActions {
 
 		return res;
 	}
+	
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 * FONCTIONS AVEC PARAMETRES (joueur)
+	 */
+	
+	/**
+	 * Méthode verifiant si on appuie sur la touche de saut
+	 * @return res
+	 */
+	public static boolean isJumping(Player p)
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			int playerNumber = kb.getPlayerNumber();
+
+			if(p.getPlayerNumber() == playerNumber)
+			{
+				//On cherche le keybinding correspondant au saut
+				if(kb.getActionName().equals(Const.A_JUMP))
+				{
+					//On cherche si une des touches du keybinding est pressée
+					for(Keyboard.Key key : kb.getKeyNames())
+					{
+						if(Keyboard.isKeyPressed(key))
+						{
+							System.out.println("Jump key is pressed");
+							res = true;
+						}
+					}
+				}
+			}	
+		}
+
+		return res;
+	}
+
+	/**
+	 * Méthode verifiant si on appuie sur la touche de deplacement gauche
+	 * @return res
+	 */
+	public static boolean isMovingLeft(Player p)
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			int playerNumber = kb.getPlayerNumber();
+
+			if(p.getPlayerNumber() == playerNumber)
+			{
+				//On cherche le keybinding correspondant au deplacement gauche
+				if(kb.getActionName().equals(Const.A_MOVE_LEFT))
+				{
+					//On cherche si une des touches du keybinding est pressée
+					for(Keyboard.Key key : kb.getKeyNames())
+					{
+						if(Keyboard.isKeyPressed(key))
+						{
+							System.out.println("MOVE_LEFT key is pressed");
+							res = true;
+						}
+					}
+				}
+			}
+			
+		}
+
+		return res;
+	}
+
+	/**
+	 * Méthode verifiant si on appuie sur la touche de deplacement droit
+	 * @return res
+	 */
+	public static boolean isMovingRight(Player p)
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			int playerNumber = kb.getPlayerNumber();
+
+			if(p.getPlayerNumber() == playerNumber)
+			{
+				//On cherche le keybinding correspondant au deplacement droit
+				if(kb.getActionName().equals(Const.A_MOVE_RIGHT))
+				{
+					//On cherche si une des touches du keybinding est pressée
+					for(Keyboard.Key key : kb.getKeyNames())
+					{
+						if(Keyboard.isKeyPressed(key))
+						{
+							System.out.println("MOVE_RIGHT key is pressed");
+							res = true;
+						}
+					}
+				}
+			}
+			
+		}
+
+		return res;
+	}
+	
+	/**
+	 * Méthode verifiant si on appuie sur la touche bas
+	 * @return res
+	 */
+	public static boolean isMovingDown(Player p)
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			int playerNumber = kb.getPlayerNumber();
+
+			if(p.getPlayerNumber() == playerNumber)
+			{
+				//On cherche le keybinding correspondant au deplacement bas
+				if(kb.getActionName().equals(Const.A_MOVE_DOWN))
+				{
+					//On cherche si une des touches du keybinding est pressée
+					for(Keyboard.Key key : kb.getKeyNames())
+					{
+						if(Keyboard.isKeyPressed(key))
+						{
+							System.out.println("MOVE_DOWN key is pressed");
+							res = true;
+						}
+					}
+				}
+			}
+			
+		}
+
+		return res;
+	}
+	
+	/**
+	 * Méthode verifiant si on appuie sur la touche haut
+	 * @return res
+	 */
+	public static boolean isMovingUp(Player p)
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			int playerNumber = kb.getPlayerNumber();
+
+			if(p.getPlayerNumber() == playerNumber)
+			{
+				//On cherche le keybinding correspondant au deplacement haut
+				if(kb.getActionName().equals(Const.A_MOVE_UP))
+				{
+					//On cherche si une des touches du keybinding est pressée
+					for(Keyboard.Key key : kb.getKeyNames())
+					{
+						if(Keyboard.isKeyPressed(key))
+						{
+							System.out.println("MOVE_UPkey is pressed");
+							res = true;
+						}
+					}
+				}
+			}
+			
+		}
+
+		return res;
+	}
+
+	/**
+	 * Méthode verifiant si on appuie sur la touche d'attaque
+	 * @return res
+	 */
+	public static boolean isAttacking(Player p)
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			int playerNumber = kb.getPlayerNumber();
+
+			if(p.getPlayerNumber() == playerNumber)
+			{
+				//On cherche le keybinding correspondant a une attaque
+				if(kb.getActionName().equals(Const.A_ATTACK))
+				{
+					//On cherche si une des touches du keybinding est pressée
+					for(Keyboard.Key key : kb.getKeyNames())
+					{
+						if(Keyboard.isKeyPressed(key))
+						{
+							System.out.println("ATTACK key is pressed");
+							res = true;
+						}
+					}
+				}
+			}
+			
+		}
+
+		return res;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Méthode verifiant si on appuie sur la touche pour quitter le jeu
