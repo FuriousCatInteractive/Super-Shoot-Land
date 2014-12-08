@@ -66,7 +66,7 @@ public class SelectMode extends cScreen implements iMenu{
     public int Run(RenderWindow App){
 
 
-        musicBackground.play();
+        //musicBackground.play();
 
         loadScreenObjects(App);
 
@@ -138,7 +138,7 @@ public class SelectMode extends cScreen implements iMenu{
         //click de la souris
         if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
             event.asMouseEvent();
-            musicBackground.stop();
+            //musicBackground.stop();
             screenObject.clear();
             return choixValide();
         }
@@ -177,7 +177,7 @@ public class SelectMode extends cScreen implements iMenu{
             }
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
-                musicBackground.stop();
+               // musicBackground.stop();
                 screenObject.clear();
                 return choixValide();
             }

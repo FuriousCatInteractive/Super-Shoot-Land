@@ -79,7 +79,7 @@ public class SelectPerso extends cScreen implements iMenu{
      */
     public int Run(RenderWindow App){
 
-        musicBackground.play();
+      //  musicBackground.play();
 
         loadScreenObjects(App);
 
@@ -158,7 +158,7 @@ public class SelectPerso extends cScreen implements iMenu{
         if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
             persoSelect=menu+1;
             event.asMouseEvent();
-            musicBackground.stop();
+           // musicBackground.stop();
             screenObject.clear();
             return choixValide();
         }
@@ -198,7 +198,7 @@ public class SelectPerso extends cScreen implements iMenu{
 
             if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
                     persoSelect=menu+1;
-                    musicBackground.stop();
+                   // musicBackground.stop();
                     screenObject.clear();
                     return choixValide();
 

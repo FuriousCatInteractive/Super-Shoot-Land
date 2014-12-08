@@ -91,7 +91,7 @@ public class SelectPersoLocal extends cScreen{
      */
     public int Run(RenderWindow App){
 
-        musicBackground.play();
+       // musicBackground.play();
 
         loadScreenObjects(App);
 
@@ -178,7 +178,7 @@ public class SelectPersoLocal extends cScreen{
         if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
             persoSelect1=menu+1;
             event.asMouseEvent();
-            musicBackground.stop();
+           // musicBackground.stop();
             screenObject.clear();
             return choixValide();
         }
@@ -222,9 +222,9 @@ public class SelectPersoLocal extends cScreen{
 
                     persoSelect1=menu+1;
                     persoSelect2=menu2+1;
-                    System.out.println("p1= "+persoSelect1);
-                    System.out.println("p2= "+persoSelect2);
-                    musicBackground.stop();
+                   // System.out.println("p1= "+persoSelect1);
+                   // System.out.println("p2= "+persoSelect2);
+                  ///  musicBackground.stop();
                     screenObject.clear();
                     ok2=false;
                     ok2=false;
@@ -233,7 +233,6 @@ public class SelectPersoLocal extends cScreen{
 
             }
 
-            System.out.println(menu2);
             if (Keyboard.isKeyPressed(Keyboard.Key.S)){
                 menu2++;
                 if(menu2>nb_choix_menu-1)
@@ -253,9 +252,9 @@ public class SelectPersoLocal extends cScreen{
 
                     persoSelect1=menu+1;
                     persoSelect2=menu2+1;
-                    System.out.println("p1= "+persoSelect1);
-                    System.out.println("p2= "+persoSelect2);
-                    musicBackground.stop();
+                   // System.out.println("p1= "+persoSelect1);
+                   // System.out.println("p2= "+persoSelect2);
+                   // musicBackground.stop();
                     screenObject.clear();
                     ok2=false;
                     ok2=false;
@@ -264,8 +263,6 @@ public class SelectPersoLocal extends cScreen{
 
             }
         }
-
-
         //si on ne quitte pas cet écran
         return 100;
     }

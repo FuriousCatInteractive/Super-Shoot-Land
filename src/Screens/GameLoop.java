@@ -107,6 +107,7 @@ public class GameLoop extends cScreen {
      * @return
      */
     public int Run(RenderWindow App) {
+        musicBackground.stop();
         gameState=Running;
         loadScreenObjects(App);
         inputGL= new InputMananger(App);

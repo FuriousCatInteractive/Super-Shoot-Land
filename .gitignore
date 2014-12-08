@@ -15,9 +15,10 @@ hs_err_pid*
 res/jsfml-test-Dec02_2013/
 *.iml
 out/
+lib/
 
-
-
+*css
+*.html
 .classpath
 .project
 
