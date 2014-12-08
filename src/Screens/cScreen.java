@@ -34,6 +34,10 @@ public class cScreen {
 
     protected static Sound musicBackground;
     protected static Sound musicStage1;
+    protected static Sound getReady;
+	public static Sound shoot;
+	protected static Sound pick;
+	protected static Sound select;
     protected static Sound gameOver;
     protected static Sound victory;
 

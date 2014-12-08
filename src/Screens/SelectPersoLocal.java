@@ -1,6 +1,9 @@
 package Screens;
 
 import Entities.Player;
+import Tools.Const;
+import Tools.KeyboardActions;
+
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2i;
@@ -197,72 +200,92 @@ public class SelectPersoLocal extends cScreen{
         //Key pressed
         if (event.type == Event.Type.KEY_PRESSED){
             event.asKeyEvent();
+            
+            int activePlayer = KeyboardActions.getPlayerKey(event);
+			
+			switch(activePlayer)
+			{
+				case Const.PLAYER1:
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)){
-                screenObject.clear();
-                return  mainMenu;
-            }
+		            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)){
+		                screenObject.clear();
+		                return  mainMenu;
+		            }
 
+		            if (KeyboardActions.isMovingDown()){
+		            	cScreen.select.play();
+		                menu++;
+		                if(menu>nb_choix_menu-1)
+		                    menu = 0;
+		            }
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.DOWN)){
-                menu++;
-                if(menu>nb_choix_menu-1)
-                    menu = 0;
-            }
+		            if (KeyboardActions.isMovingUp()) {
+		            	cScreen.select.play();
+		                menu--;
+		                if(menu<0)
+		                    menu = nb_choix_menu-1;
+		            }
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.UP)) {
-                menu--;
-                if(menu<0)
-                    menu = nb_choix_menu-1;
-            }
+		            //touche d'attaque pour valider les choix
+		            if (KeyboardActions.isAttacking()) {
+		            	cScreen.pick.play();
+		                ok1=true;
+		            }
+		            
+					break;
+					
+				case Const.PLAYER2:
+					if (KeyboardActions.isMovingDown()){
+						cScreen.select.play();
+		                menu2++;
+		                if(menu2>nb_choix_menu-1)
+		                    menu2 = 0;
+		            }
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
-                ok1=true;
-                if(ok1 && ok2) {
+		            if (KeyboardActions.isMovingUp()) {
+		            	cScreen.select.play();
+		                menu2--;
+		                if(menu2<0)
+		                    menu2 = nb_choix_menu-1;
+		            }
 
-                    persoSelect1=menu+1;
-                    persoSelect2=menu2+1;
-                   // System.out.println("p1= "+persoSelect1);
-                   // System.out.println("p2= "+persoSelect2);
-                  ///  musicBackground.stop();
-                    screenObject.clear();
-                    ok2=false;
-                    ok2=false;
-                    return choixValide();
-                }
-
-            }
-
-            if (Keyboard.isKeyPressed(Keyboard.Key.S)){
-                menu2++;
-                if(menu2>nb_choix_menu-1)
-                    menu2 = 0;
-            }
-
-            if (Keyboard.isKeyPressed(Keyboard.Key.Z)) {
-                menu2--;
-                if(menu2<0)
-                    menu2 = nb_choix_menu-1;
-            }
-
-            if (Keyboard.isKeyPressed(Keyboard.Key.R)) {
-                ok2=true;
-
-                if(ok1 && ok2) {
-
-                    persoSelect1=menu+1;
-                    persoSelect2=menu2+1;
-                   // System.out.println("p1= "+persoSelect1);
-                   // System.out.println("p2= "+persoSelect2);
-                   // musicBackground.stop();
-                    screenObject.clear();
-                    ok2=false;
-                    ok2=false;
-                    return choixValide();
-                }
-
-            }
+		            if (KeyboardActions.isAttacking()) {
+		            	cScreen.pick.play();
+		                ok2=true;
+		            }
+		            
+					break;
+					
+					default:
+						break;	
+			} 
+			
+			if(ok1 && ok2)
+			{
+				 persoSelect1=menu+1;
+                 persoSelect2=menu2+1;
+                 cScreen.musicBackground.stop();
+                 cScreen.getReady.play();
+                 
+                 try {
+					Thread.sleep((long) cScreen.getReady.getBuffer().getDuration().asSeconds()+800);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+                 
+                 screenObject.clear();
+                 ok2=false;
+                 ok2=false;
+                 return choixValide();
+                 
+				
+			}
+			
+			
         }
+        
+        
+        
         //si on ne quitte pas cet écran
         return 100;
     }

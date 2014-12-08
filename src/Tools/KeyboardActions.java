@@ -178,6 +178,62 @@ public class KeyboardActions {
 
 		return res;
 	}
+	
+	/**
+	 * Méthode verifiant si on appuie sur la touche bas
+	 * @return res
+	 */
+	public static boolean isMovingDown()
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			//On cherche le keybinding correspondant au deplacement bas
+			if(kb.getActionName().equals(Const.A_MOVE_DOWN))
+			{
+				//On cherche si une des touches du keybinding est pressée
+				for(Keyboard.Key key : kb.getKeyNames())
+				{
+					if(Keyboard.isKeyPressed(key))
+					{
+						System.out.println("MOVE_DOWN key is pressed");
+						res = true;
+					}
+				}
+			}
+		}
+
+		return res;
+	}
+	
+	/**
+	 * Méthode verifiant si on appuie sur la touche haut
+	 * @return res
+	 */
+	public static boolean isMovingUp()
+	{
+		boolean res = false;
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			//On cherche le keybinding correspondant au deplacement haut
+			if(kb.getActionName().equals(Const.A_MOVE_UP))
+			{
+				//On cherche si une des touches du keybinding est pressée
+				for(Keyboard.Key key : kb.getKeyNames())
+				{
+					if(Keyboard.isKeyPressed(key))
+					{
+						System.out.println("MOVE_UPkey is pressed");
+						res = true;
+					}
+				}
+			}
+		}
+
+		return res;
+	}
 
 	/**
 	 * Méthode verifiant si on appuie sur la touche d'attaque

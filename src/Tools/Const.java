@@ -29,6 +29,8 @@ public class Const {
 	//Ensemble des actions (saut, mouvement...) référencés pour les key bindings
 	public final static String A_MOVE_LEFT = "MOVE_LEFT";
 	public final static String A_MOVE_RIGHT = "MOVE_RIGHT";
+	public final static String A_MOVE_UP = "MOVE_UP";
+	public final static String A_MOVE_DOWN = "MOVE_DOWN";
 	public final static String A_ATTACK = "ATTACK";
 	public final static String A_JUMP = "JUMP";
 	public final static String A_QUIT = "QUIT";

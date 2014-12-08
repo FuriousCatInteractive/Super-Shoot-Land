@@ -24,36 +24,53 @@ Echap : ESCAPE
 	</bind>
 	
 	<bind type="JUMP" player ="1">
-		<key name="SPACE"></key>
+		<key name="NUM0"></key>
 	</bind>
 	
 	<bind type="ATTACK" player ="1">
-		<key name="V"></key>
+		<key name="NUM1"></key>
+	</bind>
+	
+	<bind type="MOVE_UP" player ="1">
+		<key name="UP"></key>
+	</bind>
+	
+	<bind type="MOVE_DOWN" player ="1">
+		<key name="DOWN"></key>
 	</bind>
 	
 	<bind type="QUIT" player ="1">
-		<key name="ESCAPE"></key>
+		<key name="DELETE"></key>
 	</bind>
 	
 <!-- Bindings joueur 2 -->
+
 	<bind type="MOVE_LEFT" player ="2">
-		<key name="A">X</key>
+		<key name="Q"></key>
 	</bind>
 	
 	<bind type="MOVE_RIGHT" player ="2">
 		<key name="D"></key>
 	</bind>
+		
+	<bind type="MOVE_UP" player ="2">
+		<key name="Z"></key>
+	</bind>
+	
+	<bind type="MOVE_DOWN" player ="2">
+		<key name="S"></key>
+	</bind>
 	
 	<bind type="JUMP" player ="2">
-		<key name="T"></key>
+		<key name="SPACE"></key>
 	</bind>
 	
 	<bind type="ATTACK" player ="2">
-		<key name="R"></key>
+		<key name="A"></key>
 	</bind>
 	
 	<bind type="QUIT" player ="2">
-		<key name="DELETE"></key>
+		<key name="ESCAPE"></key>
 	</bind>
 
 </bindings>

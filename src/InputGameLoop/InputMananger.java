@@ -2,6 +2,7 @@ package InputGameLoop;
 
 import Screens.GameLoop;
 import Screens.SelectMode;
+import Screens.cScreen;
 import Tools.Const;
 import Tools.KeyboardActions;
 
@@ -76,6 +77,7 @@ public class InputMananger extends Thread {
 
 					if ((KeyboardActions.isAttacking())) {
 						System.out.println("PLAYER 1 SHOT");
+						cScreen.shoot.play();
 						GameLoop.p1.PlayerShoot();
 					}
 					else if (KeyboardActions.isJumping()) {
@@ -97,6 +99,7 @@ public class InputMananger extends Thread {
 
 					if ((KeyboardActions.isAttacking())) {
 						System.out.println("PLAYER 2 SHOT");
+						cScreen.shoot.play();
 						GameLoop.p2.PlayerShoot();
 					}
 					else if (KeyboardActions.isJumping()) {
