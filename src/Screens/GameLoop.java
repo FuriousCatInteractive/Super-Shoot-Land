@@ -69,6 +69,8 @@ public class GameLoop extends cScreen {
             p1 = loadPerso(SelectPerso.persoSelect);
         }
 
+
+
         lvltest = new Level(20,(AppX/AppY)*20);
         loadLevelToGame(App);
 
@@ -135,7 +137,7 @@ public class GameLoop extends cScreen {
             p1.run();
             p2.run();
 
-            updatePlayersList();
+            updateList();
 
             if(p1.isDead())
                 messageVictoire(p2);
@@ -173,15 +175,11 @@ public class GameLoop extends cScreen {
      */
     public void afficher(RenderWindow App){
         App.clear(Color.RED);
-
-
         for (int i = 0; i <  screenObject.size() ; i++) {
             App.draw(screenObject.get(i));
             //if(screenObject.get(i) instanceof GameEntity)
             //    afficherHitbox(App, (GameEntity) screenObject.get(i));
         }
-        //App.draw(p1);
-       // App.draw(p2);
        // afficherHitbox(App,p1);
         App.display();
     }
@@ -255,14 +253,20 @@ public class GameLoop extends cScreen {
 
     }
 
-    private void updatePlayersList(){
+    private void updateList(){
         for (int i =screenObject.size() - 1; i > -1; i--) {
-            if (screenObject.get(i) instanceof Player) {
+            if (screenObject.get(i) instanceof Player || screenObject.get(i) instanceof Text) {
                 screenObject.remove(i);
             }
         }
+        loadText("P1: "+p1.getHP(), AppX/8,10,AppY/25);
+        loadText("P2: "+p2.getHP(), 7*AppX/8,10,AppY/25);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(dark_green);
+        ((Text)screenObject.get(screenObject.size()-2)).setColor(dark_green);
         screenObject.add(p1);
         screenObject.add(p2);
+
     }
+
 }
 

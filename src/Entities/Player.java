@@ -42,6 +42,15 @@ public class Player extends MovingEntity implements  Runnable {
     private boolean isGrounded;
 
     private final int HP_Max=100;
+
+    public int getHP() {
+        return HP;
+    }
+
+    public void setHP(int HP) {
+        this.HP = HP;
+    }
+
     private int HP;
 
     public final static int PIKACHU = 1;
@@ -301,6 +310,7 @@ public class Player extends MovingEntity implements  Runnable {
 
                     return 0;
                 }
+
             }
         }
 
@@ -346,5 +356,9 @@ public class Player extends MovingEntity implements  Runnable {
         HP=100;
         state=IDLE;
         setPosition(GameLoop.AppX/2,GameLoop.AppY/2 );
+    }
+
+    public void lostPV(int nbPVperdu){
+        HP-=nbPVperdu;
     }
 }
