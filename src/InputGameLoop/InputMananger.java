@@ -41,8 +41,7 @@ public class InputMananger extends Thread {
 		for (Event event : App.pollEvents()) {
 			// Window closed
 			if (event.type == Event.Type.CLOSED) {
-
-				return GameLoop.retourne(GameLoop.exit);
+				return GameLoop.retourne(-1);
 			}
 			int returnValueKeyboard = keyboardManager(event, App);
 			if (returnValueKeyboard <= 50)

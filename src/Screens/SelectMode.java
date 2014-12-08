@@ -162,7 +162,7 @@ public class SelectMode extends cScreen implements iMenu{
 
             if (KeyboardActions.quitKeyPressed()){
                 screenObject.clear();
-                return  exit;
+                return  mainMenu;
             }
 
 

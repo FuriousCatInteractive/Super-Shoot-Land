@@ -103,6 +103,9 @@ public class SelectPersoLocal extends cScreen{
         loadImagePerso(menu+1, 1);
         loadImagePerso(menu2+1, 2);
 
+        ok1=false;
+        ok2=false;
+
         while (Running)
         {
 
@@ -274,9 +277,7 @@ public class SelectPersoLocal extends cScreen{
 				}
                  
                  screenObject.clear();
-                 ok2=false;
-                 ok2=false;
-                 return choixValide();	
+                 return choixValide();
 			}
 			
 			
