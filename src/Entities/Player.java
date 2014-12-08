@@ -266,7 +266,7 @@ public class Player extends MovingEntity implements  Runnable {
     public int verifCollision(ArrayList<Drawable> array) {
         IntRect hitboxTemp = new IntRect(hitbox.left/*+(int)vitesseX*/, hitbox.top + (int) vitesseY, hitbox.width, hitbox.height);
         for (int i = array.size() - 1; i > -1; i--) {
-            if (array.get(i) instanceof GameEntity) {
+            if (array.get(i) instanceof GameEntity && array.get(i) != this) {
                 IntRect res = (hitboxTemp.intersection(((GameEntity) array.get(i)).getHitbox()));
                 if (res != null) {
 
@@ -317,7 +317,7 @@ public class Player extends MovingEntity implements  Runnable {
         // System.out.println("test");
         IntRect hitboxTemp = new IntRect(hitbox.left/*+(int)vitesseX*/, hitbox.top +15, hitbox.width, hitbox.height);
         for (int i = array.size() - 1; i > -1; i--) {
-            if (array.get(i) instanceof GameEntity) {
+            if (array.get(i) instanceof GameEntity && array.get(i) != this) {
                 IntRect res = (hitboxTemp.intersection(((GameEntity) array.get(i)).getHitbox()));
                 if (res != null) {
                     //  System.out.println("test gronded");

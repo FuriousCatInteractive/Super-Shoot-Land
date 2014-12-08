@@ -114,7 +114,9 @@ public class GameLoop extends cScreen {
         inputGL= new InputMananger(App);
 
         p1.playerReset();
+        screenObject.add(p1);
         p2.playerReset();
+        screenObject.add(p2);
 
         musicStage1.play();
         inputGL.start();
@@ -128,12 +130,19 @@ public class GameLoop extends cScreen {
             if (returnValue <= 50)
                 return returnValue;
 
+
+
             p1.run();
             p2.run();
+
+            updatePlayersList();
+
             if(p1.isDead())
                 messageVictoire(p2);
             else if (p2.isDead())
                 messageVictoire(p1);
+
+
             afficher(App);
         }
         while(gameState == Pause){
@@ -171,8 +180,8 @@ public class GameLoop extends cScreen {
             //if(screenObject.get(i) instanceof GameEntity)
             //    afficherHitbox(App, (GameEntity) screenObject.get(i));
         }
-        App.draw(p1);
-        App.draw(p2);
+        //App.draw(p1);
+       // App.draw(p2);
        // afficherHitbox(App,p1);
         App.display();
     }
@@ -244,6 +253,16 @@ public class GameLoop extends cScreen {
 
         return 2;
 
+    }
+
+    private void updatePlayersList(){
+        for (int i =screenObject.size() - 1; i > -1; i--) {
+            if (screenObject.get(i) instanceof Player) {
+                screenObject.remove(i);
+            }
+        }
+        screenObject.add(p1);
+        screenObject.add(p2);
     }
 }
 
