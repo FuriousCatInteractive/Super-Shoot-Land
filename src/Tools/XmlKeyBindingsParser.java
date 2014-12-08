@@ -54,8 +54,20 @@ public class XmlKeyBindingsParser {
 				NodeList childNodes = item.getChildNodes();
 				
 				//On récupère le type d'action du binding (mouvement, saut ...)
-				String type = attrs.getNamedItem("type").getTextContent();
+				String type = attrs.getNamedItem("type").getTextContent(); //l'action à effectuer
+				String player = attrs.getNamedItem("player").getTextContent(); //joueur associé à l'action
 				KeyBinding kb = new KeyBinding(type);
+				
+				try
+				{
+					kb.setPlayerNumber(Integer.parseInt(player));
+				}
+				
+				catch(Exception e)
+				{
+					System.err.println("XML : playerNumber is not an integer");
+				}
+				
 				
 				//On récupère chaque nom de touche associé au type d'action
 				for(int j=0;j<childNodes.getLength();j++)
@@ -63,7 +75,8 @@ public class XmlKeyBindingsParser {
 					if(childNodes.item(j) instanceof Element)
 					{
 						Element child = (Element)childNodes.item(j);
-						String keyName = child.getAttribute("name");
+						String keyName = child.getAttribute("name"); //touche
+						
 						
 						//On ajoute le KeyBoard.Key correspondant à la valeur texte récupérée
 						try

@@ -1,11 +1,13 @@
 package Tools;
 
 import Screens.SelectMode;
+
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.KeyEvent;
 
 import Entities.KeyBinding;
+import Entities.Player;
 
 /**
  * @Class KeyboardActions
@@ -15,46 +17,81 @@ import Entities.KeyBinding;
  *
  */
 public class KeyboardActions {
-	
+
 	//TODO remplacer toutes les méthodes copiées collées par une seule qui vérifie l'action effectuée
 	//(pour faire plus propre et moins de copier coller)
-	
+
+	/**
+	 * Méthode qui retourne le joueur dont le binding correspond à une touche pressée
+	 * @param event
+	 * @param checkPressed
+	 * @return player
+	 */
+	public static int getPlayerKey(Event event)
+	{
+		int player = -1;
+
+		event.asKeyEvent();
+
+		for(KeyBinding kb : GameConfig.getKeyBindings())
+		{
+			for(Keyboard.Key key : kb.getKeyNames())
+			{
+				if(Keyboard.isKeyPressed(key))
+				{
+					player = kb.getPlayerNumber();
+					System.out.println("Key pressed : "+key.name()+", player = "+player);
+				}
+			}
+
+		}
+
+
+		return player;
+	}
+
 	/**
 	 * Méthode permettant de vérifier qu'une touche de mouvement est relâchée
 	 * @param event
 	 * @param key
 	 * @return
 	 */
-	public static boolean movementKeyReleased(Event e)
+	public static boolean movementKeyReleased(Event e, Player p)
 	{
 		KeyEvent keyEvent =  e.asKeyEvent();
-		
+
 		for(KeyBinding kb : GameConfig.getKeyBindings())
 		{
-			if(kb.getActionName().equals(Const.A_MOVE_LEFT) ||kb.getActionName().equals(Const.A_MOVE_RIGHT))
+			int playerNumber = kb.getPlayerNumber();
+
+			if(p.getPlayerNumber() == playerNumber)
 			{
-				//On regarde si une des touches de ces mouvements n'est pas pressée
-				for(Keyboard.Key key : kb.getKeyNames())
+				if(kb.getActionName().equals(Const.A_MOVE_LEFT) ||kb.getActionName().equals(Const.A_MOVE_RIGHT))
 				{
-					if(key == keyEvent.key)
+					//On regarde si une des touches de ces mouvements n'est pas pressée
+					for(Keyboard.Key key : kb.getKeyNames())
 					{
-						System.err.println("KEY RELEASED : "+key.name());
-						return true;
+						if(key == keyEvent.key)
+						{
+							System.err.println("Player "+playerNumber+ " KEY RELEASED : "+key.name());
+							return true;
+						}
 					}
 				}
 			}
-  		}
-		
-		
+
+		}
+
+
 		/*if(event.type == Event.Type.KEY_RELEASED)
 		{
 			KeyEvent keyev =  event.asKeyEvent();
-			
-			
+
+
 			if(keyev.key == Keyboard.)
 			return true;
 		} */
-		
+
 		return false;
 	}
 
@@ -141,7 +178,7 @@ public class KeyboardActions {
 
 		return res;
 	}
-	
+
 	/**
 	 * Méthode verifiant si on appuie sur la touche d'attaque
 	 * @return res
@@ -169,7 +206,7 @@ public class KeyboardActions {
 
 		return res;
 	}
-	
+
 	/**
 	 * Méthode verifiant si on appuie sur la touche pour quitter le jeu
 	 * @return res

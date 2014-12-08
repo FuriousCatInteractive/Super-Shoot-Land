@@ -14,6 +14,7 @@ import org.jsfml.window.Keyboard;
 public class KeyBinding {
 	
 	private String actionName; //action declenchee par une/des touche(s)
+	private int playerNumber; //joueur associé à l'action
 	private ArrayList<Keyboard.Key> keyNames; //liste des touches correspondant a l'action
 
 	/**
@@ -40,6 +41,16 @@ public class KeyBinding {
 
 	public void setKeyNames(ArrayList<Keyboard.Key> keyNames) {
 		this.keyNames = keyNames;
+	}
+
+
+	public int getPlayerNumber() {
+		return playerNumber;
+	}
+
+
+	public void setPlayerNumber(int playerNumber) {
+		this.playerNumber = playerNumber;
 	}
 	
 	

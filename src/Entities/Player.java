@@ -48,6 +48,8 @@ public class Player extends MovingEntity implements  Runnable {
     public final static int MARIO = 2;
     public final static int LINK = 3;
     public final static int MEGAMAN = 4;
+    
+    private int playerNumber;
 
     private ArrayList<Particle> particles; //particules tirées par le joueur
 
@@ -347,4 +349,14 @@ public class Player extends MovingEntity implements  Runnable {
         state=IDLE;
         setPosition(GameLoop.AppX/2,GameLoop.AppY/2 );
     }
+
+	public int getPlayerNumber() {
+		return playerNumber;
+	}
+
+	public void setPlayerNumber(int playerNumber) {
+		this.playerNumber = playerNumber;
+	}
+    
+    
 }

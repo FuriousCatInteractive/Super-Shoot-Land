@@ -12,6 +12,12 @@ public class Const {
 	//Chemins d'accès
 	public final static String XML_BINDINGS_PATH = "src/Assets/bindings.xml";
 	public final static String IMG_PATH = "res/img/";
+	
+	//Joueurs
+	public final static int PLAYER1 = 1;
+	public final static int PLAYER2 = 2;
+	public final static int PLAYER3 = 3;
+	public final static int PLAYER4 = 4;
 
 	//Personnages
 	public final static String MARIO = "mario";

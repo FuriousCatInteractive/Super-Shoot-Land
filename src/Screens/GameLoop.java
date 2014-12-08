@@ -5,6 +5,7 @@ import Entities.Player;
 import Graphics.EntityTexture;
 import InputGameLoop.InputMananger;
 import Level.Level;
+import Tools.Const;
 import Tools.KeyboardActions;
 
 import org.jsfml.audio.Sound;
@@ -113,7 +114,9 @@ public class GameLoop extends cScreen {
         inputGL= new InputMananger(App);
 
         p1.playerReset();
+        p1.setPlayerNumber(Const.PLAYER1);
         p2.playerReset();
+        p2.setPlayerNumber(Const.PLAYER2);
 
         musicStage1.play();
         inputGL.start();
