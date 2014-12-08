@@ -21,6 +21,7 @@ public class MainMenu extends cScreen implements iMenu{
     private final int play = 2;
     private final int config = 1;
     private final int exit = -1;
+    private final int selectPerso = 3;
 
     public MainMenu() {
         pos = new Vector2i(0,0);
@@ -171,7 +172,7 @@ public class MainMenu extends cScreen implements iMenu{
         int returnvalue =100;
         switch (menu){
             case 0:
-                returnvalue = play;
+                returnvalue = selectPerso;
                 break;
             case 1:
                 returnvalue = config;
