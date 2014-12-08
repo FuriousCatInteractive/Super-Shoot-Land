@@ -39,10 +39,13 @@ public class Main {
         window1.setView(view1);
 
         //Applications variables
-        cScreen[] Screens = new cScreen[4];
+        cScreen[] Screens = new cScreen[7];
         int screen = 0;
         Screens[0] = new BootSplash();
         Screens[1] = new MainMenu();
+        Screens[4] = new SelectMode();
+        Screens[5] = new SelectPersoLocal();
+        Screens[6] = new GameLoopLocal();
         Screens[3] = new SelectPerso();
         Screens[2] = new GameLoop();
 

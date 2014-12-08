@@ -1,18 +1,17 @@
 package Screens;
 
-import org.jsfml.graphics.*;
+import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-
 /**
  * Created by coco on 14-11-16.
  */
-public class MainMenu extends cScreen implements iMenu{
+public class SelectMode extends cScreen implements iMenu{
 
     private Vector2i pos;
     private int menu;
@@ -20,11 +19,10 @@ public class MainMenu extends cScreen implements iMenu{
 
 
 
-
     /**
      * constructeur par défaut
      */
-    public MainMenu() {
+    public SelectMode() {
         pos = new Vector2i(0,0);
         menu = 0;
         nb_choix_menu = 3;
@@ -41,9 +39,9 @@ public class MainMenu extends cScreen implements iMenu{
         int taille_Font_base = (int)(0.09*AppY);
         int offsetX =AppX/4;
         int offsety = AppY/20;
-        loadText("Play", AppX/2+offsetX,AppY/3+offsety,taille_Font_base);
-        loadText("Config", AppX/2+offsetX,AppY/2+offsety,taille_Font_base);
-        loadText("Exit", AppX/2+offsetX,2*AppY/3+offsety,taille_Font_base);
+        loadText(" Locally", AppX/2+offsetX,AppY/3+offsety,taille_Font_base);
+        loadText(" Online", AppX/2+offsetX,AppY/2+offsety,taille_Font_base);
+        loadText(" Back", AppX/2+offsetX,2*AppY/3+offsety,taille_Font_base);
 
         loadText("Super Shoot Land", AppX/2,AppY/15,(int)1.1*taille_Font_base);
         ((Text)screenObject.get(3)).setColor(light_green);
@@ -206,13 +204,13 @@ public class MainMenu extends cScreen implements iMenu{
         int returnvalue =100;
         switch (menu){
             case 0:
-                returnvalue = selectMode;
+                returnvalue = selectPersoLocal;
                 break;
             case 1:
-                returnvalue = config;
+                returnvalue = selectPerso;/////////////////////////////////////////////////////////////////////
                 break;
             case 2:
-                returnvalue = exit;
+                returnvalue = mainMenu;
                 break;
         }
         return returnvalue;

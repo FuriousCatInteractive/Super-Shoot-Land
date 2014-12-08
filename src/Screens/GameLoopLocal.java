@@ -24,7 +24,7 @@ import static Graphics.EntityTexture.*;
 /**
  * Created by coco on 14-11-16.
  */
-public class GameLoop extends cScreen {
+public class GameLoopLocal extends cScreen {
 
     public static int returnValue=1000;
 
@@ -40,7 +40,7 @@ public class GameLoop extends cScreen {
     public final static int Pause=0;
     public static int gameState;
 
-    public GameLoop() {
+    public GameLoopLocal() {
         gameState=Running;
 
     }
@@ -156,7 +156,7 @@ public class GameLoop extends cScreen {
             //    afficherHitbox(App, (GameEntity) screenObject.get(i));
         }
         App.draw(p1);
-       // afficherHitbox(App,p1);
+        // afficherHitbox(App,p1);
         App.display();
     }
 

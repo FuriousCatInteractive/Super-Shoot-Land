@@ -23,6 +23,15 @@ public class cScreen {
     public static final Color logo_green = new Color(167,186, 74, 255);
     public static final Color light_green = new Color(211,226,154, 255);
 
+    public static final int play = 2;
+    public static final int config = 1;
+    public static final int mainMenu = 1;
+    public static final int exit = -1;
+    public static final int selectPerso = 3;
+    public static final int selectMode = 4;
+    public static final int selectPersoLocal = 5;
+    public static final int gameLoopLocal = 6;
+
     protected static Sound musicBackground;
     protected static Sound musicStage1;
     protected static Sound gameOver;
