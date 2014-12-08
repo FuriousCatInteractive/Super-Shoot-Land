@@ -49,14 +49,12 @@ public class Particle {
 		emitTime = System.currentTimeMillis();
 		hitbox = new IntRect((FloatRect)sprite.getGlobalBounds());
 	}
-	
-	/**
-	 * Constructeur de particle
-	 * @param owner
-	 * @param sprite
-	 * @param xPos
-	 * @param yPos
-	 */
+
+    /**
+     * Constructeur de particle
+     * @param owner
+     * @param sprite
+     */
 	public Particle(Player owner, Sprite sprite) {
 		super();
 		this.owner = owner;
@@ -75,11 +73,9 @@ public class Particle {
 		sprite.setPosition(xPos,yPos);
 	}
 
-	/**
-	 * Méthode pour changer la position de la particule
-	 * @param newX
-	 * @param newY
-	 */
+    /**
+     * Méthode pour changer la position de la particule
+     */
 	public void move()
 	{
 		long curTime = System.currentTimeMillis();
@@ -112,6 +108,8 @@ public class Particle {
 					if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) 
 					{
 						System.out.println("collision particule");
+                        if(array.get(i) instanceof Player)
+                            ((Player)array.get(i)).lostPV(10);
 						return true;
 					}	
 				}

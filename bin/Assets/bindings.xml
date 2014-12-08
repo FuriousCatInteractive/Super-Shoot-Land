@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Description des bindings de touches clavier -->
+<!--
+	STRUCTURE :
+		<bind action joueurAssocié>
+			<key nomTouche></key>
+		</bind>
+-->
 <!-- Codes:
 fleches : UP, DOWN, LEFT, RIGHT
 Lettres : toutes
@@ -8,24 +14,46 @@ Echap : ESCAPE
 -->
 <bindings>
 
-	<bind type="MOVE_LEFT">
-		<key name="LEFT">X</key>
+<!-- Bindings joueur 1 -->
+	<bind type="MOVE_LEFT" player ="1">
+		<key name="LEFT"></key>
 	</bind>
 	
-	<bind type="MOVE_RIGHT">
+	<bind type="MOVE_RIGHT" player ="1">
 		<key name="RIGHT"></key>
 	</bind>
 	
-	<bind type="JUMP">
+	<bind type="JUMP" player ="1">
 		<key name="SPACE"></key>
 	</bind>
 	
-	<bind type="ATTACK">
+	<bind type="ATTACK" player ="1">
 		<key name="V"></key>
 	</bind>
 	
-	<bind type="QUIT">
+	<bind type="QUIT" player ="1">
 		<key name="ESCAPE"></key>
+	</bind>
+	
+<!-- Bindings joueur 2 -->
+	<bind type="MOVE_LEFT" player ="2">
+		<key name="A">X</key>
+	</bind>
+	
+	<bind type="MOVE_RIGHT" player ="2">
+		<key name="D"></key>
+	</bind>
+	
+	<bind type="JUMP" player ="2">
+		<key name="T"></key>
+	</bind>
+	
+	<bind type="ATTACK" player ="2">
+		<key name="R"></key>
+	</bind>
+	
+	<bind type="QUIT" player ="2">
+		<key name="DELETE"></key>
 	</bind>
 
 </bindings>

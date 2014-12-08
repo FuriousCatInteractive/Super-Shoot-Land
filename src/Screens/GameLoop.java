@@ -16,6 +16,7 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import javax.print.attribute.standard.PrinterLocation;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -69,6 +70,8 @@ public class GameLoop extends cScreen {
             p1 = loadPerso(SelectPerso.persoSelect);
         }
 
+
+
         lvltest = new Level(20,(AppX/AppY)*20);
         loadLevelToGame(App);
 
@@ -115,9 +118,12 @@ public class GameLoop extends cScreen {
 
         p1.playerReset();
         p1.setPlayerNumber(Const.PLAYER1);
-        p2.playerReset();
+        screenObject.add(p1);
+       
+        p2.playerReset();   
         p2.setPlayerNumber(Const.PLAYER2);
-
+        screenObject.add(p2);
+        
         musicStage1.play();
         inputGL.start();
         // Thread threaPlayer1 = new Thread(p1);
@@ -130,10 +136,19 @@ public class GameLoop extends cScreen {
             if (returnValue <= 50)
                 return returnValue;
 
+
+
             p1.run();
             p2.run();
+
+            updateList();
+
             if(p1.isDead())
-                messageDefaite();
+                messageVictoire(p2);
+            else if (p2.isDead())
+                messageVictoire(p1);
+
+
             afficher(App);
         }
         while(gameState == Pause){
@@ -164,15 +179,11 @@ public class GameLoop extends cScreen {
      */
     public void afficher(RenderWindow App){
         App.clear(Color.RED);
-
-
         for (int i = 0; i <  screenObject.size() ; i++) {
             App.draw(screenObject.get(i));
             //if(screenObject.get(i) instanceof GameEntity)
             //    afficherHitbox(App, (GameEntity) screenObject.get(i));
         }
-        App.draw(p1);
-        App.draw(p2);
        // afficherHitbox(App,p1);
         App.display();
     }
@@ -224,5 +235,42 @@ public class GameLoop extends cScreen {
         return 2;
 
     }
+
+    /**
+     * affiche petit message et met le jeu en pause
+     * petite musique en bonus =)
+     * @return
+     */
+    private  int  messageVictoire(Player p){
+        musicStage1.stop();
+
+        victory.play();
+        newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);
+        if(p ==p1)
+        loadText("Player 1 win!!!", AppX / 2, AppY/2-20, 40);
+        else
+            loadText("Player 2 win!!!", AppX / 2, AppY/2-20, 40);
+        loadText("(Appuyez sur une \"ESC\" pour revenir au menu)", AppX / 2, AppY/2+20, 20);
+        gameState=Pause;
+
+        return 2;
+
+    }
+
+    private void updateList(){
+        for (int i =screenObject.size() - 1; i > -1; i--) {
+            if (screenObject.get(i) instanceof Player || screenObject.get(i) instanceof Text) {
+                screenObject.remove(i);
+            }
+        }
+        loadText("P1: "+p1.getHP(), AppX/8,10,AppY/25);
+        loadText("P2: "+p2.getHP(), 7*AppX/8,10,AppY/25);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(dark_green);
+        ((Text)screenObject.get(screenObject.size()-2)).setColor(dark_green);
+        screenObject.add(p1);
+        screenObject.add(p2);
+
+    }
+
 }
 
