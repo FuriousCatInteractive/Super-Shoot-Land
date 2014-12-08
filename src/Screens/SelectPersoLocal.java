@@ -250,7 +250,7 @@ public class SelectPersoLocal extends cScreen{
 		            }
 
 		            if (KeyboardActions.isAttacking()) {
-		            	cScreen.select.play();
+		            	cScreen.pick.play();
 		                ok2=true;
 		            }
 		            

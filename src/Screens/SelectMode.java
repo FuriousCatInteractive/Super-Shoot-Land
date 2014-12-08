@@ -8,6 +8,8 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import Tools.KeyboardActions;
+
 /**
  * Created by coco on 14-11-16.
  */
@@ -158,25 +160,25 @@ public class SelectMode extends cScreen implements iMenu{
         if (event.type == Event.Type.KEY_PRESSED){
             event.asKeyEvent();
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)){
+            if (KeyboardActions.quitKeyPressed()){
                 screenObject.clear();
                 return  exit;
             }
 
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.DOWN)){
+            if (KeyboardActions.isMovingDown()){
                 menu++;
                 if(menu>nb_choix_menu-1)
                     menu = 0;
             }
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.UP)) {
+            if (KeyboardActions.isMovingUp()) {
                 menu--;
                 if(menu<0)
                     menu = 2;
             }
 
-            if (Keyboard.isKeyPressed(Keyboard.Key.RETURN)) {
+            if (KeyboardActions.isAttacking()) {
                // musicBackground.stop();
                 screenObject.clear();
                 return choixValide();
