@@ -357,7 +357,8 @@ public class Player extends MovingEntity implements  Runnable {
     public void playerReset(){
         HP=100;
         state=IDLE;
-        setPosition(GameLoop.AppX/2,GameLoop.AppY/2 );
+        setPosition((playerNumber-1)*GameLoop.AppX/2+GameLoop.AppX/8,30 );
+
     }
 
 	public int getPlayerNumber() {
