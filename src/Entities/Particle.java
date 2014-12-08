@@ -2,6 +2,9 @@ package Entities;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import Graphics.EntityTexture;
+import Screens.GameLoop;
+import Screens.cScreen;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
@@ -108,8 +111,11 @@ public class Particle {
 					if ((this.hitbox.intersection(((GameEntity) array.get(i)).getHitbox())) != null) 
 					{
 						System.out.println("collision particule");
-                        if(array.get(i) instanceof Player)
-                            ((Player)array.get(i)).lostPV(10);
+                        if(array.get(i) instanceof Player) {
+                            ((Player) array.get(i)).lostPV(10);
+                            // ((Player) array.get(i)).state= EntityTexture.JUMP;
+                            cScreen.hit.play();
+                        }
 						return true;
 					}	
 				}

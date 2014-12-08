@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import Screens.cScreen;
 import org.jsfml.graphics.*;
 
 import Screens.GameLoop;
@@ -156,6 +157,7 @@ public class Player extends MovingEntity implements  Runnable {
      * appellée quand touche jump appuyée
      */
     public void PLayerJump() {
+        cScreen.jump.play();
         if(isGrounded) {
             yorigin = getGlobalBounds().top;
             if (state == WALK) {
@@ -357,7 +359,7 @@ public class Player extends MovingEntity implements  Runnable {
     public void playerReset(){
         HP=100;
         state=IDLE;
-        setPosition((playerNumber-1)*GameLoop.AppX/2+GameLoop.AppX/8,30 );
+        setPosition((playerNumber - 1) * GameLoop.AppX / 2 + GameLoop.AppX / 8, 30);
 
     }
 

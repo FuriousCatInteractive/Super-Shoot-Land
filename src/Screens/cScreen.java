@@ -36,6 +36,9 @@ public class cScreen {
     protected static Sound musicStage1;
     protected static Sound gameOver;
     protected static Sound victory;
+    public static Sound hit;
+    public static Sound jump;
+
 
     protected Font fontScreen;
     public static ArrayList<Drawable> screenObject = new ArrayList();
