@@ -15,6 +15,7 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import javax.print.attribute.standard.PrinterLocation;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -130,7 +131,9 @@ public class GameLoop extends cScreen {
             p1.run();
             p2.run();
             if(p1.isDead())
-                messageDefaite();
+                messageVictoire(p2);
+            else if (p2.isDead())
+                messageVictoire(p1);
             afficher(App);
         }
         while(gameState == Pause){
@@ -215,6 +218,27 @@ public class GameLoop extends cScreen {
         gameOver.play();
         newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);
         loadText("Game Over!", AppX / 2, AppY/2-20, 40);
+        loadText("(Appuyez sur une \"ESC\" pour revenir au menu)", AppX / 2, AppY/2+20, 20);
+        gameState=Pause;
+
+        return 2;
+
+    }
+
+    /**
+     * affiche petit message et met le jeu en pause
+     * petite musique en bonus =)
+     * @return
+     */
+    private  int  messageVictoire(Player p){
+        musicStage1.stop();
+
+        victory.play();
+        newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);
+        if(p ==p1)
+        loadText("Player 1 win!!!", AppX / 2, AppY/2-20, 40);
+        else
+            loadText("Player 2 win!!!", AppX / 2, AppY/2-20, 40);
         loadText("(Appuyez sur une \"ESC\" pour revenir au menu)", AppX / 2, AppY/2+20, 20);
         gameState=Pause;
 
