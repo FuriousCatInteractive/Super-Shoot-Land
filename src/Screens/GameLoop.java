@@ -162,6 +162,11 @@ public class GameLoop extends cScreen {
         App.display();
     }
 
+    /**
+     * affiche la hitbox donnée en bleu
+     * @param App
+     * @param entity
+     */
     private void afficherHitbox(RenderWindow App, GameEntity entity){
         IntRect temp = new IntRect(0,0,0,0);
         temp= entity.getHitbox();
@@ -171,6 +176,11 @@ public class GameLoop extends cScreen {
         App.draw(rect);
     }
 
+    /**
+     * charge la map binaire en screenobjects avec
+     * texture et hitbox
+     * @param App
+     */
     public  void loadLevelToGame(RenderWindow App){
         int h_block = AppY/lvltest.getHauteur();
         int w_block = AppX/lvltest.getLargeur();
@@ -182,6 +192,11 @@ public class GameLoop extends cScreen {
         }
     }
 
+    /**
+     * affiche petit message et met le jeu en pause
+     * petite musique en bonus =)
+     * @return
+     */
     private  int  messageDefaite(){
         musicStage1.stop();
 

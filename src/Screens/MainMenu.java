@@ -23,12 +23,19 @@ public class MainMenu extends cScreen implements iMenu{
     private final int exit = -1;
     private final int selectPerso = 3;
 
+    /**
+     * constructeur par défaut
+     */
     public MainMenu() {
         pos = new Vector2i(0,0);
         menu = 0;
         nb_choix_menu = 3;
     }
 
+    /**
+     * charge tous les éléments du screen
+     * @param App
+     */
     private void loadScreenObjects(RenderWindow App){
         loadFont( "res/font/Volter__28Goldfish_29.ttf");
         int AppX = App.getSize().x;
@@ -53,6 +60,11 @@ public class MainMenu extends cScreen implements iMenu{
         ((Sprite)screenObject.get(screenObject.size()-1)).setScale(0.0017f*AppY,0.0017f*AppY);
     }
 
+    /**
+     * méthode principale qui fait l'update
+     * @param App
+     * @return
+     */
     public int Run(RenderWindow App){
 
 
@@ -81,6 +93,11 @@ public class MainMenu extends cScreen implements iMenu{
         return (-1);
     }
 
+    /**
+     * appel keyboard et mouse manager
+     * @param App
+     * @return
+     */
     public int eventManager(RenderWindow App){
         //Verifying events
         for (Event event : App.pollEvents())
@@ -105,6 +122,12 @@ public class MainMenu extends cScreen implements iMenu{
         return 100;
     }
 
+    /**
+     * regarde les clics et les mouvements de la souris
+     * @param event
+     * @param App
+     * @return
+     */
     public int mouseManager(Event event, RenderWindow App){
         if (event.type == Event.Type.MOUSE_MOVED) {
             event.asMouseEvent();
@@ -126,6 +149,12 @@ public class MainMenu extends cScreen implements iMenu{
         return 100;
     }
 
+    /**
+     * regarde les touche appuyées
+     * @param event
+     * @param App
+     * @return
+     */
     public int keyboardManager(Event event, RenderWindow App){
         //Key pressed
         if (event.type == Event.Type.KEY_PRESSED){
@@ -159,6 +188,10 @@ public class MainMenu extends cScreen implements iMenu{
         return 100;
     }
 
+    /**
+     * hilight du menu selectionné
+     * @param numero
+     */
     public void menuSelectionne(int numero){
         for(int i =0; i<nb_choix_menu;i++)        {
             if(i==numero)
@@ -168,6 +201,9 @@ public class MainMenu extends cScreen implements iMenu{
         }
     }
 
+    /**
+     * si un choit est validé on regarde si on change de screen
+     */
     public int choixValide(){
         int returnvalue =100;
         switch (menu){

@@ -29,12 +29,25 @@ public class cScreen {
     protected Font fontScreen;
     public static ArrayList<Drawable> screenObject = new ArrayList();
 
+    /**
+     * constructeur par défault
+     */
     public cScreen() {
         fontScreen = new Font();
     }
 
+    /**
+     * méthode qui sera appellée par le main
+     * elle sera réimplémentée dans les classes enfants
+     * @param App
+     * @return
+     */
     public int Run(RenderWindow App){ return  0;}
 
+    /**
+     * charge un epolice en mémoire
+     * @param path
+     */
     protected void loadFont(String path){
         try {
             fontScreen.loadFromFile(Paths.get(path));
@@ -43,6 +56,15 @@ public class cScreen {
             e.printStackTrace();
         }
     }
+
+    /**
+     *
+     * charge du texte et le met dans le tableau screenobjetcs
+     * @param text
+     * @param posX
+     * @param posY
+     * @param taille
+     */
     protected void loadText(String text, int posX, int posY, int taille){
         Text text1= new Text();
         text1.setFont(fontScreen);
@@ -54,10 +76,25 @@ public class cScreen {
         screenObject.add(text1);
     }
 
+    /**
+     * cgarge une image sans scale
+     * @param path
+     * @param posX
+     * @param posY
+     */
     protected void loadImage(String path, int posX, int posY){
         loadImage(path, posX, posY,1.0f,1.0f);
     }
 
+    /**
+     * charge une image avec scale et la mets
+     * dans le tableau screen objects
+     * @param path
+     * @param posX
+     * @param posY
+     * @param sizeX
+     * @param sizeY
+     */
     protected void loadImage(String path, int posX, int posY, float sizeX, float sizeY){
         GameEntity background = new GameEntity();
         try {
@@ -74,6 +111,14 @@ public class cScreen {
         screenObject.add(background);
     }
 
+    /**
+     * crer un rect et le mets dans le tableau screenobjects
+     * @param weight
+     * @param height
+     * @param posX
+     * @param posY
+     * @param color
+     */
     protected void newRect(int weight, int height, int posX, int posY,Color color){
         RectangleShape rect;
         rect = new RectangleShape(new Vector2f(weight, height));
@@ -103,6 +148,13 @@ public class cScreen {
         return sound1;
     }
 
+    /**
+     * charge la texture d'un joueur avec
+     * le chemin vers sa spritesheet
+     * @param path
+     * @param scale
+     * @return
+     */
    public Player loadPlayer(String path, float scale){
        System.out.println(path);
        Player mario = new Player();
@@ -113,9 +165,4 @@ public class cScreen {
        return mario;
    }
 
-    protected void deleteScreenObject(){
-       //for (int i=0; i<screenObject.size();i++){
-           screenObject.clear();
-       //}
-    }
 }

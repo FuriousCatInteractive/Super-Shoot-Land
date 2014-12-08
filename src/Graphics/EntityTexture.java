@@ -15,8 +15,6 @@ import java.nio.file.Paths;
  */
 public class EntityTexture {
 
-
-
     public static final int SPRITESHEET_H = 5;
     public static final int SPRITESHEET_W = 4;
 
@@ -33,7 +31,11 @@ public class EntityTexture {
     public static int  compteur=0;
     public static int  dureeeAnimation = 20;
 
-
+    /**
+     * update la texture en fonction de l'état dans
+     * lequel est le sprite
+     * @param sprite
+     */
     public static void updateTexture(Player sprite){
 
         int SPRITE_H  = (int)sprite.getImage_h()/SPRITESHEET_H;
@@ -64,6 +66,12 @@ public class EntityTexture {
 
     }
 
+    /**
+     * décide de l'état dans lequel est le sprite et
+     * donc quelle partie de la teture il faut charger
+     * @param p
+     * @return
+     */
     public static int decideState(Player p){
         if(p.state == WALK || p.state==SHOOT) {
             int compteurMax = dureeeAnimation * p.state.length;
@@ -82,6 +90,11 @@ public class EntityTexture {
             return IDLE[0];
     }
 
+    /**
+     * chargement de la texture depuis un fichier img
+     * @param imagePath
+     * @return
+     */
     public static Texture loadTexture(String imagePath) {
         Texture textureSprite = new Texture();
         try {

@@ -23,6 +23,10 @@ public class BootSplash extends cScreen{
     private Sound miaou;
     MusicLoader loader;
 
+    /**
+     * initialise tout les champs
+     * @param fenetre
+     */
     public void BootSplashInit(RenderWindow fenetre){
 
 
@@ -52,6 +56,12 @@ public class BootSplash extends cScreen{
         miaou = loadMusic("res/sound/Meow.ogg");
     }
 
+    /**
+     * méthode principale appellé par le main
+     * fait le rafraichissent
+     * @param App
+     * @return
+     */
     public int Run(RenderWindow App){
 
         boolean Running = true;
@@ -104,6 +114,10 @@ public class BootSplash extends cScreen{
         return (1);
     }
 
+    /**
+     * update le sprite chat
+     * @param cat
+     */
     public void update(Sprite cat)
     {
         if(alpha<=255 && !ok)

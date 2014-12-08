@@ -36,6 +36,10 @@ public class SelectPerso extends cScreen implements iMenu{
         persoSelect=1;
     }
 
+    /**
+     * créer et charge les éléments du screen
+     * @param App
+     */
     private void loadScreenObjects(RenderWindow App){
         loadFont( "res/font/Volter__28Goldfish_29.ttf");
         AppX = App.getSize().x;
@@ -73,6 +77,11 @@ public class SelectPerso extends cScreen implements iMenu{
         newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
     }
 
+    /**
+     * méthode principale qui fait l'update
+     * @param App
+     * @return
+     */
     public int Run(RenderWindow App){
 
         musicBackground.play();
@@ -106,6 +115,11 @@ public class SelectPerso extends cScreen implements iMenu{
         return (-1);
     }
 
+    /**
+     * appelle le keybord et le mouse manager
+     * @param App
+     * @return
+     */
     public int eventManager(RenderWindow App){
         //Verifying events
         for (Event event : App.pollEvents())
@@ -130,6 +144,12 @@ public class SelectPerso extends cScreen implements iMenu{
         return 100;
     }
 
+    /**
+     * regarde les événements liés à la souris
+     * @param event
+     * @param App
+     * @return
+     */
     public int mouseManager(Event event, RenderWindow App){
         if (event.type == Event.Type.MOUSE_MOVED) {
             event.asMouseEvent();
@@ -152,6 +172,12 @@ public class SelectPerso extends cScreen implements iMenu{
         return 100;
     }
 
+    /**
+     * regarde les évenements liés au clavier
+     * @param event
+     * @param App
+     * @return
+     */
     public int keyboardManager(Event event, RenderWindow App){
         //Key pressed
         if (event.type == Event.Type.KEY_PRESSED){
@@ -187,6 +213,10 @@ public class SelectPerso extends cScreen implements iMenu{
         return 100;
     }
 
+    /**
+     * hilight si selectionné
+     * @param numero
+     */
     public void menuSelectionne(int numero){
         for(int i =0; i<nb_choix_menu;i++)        {
             if( i==menu)
@@ -196,6 +226,10 @@ public class SelectPerso extends cScreen implements iMenu{
         }
     }
 
+    /**
+     * si clic ou entrée on change de screen
+     * @return
+     */
     public int choixValide(){
         int   returnvalue = play;
         return returnvalue;

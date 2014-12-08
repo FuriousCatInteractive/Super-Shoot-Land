@@ -5,6 +5,10 @@ package Screens;
  */
 public class MusicLoader extends Thread {
 
+    /**
+     * thread en parrélèle qui charge les musiques grosses
+     * (qq mégas)
+     */
     public void run(){
         System.out.println("début loadmusic");
         cScreen.musicBackground = cScreen.loadMusic("res/sound/theme-ssb.ogg" );

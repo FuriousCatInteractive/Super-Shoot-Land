@@ -20,11 +20,19 @@ public class InputMananger extends Thread {
         this.App = App;
     }
 
+    /**
+     * méthode qui fait l'update (dans un thread)
+     */
     public void run() {
        GameLoop.returnValue =  eventManager(App);
         //System.out.println("ret="+GameLoop.returnValue);
     }
 
+    /**
+     * appel mouse et keyboard manager
+     * @param App
+     * @return
+     */
     public int eventManager(RenderWindow App) {
         //Verifying events
         for (Event event : App.pollEvents()) {
@@ -42,6 +50,12 @@ public class InputMananger extends Thread {
         return 100;
     }
 
+    /**
+     * gère les inputs clavier
+     * @param event
+     * @param App
+     * @return
+     */
     public int keyboardManager(Event event, RenderWindow App) {
 
 
