@@ -98,6 +98,7 @@ public class SelectMode extends cScreen implements iMenu{
      * @param App
      * @return
      */
+    @Override
     public int eventManager(RenderWindow App){
         //Verifying events
         for (Event event : App.pollEvents())
@@ -128,6 +129,7 @@ public class SelectMode extends cScreen implements iMenu{
      * @param App
      * @return
      */
+    @Override
     public int mouseManager(Event event, RenderWindow App){
         if (event.type == Event.Type.MOUSE_MOVED) {
             event.asMouseEvent();
@@ -140,7 +142,7 @@ public class SelectMode extends cScreen implements iMenu{
         //click de la souris
         if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
             event.asMouseEvent();
-            //musicBackground.stop();
+            cScreen.pick.play();
             screenObject.clear();
             return choixValide();
         }
@@ -155,6 +157,7 @@ public class SelectMode extends cScreen implements iMenu{
      * @param App
      * @return
      */
+    @Override
     public int keyboardManager(Event event, RenderWindow App){
         //Key pressed
         if (event.type == Event.Type.KEY_PRESSED){
@@ -168,18 +171,20 @@ public class SelectMode extends cScreen implements iMenu{
 
             if (KeyboardActions.isMovingDown()){
                 menu++;
+                cScreen.select.play();
                 if(menu>nb_choix_menu-1)
                     menu = 0;
             }
 
             if (KeyboardActions.isMovingUp()) {
                 menu--;
+                cScreen.select.play();
                 if(menu<0)
                     menu = 2;
             }
 
             if (KeyboardActions.isAttacking()) {
-               // musicBackground.stop();
+                cScreen.pick.play();
                 screenObject.clear();
                 return choixValide();
             }
@@ -192,6 +197,7 @@ public class SelectMode extends cScreen implements iMenu{
      * hilight du menu selectionné
      * @param numero
      */
+    @Override
     public void menuSelectionne(int numero){
         for(int i =0; i<nb_choix_menu;i++)        {
             if(i==numero)

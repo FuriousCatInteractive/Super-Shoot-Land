@@ -152,9 +152,9 @@ public class SelectPersoLocal extends cScreen{
                 return (exit);
             }
 
-            int returnValueMouse = mouseManager(event, App);
+            /*int returnValueMouse = mouseManager(event, App);
             if(returnValueMouse<=50)
-                return  returnValueMouse;
+                return  returnValueMouse;*/
 
             int returnValueKeyboard = keyboardManager(event, App);
             if(returnValueKeyboard <=50)
@@ -171,7 +171,7 @@ public class SelectPersoLocal extends cScreen{
      * @param App
      * @return
      */
-    public int mouseManager(Event event, RenderWindow App){
+   /*public int mouseManager(Event event, RenderWindow App){
         if (event.type == Event.Type.MOUSE_MOVED) {
             event.asMouseEvent();
             pos = Mouse.getPosition(App);
@@ -191,7 +191,7 @@ public class SelectPersoLocal extends cScreen{
 
         //si on ne quitte pas cet écran
         return 100;
-    }
+    }*/
 
     /**
      * regarde les évenements liés au clavier
