@@ -75,16 +75,16 @@ public class SelectPersoLocal extends cScreen{
 
 
         loadText("Select your Character", AppX/2,AppY/15,(int)1.009*taille_Font_base);
-        ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(Const.light_green);
 
 
         loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20, taille_Font_base/2);
-        ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(Const.light_green);
 
-        newRect(AppX, AppY/5, 0 ,0, dark_green);
-        newRect(AppX, 10, 0 ,AppY/5, light_green);
-        newRect(AppX, AppY/11, 0 ,10*AppY/11, dark_green);
-        newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
+        newRect(AppX, AppY/5, 0 ,0, Const.dark_green);
+        newRect(AppX, 10, 0 ,AppY/5, Const.light_green);
+        newRect(AppX, AppY/11, 0 ,10*AppY/11, Const.dark_green);
+        newRect(AppX, 10, 0 ,10*AppY/11-10, Const.light_green);
 
     }
 
@@ -128,7 +128,7 @@ public class SelectPersoLocal extends cScreen{
             loadImagePerso(menu2+1,2);
 
 
-            App.clear(background_green);
+            App.clear(Const.background_green);
             for(int i=screenObject.size()-1 ;i>-1;i--) {
                 App.draw(screenObject.get(i));
             }
@@ -152,7 +152,7 @@ public class SelectPersoLocal extends cScreen{
             if (event.type == event.type.CLOSED)
             {
                 screenObject.clear();
-                return (exit);
+                return (Const.exit);
             }
 
             /*int returnValueMouse = mouseManager(event, App);
@@ -236,7 +236,7 @@ public class SelectPersoLocal extends cScreen{
                     }
                     if (KeyboardActions.quitKeyPressed()){
                         screenObject.clear();
-                        return  mainMenu;
+                        return  Const.mainMenu;
                     }
                     break;
 
@@ -300,9 +300,9 @@ public class SelectPersoLocal extends cScreen{
             int it=i+(identifiant-1)*nb_choix_menu;
             // System.out.println(it);
             if( i==num)
-                ((Text)screenObject.get(it)).setColor(light_green);
+                ((Text)screenObject.get(it)).setColor(Const.light_green);
             else
-                ((Text)screenObject.get(it)).setColor(dark_green);
+                ((Text)screenObject.get(it)).setColor(Const.dark_green);
         }
     }
 
@@ -311,7 +311,7 @@ public class SelectPersoLocal extends cScreen{
      * @return
      */
     public int choixValide(){
-        int   returnvalue = play;
+        int   returnvalue =Const.play;
         return returnvalue;
     }
 
@@ -348,7 +348,7 @@ public class SelectPersoLocal extends cScreen{
     }
 
     public void messageReady(int id){
-        newRect((id-1)*AppX/2+AppX-AppX/32, AppY/16, AppX/16 ,AppY/32, dark_green);
+        newRect((id-1)*AppX/2+AppX-AppX/32, AppY/16, AppX/16 ,AppY/32, Const.dark_green);
 
         loadText("Player 1 win!!!", AppX / 2, AppY/2-20, AppX/30);
     }

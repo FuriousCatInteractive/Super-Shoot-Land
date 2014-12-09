@@ -67,7 +67,7 @@ public class InputMananger extends Thread {
 			int activePlayer = KeyboardActions.getPlayerKey(event);
 
 					if (KeyboardActions.quitKeyPressed()) {
-						return GameLoop.retourne(GameLoop.mainMenu);
+						return GameLoop.retourne(Const.mainMenu);
 					}
 
 					if ((KeyboardActions.isAttacking(GameLoop.p1))) {
@@ -86,7 +86,7 @@ public class InputMananger extends Thread {
 					}
 
 					if (KeyboardActions.quitKeyPressed()) {
-						return GameLoop.retourne(GameLoop.mainMenu);
+						return GameLoop.retourne(Const.mainMenu);
 					}
 
 					if ((KeyboardActions.isAttacking(GameLoop.p2))) {

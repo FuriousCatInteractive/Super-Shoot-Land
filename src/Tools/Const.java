@@ -1,5 +1,7 @@
 package Tools;
 
+import org.jsfml.graphics.Color;
+
 /**
  * @Class Const
  * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
@@ -45,5 +47,18 @@ public class Const {
 	public final static float PARTICLE_SPEED = 6f; //pixels
 	public final static long PARTICLE_LIFETIME = 1000; //millisecondes
 
+
+    public static final Color dark_green = new Color(35,67,49, 255);
+    public static final Color background_green = new Color(83,122,62, 255);
+    public static final Color logo_green = new Color(167,186, 74, 255);
+    public static final Color light_green = new Color(211,226,154, 255);
+
+    public static final int play = 2;
+    public static final int config = 1;
+    public static final int mainMenu = 1;
+    public static final int exit = -1;
+    public static final int selectPerso = 3;
+    public static final int selectMode = 4;
+    public static final int selectPersoLocal = 5;
 
 }

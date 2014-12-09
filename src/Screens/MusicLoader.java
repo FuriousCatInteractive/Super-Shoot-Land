@@ -1,9 +1,19 @@
 package Screens;
 
+import org.jsfml.audio.Sound;
+
 /**
  * Created by Corentin on 07/12/2014.
  */
 public class MusicLoader extends Thread {
+
+  /*  private String path;
+    private Sound sound;
+
+    public MusicLoader(String path, Sound sound){
+        this.path=path;
+        this.sound=sound;
+    }*/
 
     /**
      * thread en parrélèle qui charge les musiques grosses
@@ -21,6 +31,7 @@ public class MusicLoader extends Thread {
         cScreen.select= cScreen.loadMusic("res/sound/select.ogg");
         cScreen.hit = cScreen.loadMusic("res/sound/hit2.ogg");
         cScreen.jump = cScreen.loadMusic("res/sound/jump2.ogg");
+       // sound=cScreen.loadMusic(path);
         System.out.println("fin loadmusic");
     }
 }

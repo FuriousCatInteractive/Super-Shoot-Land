@@ -1,5 +1,6 @@
 package Screens;
 
+import Tools.Const;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Text;
@@ -48,13 +49,13 @@ public class SelectMode extends cScreen implements iMenu{
         loadText(" Back", AppX/2+offsetX,2*AppY/3+offsety,taille_Font_base);
 
         loadText("Select Mode", AppX/2,AppY/15,(int)1.1*taille_Font_base);
-        ((Text)screenObject.get(3)).setColor(light_green);
+        ((Text)screenObject.get(3)).setColor(Const.light_green);
         loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20,taille_Font_base/2);
-        ((Text)screenObject.get(4)).setColor(light_green);
-        newRect(AppX, AppY/5, 0 ,0, dark_green);
-        newRect(AppX, 10, 0 ,AppY/5, light_green);
-        newRect(AppX, AppY/11, 0 ,10*AppY/11, dark_green);
-        newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
+        ((Text)screenObject.get(4)).setColor(Const.light_green);
+        newRect(AppX, AppY/5, 0 ,0, Const.dark_green);
+        newRect(AppX, 10, 0 ,AppY/5, Const.light_green);
+        newRect(AppX, AppY/11, 0 ,10*AppY/11, Const.dark_green);
+        newRect(AppX, 10, 0 ,10*AppY/11-10, Const.light_green);
         loadImage("res/img/logo.png",(int)((float)AppX/12),AppY/3);
        // System.out.println(500/(float)AppX);
         ((Sprite)screenObject.get(screenObject.size()-1)).setScale(0.0017f*AppY,0.0017f*AppY);
@@ -82,7 +83,7 @@ public class SelectMode extends cScreen implements iMenu{
 
             menuSelectionne(menu);
 
-            App.clear(background_green);
+            App.clear(Const.background_green);
             for(int i=screenObject.size()-1 ;i>-1;i--) {
                 App.draw(screenObject.get(i));
             }
@@ -107,7 +108,7 @@ public class SelectMode extends cScreen implements iMenu{
             if (event.type == event.type.CLOSED)
             {
                 screenObject.clear();
-                return (exit);
+                return (Const.exit);
             }
 
             int returnValueMouse = mouseManager(event, App);
@@ -165,7 +166,7 @@ public class SelectMode extends cScreen implements iMenu{
 
             if (KeyboardActions.quitKeyPressed()){
                 screenObject.clear();
-                return  mainMenu;
+                return  Const.mainMenu;
             }
 
 
@@ -206,9 +207,9 @@ public class SelectMode extends cScreen implements iMenu{
     public void menuSelectionne(int numero){
         for(int i =0; i<nb_choix_menu;i++)        {
             if(i==numero)
-                ((Text)screenObject.get(i)).setColor(light_green);
+                ((Text)screenObject.get(i)).setColor(Const.light_green);
             else
-                ((Text)screenObject.get(i)).setColor(dark_green);
+                ((Text)screenObject.get(i)).setColor(Const.dark_green);
         }
     }
 
@@ -220,14 +221,14 @@ public class SelectMode extends cScreen implements iMenu{
         switch (menu){
             case 0:
                 local=true;
-                returnvalue = selectPersoLocal;
+                returnvalue = Const.selectPersoLocal;
                 break;
             case 1:
                 local=false;
-                returnvalue = selectPerso;/////////////////////////////////////////////////////////////////////
+                returnvalue = Const.selectPerso;/////////////////////////////////////////////////////////////////////
                 break;
             case 2:
-                returnvalue = mainMenu;
+                returnvalue = Const.mainMenu;
                 break;
         }
         return returnvalue;

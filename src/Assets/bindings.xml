@@ -72,5 +72,5 @@ Echap : ESCAPE
 	<bind type="QUIT" player ="2">
 		<key name="ESCAPE"></key>
 	</bind>
-
+z
 </bindings>

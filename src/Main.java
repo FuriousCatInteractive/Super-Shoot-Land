@@ -47,7 +47,6 @@ public class Main {
         Screens[2] = new GameLoop();
 
         while (screen >= 0) {
-
             screen = Screens[screen].Run(window1);
         }
         System.out.println("fin du jeu");

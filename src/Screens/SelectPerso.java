@@ -1,6 +1,7 @@
 package Screens;
 
 import Entities.Player;
+import Tools.*;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
@@ -61,15 +62,15 @@ public class SelectPerso extends cScreen implements iMenu{
         loadImage("res/img/miniature_megaman.png",origin_x_min, origin_y_min+3*(ecart_min+hauteur_min), largeur_min,hauteur_min );
 
         loadText("Select your Character", AppX/2,AppY/15,(int)1.6*taille_Font_base);
-        ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(Const.light_green);
 
         loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20, (int) (taille_Font_base/1.5));
-        ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(Const.light_green);
 
-        newRect(AppX, AppY/5, 0 ,0, dark_green);
-        newRect(AppX, 10, 0 ,AppY/5, light_green);
-        newRect(AppX, AppY/11, 0 ,10*AppY/11, dark_green);
-        newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
+        newRect(AppX, AppY/5, 0 ,0, Const.dark_green);
+        newRect(AppX, 10, 0 ,AppY/5, Const.light_green);
+        newRect(AppX, AppY/11, 0 ,10*AppY/11, Const.dark_green);
+        newRect(AppX, 10, 0 ,10*AppY/11-10, Const.light_green);
     }
 
     /**
@@ -99,7 +100,7 @@ public class SelectPerso extends cScreen implements iMenu{
             loadImagePerso(menu+1);
 
 
-            App.clear(background_green);
+            App.clear(Const.background_green);
             for(int i=screenObject.size()-1 ;i>-1;i--) {
                 App.draw(screenObject.get(i));
             }
@@ -123,7 +124,7 @@ public class SelectPerso extends cScreen implements iMenu{
             if (event.type == event.type.CLOSED)
             {
                 screenObject.clear();
-                return (exit);
+                return (Const.exit);
             }
 
             int returnValueMouse = mouseManager(event, App);
@@ -180,7 +181,7 @@ public class SelectPerso extends cScreen implements iMenu{
 
             if (Keyboard.isKeyPressed(Keyboard.Key.ESCAPE)){
                 screenObject.clear();
-                return  mainMenu;
+                return  Const.mainMenu;
             }
 
 
@@ -215,9 +216,9 @@ public class SelectPerso extends cScreen implements iMenu{
     public void menuSelectionne(int numero){
         for(int i =0; i<nb_choix_menu;i++)        {
             if( i==menu)
-                ((Text)screenObject.get(i)).setColor(light_green);
+                ((Text)screenObject.get(i)).setColor(Const.light_green);
             else
-                ((Text)screenObject.get(i)).setColor(dark_green);
+                ((Text)screenObject.get(i)).setColor(Const.dark_green);
         }
     }
 
@@ -226,7 +227,7 @@ public class SelectPerso extends cScreen implements iMenu{
      * @return
      */
     public int choixValide(){
-        int   returnvalue = play;
+        int   returnvalue = Const.play;
         return returnvalue;
     }
 

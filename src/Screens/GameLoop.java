@@ -70,9 +70,13 @@ public class GameLoop extends cScreen {
             p1 = loadPerso(SelectPerso.persoSelect);
         }
 
+        loadText("P1  ", AppX/16,15,AppY/25);
+        loadText("  P2", 15*AppX/16,15,AppY/25);
+        ((Text)screenObject.get(screenObject.size()-1)).setColor(Const.dark_green);
+        ((Text)screenObject.get(screenObject.size()-2)).setColor(Const.dark_green);
+
         lvltest = new Level(20,(AppX/AppY)*20);
         loadLevelToGame(App);
-
     }
 
     /**
@@ -124,6 +128,7 @@ public class GameLoop extends cScreen {
         screenObject.add(p2);
         
         musicStage1.play();
+        musicStage1.setLoop(true);
         inputGL.start();
         // Thread threaPlayer1 = new Thread(p1);
         // threaPlayer1.start();
@@ -152,7 +157,7 @@ public class GameLoop extends cScreen {
 
             inputGL.run();
             if(returnValue <= 50)
-                return mainMenu;
+                return Const.mainMenu;
             afficher(App);
         }
         //Never reaching this point normally, but just in case, exit the application
@@ -224,7 +229,7 @@ public class GameLoop extends cScreen {
         musicStage1.stop();
 
         gameOver.play();
-        newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);
+        newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, Const.dark_green);
         loadText("Game Over!", AppX / 2, AppY/2-20, 40);
         loadText("(Appuyez sur une \"ESC\" pour revenir au menu)", AppX / 2, AppY/2+20, 20);
         gameState=Pause;
@@ -242,7 +247,7 @@ public class GameLoop extends cScreen {
         musicStage1.stop();
         musicBackground.setLoop(true);
         victory.play();
-        newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);
+        newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, Const.dark_green);
         if(p ==p1)
         loadText("Player 1 win!!!", AppX / 2, AppY/2-20, 40);
         else
@@ -257,22 +262,16 @@ public class GameLoop extends cScreen {
     private void updateList(){
         for (int i =screenObject.size() - 1; i > -1; i--) {
             if (screenObject.get(i) instanceof Player
-                    || screenObject.get(i) instanceof Text
+                   // || screenObject.get(i) instanceof Text
                     || screenObject.get(i) instanceof RectangleShape ) {
                 screenObject.remove(i);
             }
         }
-        int x;
-        int y=15;
-        loadText("P1: ", AppX/16,y,AppY/25);
-        loadText(" :P2", 15*AppX/16,y,AppY/25);
-        ((Text)screenObject.get(screenObject.size()-1)).setColor(dark_green);
-        ((Text)screenObject.get(screenObject.size()-2)).setColor(dark_green);
-
+       int y=15;
         int largeur=AppX/4;
         int hauteur=AppY/30;
-        newRect(p1.getHP()*largeur/100, hauteur, AppX/12 , (int) (y/1.5), dark_green);
-        newRect(p2.getHP()*largeur/100, hauteur, 5*AppX/6+AppX/12+largeur/100-p2.getHP()*largeur/100-AppX/100, (int) (y/1.5), dark_green);
+        newRect(p1.getHP()*largeur/100, hauteur, AppX/12 , (int) (y/1.5), Const.dark_green);
+        newRect(p2.getHP()*largeur/100, hauteur, 5*AppX/6+AppX/12+largeur/100-p2.getHP()*largeur/100-AppX/100, (int) (y/1.5), Const.dark_green);
         screenObject.add(p1);
         screenObject.add(p2);
 

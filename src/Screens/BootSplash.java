@@ -7,6 +7,8 @@ import org.jsfml.window.event.Event;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.sql.Array;
+import java.util.ArrayList;
 
 /**
  * Created by coco on 14-11-16.
@@ -21,7 +23,7 @@ public class BootSplash extends cScreen{
     private boolean ok2;
 
     private Sound miaou;
-    MusicLoader loader;
+
 
     /**
      * initialise tout les champs
@@ -69,9 +71,24 @@ public class BootSplash extends cScreen{
         long debut_bootsplash = System.currentTimeMillis();
         int duree=5000;
 
-        loader = new MusicLoader();
+       /* ArrayList<MusicLoader>  allMusics = null;
+        allMusics.add(new MusicLoader("res/sound/theme-ssb.ogg" ,musicBackground));
+        allMusics.add(new MusicLoader("res/sound/battlefield.ogg", musicStage1));
+        allMusics.add(new MusicLoader("res/sound/getready.ogg", getReady));
+        allMusics.add(new MusicLoader("res/sound/Wha-Wha.ogg", gameOver));
+        allMusics.add(new MusicLoader("res/sound/FF7_victory.ogg", victory));
+        allMusics.add(new MusicLoader("res/sound/shoot.ogg", shoot));
+        allMusics.add(new MusicLoader("res/sound/pick.ogg", pick));
+        allMusics.add(new MusicLoader("res/sound/select.ogg",select));
+        allMusics.add(new MusicLoader("res/sound/hit2.ogg", hit));
+        allMusics.add(new MusicLoader("res/sound/jump2.ogg", jump));*/
+
+
+     /*   for(MusicLoader it : allMusics){
+            it.start();
+        }*/
+        MusicLoader loader = new MusicLoader();
         loader.start();
-        //loader.run();
 
         while (System.currentTimeMillis()-debut_bootsplash<duree && Running)
         {
@@ -106,11 +123,20 @@ public class BootSplash extends cScreen{
 
         //Never reaching this point normally, but just in case, exit the application
         System.out.println("bootsplash finit");
+
+            /*for(MusicLoader it : allMusics){
+                try {
+                it.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }*/
         try {
             loader.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return (1);
     }
 
