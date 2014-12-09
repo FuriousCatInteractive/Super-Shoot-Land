@@ -24,7 +24,7 @@ Echap : ESCAPE
 	</bind>
 	
 	<bind type="JUMP" player ="1">
-		<key name="NUMPAD0"></key>
+		<key name="NUMPAD2"></key>
 	</bind>
 	
 	<bind type="ATTACK" player ="1">
@@ -40,13 +40,13 @@ Echap : ESCAPE
 	</bind>
 	
 	<bind type="QUIT" player ="1">
-		<key name="DELETE"></key>
+		<key name="NUMPAD3"></key>
 	</bind>
 	
 <!-- Bindings joueur 2 -->
 
 	<bind type="MOVE_LEFT" player ="2">
-		<key name="Q"></key>
+		<key name="A"></key>
 	</bind>
 	
 	<bind type="MOVE_RIGHT" player ="2">
@@ -54,7 +54,7 @@ Echap : ESCAPE
 	</bind>
 		
 	<bind type="MOVE_UP" player ="2">
-		<key name="Z"></key>
+		<key name="W"></key>
 	</bind>
 	
 	<bind type="MOVE_DOWN" player ="2">
@@ -62,7 +62,7 @@ Echap : ESCAPE
 	</bind>
 	
 	<bind type="JUMP" player ="2">
-		<key name="SPACE"></key>
+		<key name="T"></key>
 	</bind>
 	
 	<bind type="ATTACK" player ="2">
@@ -70,7 +70,7 @@ Echap : ESCAPE
 	</bind>
 	
 	<bind type="QUIT" player ="2">
-		<key name="ESCAPE"></key>
+		<key name="Y"></key>
 	</bind>
 z
 </bindings>
