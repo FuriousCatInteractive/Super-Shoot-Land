@@ -38,9 +38,9 @@ débogage: Temps prévu : 10h, Temps effectif : ~13h mins
 
 
 
-###Gestion des entrées clavier###
+##Gestion des entrées clavier
 
-#Parsing : 
+###Parsing : 
 
 Le fichier bindings.xml contient la liste des touches associées à des actions pour un joueur donné (bindings).
 Une action est représentée par une balise <bind> possédant un nom (ACTION_MOVE, ACTION_ATTACK...) et le joueur pouvant
@@ -66,7 +66,7 @@ nous aurons notre liste d'objets KeyBindings prêts à l'usage.
 
 C'est la classe GameConfig qui appelle XmlKeyBindingsParser lors de l'initialisation du jeu.
 
-#Utilisation des bindings
+###Utilisation des bindings
 
 La classe InputManager sert à récupérer les évènements d'appui sur une touche en cours de partie.
 Nous vérifions avec JSFML si un évènement a été produit, si oui alors pour chaque joueur nous
@@ -89,5 +89,21 @@ Une méthode movementKeyReleased prenant un évènement clavier et un joueur en 
 de vérifier si une touche donnée a été relachée, utilisée avant tout pour arrêter de déplacer les
 personnages lorsqu'on relâche les touches de mouvement.
 
+###Moteur Graphique
+
+En ce qui oncerne l'affichage d'éléments la JSFML est assez performante. En effet nous avons créer un ArrayList<Drawable>
+qui contient tous les éléments à afficher à l'écran. Ainsi, à chaque fois qu'on doit afficher les ojbets on à juste à parcourir ce tableau.
+En ce qui concerne les sprite, on commence à charger l'image dans la mémoire et on a une fonction qui décide quelle partie de l'image il doit afficher en fonction de l'état du joueur associé.
+
+###Moteur physique
+
+Chaque joueur gère sa propre physique dans un thread, en effet une hitbox lui est associé et en fonction des collisions il met l'état du joueur à jour.
+Pour vérifier les collision le moteur physique du joueur parcourt le tableau de tous les objets ayant une hitbox et vérifit si l'intersection avec la hitbox du joueur est différente de `null` ou non. Le résultat de ce test nous donne un rectangle ou les deux hitbox se supperposent et on adapte la postion du joueur en fonction de ce rectangle.
 
 
+###Gestion des sons
+
+Tous les sons et les musiques sont chargés dans un thread en parrallèle du bootsplash. En effet ces appels systèmes sont assez lourds et prennent du temps car les musiques peuvent faire quelques Mo (même si on utilise le format .ogg qui est plus léger que le .wav) 
+Ainsi on attend qque toutes les musiques soient chargées avec la méthode `join()` de la classe Thread avnt de passer au menu prinicpal.
+Ensuite il suffit juste d'appeller `music.play()` pour lancer la musique qui est jouée dans un thread à part (gérer par la JSFML).
+ 
