@@ -1,5 +1,4 @@
 
-import Level.Level;
 import Screens.*;
 import Tools.GameConfig;
 import org.jsfml.graphics.FloatRect;
@@ -7,12 +6,13 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
 import org.jsfml.window.VideoMode;
 
-//pour connaitre la taille de la fenetre
-import java.awt.*;
-
 
 /**
- * Created by coco on 14-11-16.
+ * @Class Main
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe main
+ *
  */
 public class Main {
 
@@ -24,7 +24,7 @@ public class Main {
     	GameConfig.configKeyBindings();
 
 
-        Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        //Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int WINDOW_H = 600;//(int)tailleEcran.getHeight();
         int WINDOW_W = 700;//(int)tailleEcran.getWidth();
 

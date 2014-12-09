@@ -4,14 +4,19 @@ import org.jsfml.audio.Sound;
 import org.jsfml.graphics.*;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.Event.Type;
+
+import Tools.MusicLoader;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.Array;
-import java.util.ArrayList;
 
 /**
- * Created by coco on 14-11-16.
+ * @Class BootSplash
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe gérant l'écran de démarrage
+ *
  */
 public class BootSplash extends cScreen{
 
@@ -26,7 +31,7 @@ public class BootSplash extends cScreen{
 
 
     /**
-     * initialise tout les champs
+     * Initialise tout les champs
      * @param fenetre
      */
     public void BootSplashInit(RenderWindow fenetre){
@@ -59,8 +64,8 @@ public class BootSplash extends cScreen{
     }
 
     /**
-     * méthode principale appellé par le main
-     * fait le rafraichissent
+     * Méthode principale appellé par le main
+     * Fait le rafraichissement
      * @param App
      * @return
      */
@@ -70,18 +75,6 @@ public class BootSplash extends cScreen{
         BootSplashInit(App);
         long debut_bootsplash = System.currentTimeMillis();
         int duree=5000;
-
-       /* ArrayList<MusicLoader>  allMusics = null;
-        allMusics.add(new MusicLoader("res/sound/theme-ssb.ogg" ,musicBackground));
-        allMusics.add(new MusicLoader("res/sound/battlefield.ogg", musicStage1));
-        allMusics.add(new MusicLoader("res/sound/getready.ogg", getReady));
-        allMusics.add(new MusicLoader("res/sound/Wha-Wha.ogg", gameOver));
-        allMusics.add(new MusicLoader("res/sound/FF7_victory.ogg", victory));
-        allMusics.add(new MusicLoader("res/sound/shoot.ogg", shoot));
-        allMusics.add(new MusicLoader("res/sound/pick.ogg", pick));
-        allMusics.add(new MusicLoader("res/sound/select.ogg",select));
-        allMusics.add(new MusicLoader("res/sound/hit2.ogg", hit));
-        allMusics.add(new MusicLoader("res/sound/jump2.ogg", jump));*/
 
 
      /*   for(MusicLoader it : allMusics){
@@ -96,7 +89,7 @@ public class BootSplash extends cScreen{
             for (Event event : App.pollEvents())
             {
                 // Window closed
-                if (event.type == event.type.CLOSED)
+                if (event.type == Type.CLOSED)
                     return (-1);
 
                 //if(event.type == Event.Type.MOUSE_BUTTON_RELEASED)

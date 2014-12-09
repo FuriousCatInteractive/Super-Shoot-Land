@@ -1,13 +1,16 @@
 package Screens;
 
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 
 import org.jsfml.window.event.Event;
 
 
 /**
- * Created by coco on 14-11-16.
+ * @Interface iMenu
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Interface représentant un Menu
+ *
  */
 public interface iMenu {
 

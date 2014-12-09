@@ -1,7 +1,5 @@
 package Tools;
 
-import Screens.SelectMode;
-
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.KeyEvent;
@@ -17,9 +15,6 @@ import Entities.Player;
  *
  */
 public class KeyboardActions {
-
-	//TODO remplacer toutes les méthodes copiées collées par une seule qui vérifie l'action effectuée
-	//(pour faire plus propre et moins de copier coller)
 
 	/**
 	 * Méthode qui retourne le joueur dont le binding correspond à une touche pressée

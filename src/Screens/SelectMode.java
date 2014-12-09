@@ -1,18 +1,23 @@
 package Screens;
 
 import Tools.Const;
+
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2i;
-import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.Event.Type;
 
 import Tools.KeyboardActions;
 
 /**
- * Created by coco on 14-11-16.
+ * @Class SelectMode
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe pour le menu de choix du mode
+ *
  */
 public class SelectMode extends cScreen implements iMenu{
 
@@ -22,10 +27,8 @@ public class SelectMode extends cScreen implements iMenu{
 
     public static boolean local;
 
-
-
     /**
-     * constructeur par défaut
+     * Constructeur par défaut
      */
     public SelectMode() {
         pos = new Vector2i(0,0);
@@ -34,7 +37,7 @@ public class SelectMode extends cScreen implements iMenu{
     }
 
     /**
-     * charge tous les éléments du screen
+     * Charge tous les éléments du screen
      * @param App
      */
     private void loadScreenObjects(RenderWindow App){
@@ -62,14 +65,11 @@ public class SelectMode extends cScreen implements iMenu{
     }
 
     /**
-     * méthode principale qui fait l'update
+     * Méthode principale qui fait l'update
      * @param App
      * @return
      */
     public int Run(RenderWindow App){
-
-
-        //musicBackground.play();
 
         loadScreenObjects(App);
 
@@ -105,7 +105,7 @@ public class SelectMode extends cScreen implements iMenu{
         for (Event event : App.pollEvents())
         {
             // Window closed
-            if (event.type == event.type.CLOSED)
+            if (event.type == Type.CLOSED)
             {
                 screenObject.clear();
                 return (Const.exit);

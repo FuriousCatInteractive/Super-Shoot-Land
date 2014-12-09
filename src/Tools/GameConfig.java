@@ -5,9 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
-import org.jsfml.window.Keyboard;
-
 import Entities.KeyBinding;
 
 /**
@@ -39,11 +36,8 @@ public class GameConfig {
 		{
 			e.printStackTrace();
 		}
-    	
-    	//FIN config touches
 	}
 	
-
 	public static ArrayList<KeyBinding> getKeyBindings() {
 		return keyBindings;
 	}

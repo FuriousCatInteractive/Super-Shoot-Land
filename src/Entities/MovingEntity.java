@@ -1,7 +1,5 @@
 package Entities;
 
-import static Graphics.EntityTexture.decideState;
-import static Graphics.EntityTexture.updateTexture;
 
 /**
  * Created by Corentin on 28/11/2014.
@@ -57,7 +55,7 @@ public class MovingEntity extends GameEntity {
     }
 
     public void setVitesse(float vitesse) {
-        this.vitesse = vitesse;
+        MovingEntity.vitesse = vitesse;
     }
 
 

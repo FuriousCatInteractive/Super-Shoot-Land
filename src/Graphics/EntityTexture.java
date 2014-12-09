@@ -1,17 +1,18 @@
 package Graphics;
 
-import Entities.MovingEntity;
 import Entities.Player;
-import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
-import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
- * Created by coco on 14-11-20.
+ * @Class EntityTexture
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe représentant les textures des entités
+ *
  */
 public class EntityTexture {
 
@@ -32,7 +33,7 @@ public class EntityTexture {
     public static int  dureeeAnimation = 20;
 
     /**
-     * update la texture en fonction de l'état dans
+     * Update la texture en fonction de l'état dans
      * lequel est le sprite
      * @param sprite
      */
@@ -67,7 +68,7 @@ public class EntityTexture {
     }
 
     /**
-     * décide de l'état dans lequel est le sprite et
+     * Décide de l'état dans lequel est le sprite et
      * donc quelle partie de la teture il faut charger
      * @param p
      * @return
@@ -91,9 +92,9 @@ public class EntityTexture {
     }
 
     /**
-     * chargement de la texture depuis un fichier img
+     * Chargement de la texture depuis un fichier img
      * @param imagePath
-     * @return
+     * @return textureSprite
      */
     public static Texture loadTexture(String imagePath) {
         Texture textureSprite = new Texture();
@@ -104,47 +105,4 @@ public class EntityTexture {
         }
         return textureSprite;
     }
-   /* public void mergeTextureSprite(List<GameBaseEntity> entityList) {
-        for(GameBaseEntity it: entityList) {
-            if(it instanceof Mob) {
-                it.setTexture(loadTexture("rsc/img/poule.png"));
-                it.setScale(3f,3f);
-            }
-            else if(it instanceof Player) {
-                it.setTexture(loadTexture("rsc/img/zombie.png"));
-                it.setScale(3f,3f);
-            }
-            else if(it instanceof Bullet) {
-                it.setTexture(loadTexture("rsc/img/poule.png"));
-                it.setScale(1f, 1f);
-            }
-            updateTexture(it,it.getId(),1);
-        }
-    }
-    public static void mergeTextureSprite(GameBaseEntity entityList) {
-        if(entityList instanceof Mob) {
-            entityList.setTexture(loadTexture("rsc/img/poule.png"));
-            entityList.setScale(3f,3f);
-        }
-        else if(entityList instanceof Player) {
-            entityList.setTexture(loadTexture("rsc/img/zombie.png"));
-            entityList.setScale(3f,3f);
-        }
-        else if(entityList instanceof Bullet) {
-            entityList.setTexture(loadTexture("rsc/img/rock.png"));
-            entityList.setScale(1f, 1f);
-        }
-        updateTexture(entityList,entityList.getId(),1);
-    }
-    public static void loadImageOnSprite(GameBaseEntity entity, String path, float scaleX, float scaleY) {
-        entity.setTexture(loadTexture(path));
-        entity.setScale(scaleX, scaleY);
-    }
-    public void updateList(List<GameBaseEntity> entityList){
-        for(GameBaseEntity it: entityList){
-            updateTexture(it, it.getId(),it.getDirection());
-        }
-    }*/
-
-
 }

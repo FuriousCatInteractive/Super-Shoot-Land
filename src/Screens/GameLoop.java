@@ -2,29 +2,19 @@ package Screens;
 
 import Entities.GameEntity;
 import Entities.Player;
-import Graphics.EntityTexture;
-import InputGameLoop.InputMananger;
+import InputGameLoop.InputManager;
 import Level.Level;
 import Tools.Const;
-import Tools.KeyboardActions;
 
-import org.jsfml.audio.Sound;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
-import org.jsfml.window.Keyboard;
-import org.jsfml.window.Mouse;
-import org.jsfml.window.event.Event;
-
-import javax.print.attribute.standard.PrinterLocation;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.nio.file.Paths;
-
-import static Graphics.EntityTexture.*;
 
 /**
- * Created by coco on 14-11-16.
+ * @Class GameLoop
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe gérant la boucle de jeu principale
+ *
  */
 public class GameLoop extends cScreen {
 
@@ -37,7 +27,7 @@ public class GameLoop extends cScreen {
     public static int AppX;
     public static int AppY;
 
-    private InputMananger inputGL;
+    private InputManager inputGL;
 
     public final static int Running=1;
     public final static int Pause=0;
@@ -49,12 +39,11 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * load les éléments qui seront à afficher
+     * Load les éléments qui seront à afficher
      * @param App
      */
     private void loadScreenObjects(RenderWindow App) {
         loadFont("res/font/Volter__28Goldfish_29.ttf");
-        int taille_Font_base = 40;
         AppX = App.getSize().x;
         AppY = App.getSize().y;
 
@@ -80,26 +69,26 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * charge le perso coorespondant au num
+     * Charge le perso coorespondant au num
      * sélectionnéà l'écran précédent
      */
     public Player loadPerso(int num){
         Player p;
         switch (num) {
             case Player.PIKACHU:
-                p = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer(Const.IMG_PATH+"pikachu-spritesheet.png", 0.007f * AppY);
                 break;
             case Player.MARIO:
-                p = loadPlayer("res/img/mario-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer(Const.IMG_PATH+"mario-spritesheet.png", 0.007f * AppY);
                 break;
             case Player.LINK:
-                p = loadPlayer("res/img/link-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer(Const.IMG_PATH+"link-spritesheet.png", 0.007f * AppY);
                 break;
             case Player.MEGAMAN:
-                p = loadPlayer("res/img/megaman-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer(Const.IMG_PATH+"megaman-spritesheet.png", 0.007f * AppY);
                 break;
             default:
-                p = loadPlayer("res/img/pikachu-spritesheet.png", 0.007f * AppY);
+                p = loadPlayer(Const.IMG_PATH+"pikachu-spritesheet.png", 0.007f * AppY);
                 break;
         }
         p.setPerso(num);
@@ -108,7 +97,7 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * boucle de jeu principale
+     * Boucle de jeu principale
      * @param App
      * @return
      */
@@ -117,7 +106,7 @@ public class GameLoop extends cScreen {
         musicBackground.stop();
         gameState=Running;
         loadScreenObjects(App);
-        inputGL= new InputMananger(App);
+        inputGL= new InputManager(App);
 
         p1.setPlayerNumber(Const.PLAYER1);
         p1.playerReset();
@@ -165,7 +154,7 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * si on change de screen
+     * Changement d'écran
      * @param nextMenu
      * @return
      */
@@ -176,7 +165,7 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * l'affichage en tant que tel
+     * Affichage des éléments
      * @param App
      */
     public void afficher(RenderWindow App){
@@ -191,11 +180,12 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * affiche la hitbox donnée en bleu
+     * Affiche la hitbox donnée en bleu (pour le debug)
      * @param App
      * @param entity
      */
-    private void afficherHitbox(RenderWindow App, GameEntity entity){
+    @SuppressWarnings("unused")
+	private void afficherHitbox(RenderWindow App, GameEntity entity){
         IntRect temp = new IntRect(0,0,0,0);
         temp= entity.getHitbox();
         RectangleShape rect = new RectangleShape(new Vector2f(temp.width, temp.height) );
@@ -205,7 +195,7 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * charge la map binaire en screenobjects avec
+     * Charge la map binaire en screenobjects avec
      * texture et hitbox
      * @param App
      */
@@ -215,17 +205,17 @@ public class GameLoop extends cScreen {
         for(int i =0;i<lvltest.getHauteur();i++) {
             for (int j = 0; j < lvltest.getLargeur(); j++) {
                 if(lvltest.mapBinaire[i][j]==1)
-                    loadImage("res/img/block.png", j*w_block,i*h_block, w_block, h_block);
+                    loadImage(Const.IMG_PATH+"block.png", j*w_block,i*h_block, w_block, h_block);
             }
         }
     }
 
     /**
-     * affiche petit message et met le jeu en pause
-     * petite musique en bonus =)
+     * Affiche petit message et met le jeu en pause
      * @return
      */
-    private  int  messageDefaite(){
+    @SuppressWarnings("unused")
+	private  int  messageDefaite(){
         musicStage1.stop();
 
         gameOver.play();
@@ -239,7 +229,7 @@ public class GameLoop extends cScreen {
     }
 
     /**
-     * affiche petit message et met le jeu en pause
+     * Affiche petit message et met le jeu en pause
      * petite musique en bonus =)
      * @return
      */
@@ -259,6 +249,9 @@ public class GameLoop extends cScreen {
 
     }
 
+    /**
+     * Méthode qui supprime les screenobjects et les réaffiche
+     */
     private void updateList(){
         for (int i =screenObject.size() - 1; i > -1; i--) {
             if (screenObject.get(i) instanceof Player

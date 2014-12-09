@@ -6,17 +6,18 @@ import Tools.KeyboardActions;
 
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
-import org.jsfml.system.Vector2i;
-import org.jsfml.window.Keyboard;
-import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.Event.Type;
 
 /**
- * Created by coco on 14-11-16.
+ * @Class SelectPersoLocal
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe pour le menu de selection de personnage (jeu local)
+ *
  */
 public class SelectPersoLocal extends cScreen{
 
-    private Vector2i pos;
     private int menu;
     private int menu2;
     private int nb_choix_menu;
@@ -30,8 +31,10 @@ public class SelectPersoLocal extends cScreen{
     private boolean ok1;
     private boolean ok2;
 
+    /**
+     * Constructeur
+     */
     public SelectPersoLocal() {
-        pos = new Vector2i(0,0);
         menu = 0;
         menu2=0;
         nb_choix_menu = 4;
@@ -48,8 +51,6 @@ public class SelectPersoLocal extends cScreen{
         AppX = App.getSize().x;
         AppY = App.getSize().y;
         int taille_Font_base = (int)(0.09*AppY);
-        int offsetX =AppX/3-20;
-        int offsety = AppY/20;
 
         int hauteur_min = AppY/8;
         int largeur_min = AppX/8;
@@ -149,7 +150,7 @@ public class SelectPersoLocal extends cScreen{
         for (Event event : App.pollEvents())
         {
             // Window closed
-            if (event.type == event.type.CLOSED)
+            if (event.type == Type.CLOSED)
             {
                 screenObject.clear();
                 return (Const.exit);
@@ -167,34 +168,6 @@ public class SelectPersoLocal extends cScreen{
         //si on ne quitte pa s cet écran
         return 100;
     }
-
-    /**
-     * regarde les événements liés à la souris
-     * @param event
-     * @param App
-     * @return
-     */
-   /*public int mouseManager(Event event, RenderWindow App){
-        if (event.type == Event.Type.MOUSE_MOVED) {
-            event.asMouseEvent();
-            pos = Mouse.getPosition(App);
-            for (int i = 0; i < nb_choix_menu; i++)
-                if ( ((Text)screenObject.get(i)).getGlobalBounds().contains((float) pos.x, (float) pos.y))
-                    menu = i;
-        }
-
-        //click de la souris
-        if (event.type == Event.Type.MOUSE_BUTTON_PRESSED) {
-            persoSelect1=menu+1;
-            event.asMouseEvent();
-           // musicBackground.stop();
-            screenObject.clear();
-            return choixValide();
-        }
-
-        //si on ne quitte pas cet écran
-        return 100;
-    }*/
 
     /**
      * regarde les évenements liés au clavier

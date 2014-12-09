@@ -12,7 +12,7 @@ import org.jsfml.graphics.Color;
 public class Const {
 
 	//Chemins d'accès
-	public final static String XML_BINDINGS_PATH = "src/Assets/bindings.xml";
+	public final static String XML_BINDINGS_PATH = "res/xml/bindings.xml";
 	public final static String IMG_PATH = "res/img/";
 	
 	//Joueurs

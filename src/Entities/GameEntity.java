@@ -1,11 +1,14 @@
 package Entities;
 
-import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 
 /**
- * Created by Corentin on 28/11/2014.
+ * @Class GameEntity
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe représentant une entité du jeu
+ *
  */
 public class GameEntity extends Sprite {
 

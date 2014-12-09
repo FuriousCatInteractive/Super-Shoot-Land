@@ -6,7 +6,6 @@ import org.jsfml.audio.Sound;
 import org.jsfml.audio.SoundBuffer;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
-import org.w3c.dom.css.Rect;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -15,35 +14,40 @@ import java.util.ArrayList;
 import static Graphics.EntityTexture.loadTexture;
 
 /**
- * Created by coco on 14-11-16.
+ * @Class cScreen
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe gérant l'affichage
+ *
  */
 public class cScreen {
 
 
-    protected static Sound musicBackground;
-    protected static Sound musicStage1;
-    protected static Sound getReady;
+	public static Sound musicBackground;
+    public static Sound musicStage1;
+    public static Sound getReady;
 	public static Sound shoot;
-	protected static Sound pick;
-	protected static Sound select;
-    protected static Sound gameOver;
-    protected static Sound victory;
+	public static Sound pick;
+	public static Sound select;
+	public static Sound gameOver;
+	public static Sound victory;
     public static Sound hit;
     public static Sound jump;
 
 
     protected Font fontScreen;
-    public static ArrayList<Drawable> screenObject = new ArrayList();
+    public static ArrayList<Drawable> screenObject;
 
     /**
      * constructeur par défault
      */
     public cScreen() {
+    	screenObject = new ArrayList<Drawable>();
         fontScreen = new Font();
     }
 
     /**
-     * méthode qui sera appellée par le main
+     * Méthode qui sera appelée par le main
      * elle sera réimplémentée dans les classes enfants
      * @param App
      * @return
@@ -64,8 +68,7 @@ public class cScreen {
     }
 
     /**
-     *
-     * charge du texte et le met dans le tableau screenobjetcs
+     * Charge du texte et le met dans le tableau screenobjetcs
      * @param text
      * @param posX
      * @param posY
@@ -83,7 +86,7 @@ public class cScreen {
     }
 
     /**
-     * cgarge une image sans scale
+     * Charge une image sans scale
      * @param path
      * @param posX
      * @param posY
@@ -93,7 +96,7 @@ public class cScreen {
     }
 
     /**
-     * charge une image avec scale et la mets
+     * Charge une image avec scale et la mets
      * dans le tableau screen objects
      * @param path
      * @param posX
@@ -118,7 +121,7 @@ public class cScreen {
     }
 
     /**
-     * crer un rect et le mets dans le tableau screenobjects
+     * Crée un rect et le met dans le tableau screenobjects
      * @param weight
      * @param height
      * @param posX
@@ -133,7 +136,12 @@ public class cScreen {
         screenObject.add(rect);
     }
 
-    protected static Sound loadMusic(String path)
+    /**
+     * Chargement de musique
+     * @param path
+     * @return
+     */
+    public static Sound loadMusic(String path)
     {
         Sound sound1 = new Sound();
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -155,7 +163,7 @@ public class cScreen {
     }
 
     /**
-     * charge la texture d'un joueur avec
+     * Charge la texture d'un joueur avec
      * le chemin vers sa spritesheet
      * @param path
      * @param scale

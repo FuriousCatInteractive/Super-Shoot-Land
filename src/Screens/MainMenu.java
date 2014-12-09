@@ -1,28 +1,28 @@
 package Screens;
 
 import Tools.Const;
+
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2i;
-import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.Event.Type;
 
 import Tools.KeyboardActions;
 
-import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
- * Created by coco on 14-11-16.
+ * @Class MainMenu
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe du menu principal
+ *
  */
 public class MainMenu extends cScreen implements iMenu{
 
     private Vector2i pos;
     private int menu;
     private int nb_choix_menu;
-
-
-
 
     /**
      * constructeur par défaut
@@ -105,7 +105,7 @@ public class MainMenu extends cScreen implements iMenu{
         for (Event event : App.pollEvents())
         {
             // Window closed
-            if (event.type == event.type.CLOSED)
+            if (event.type == Type.CLOSED)
             {
                 screenObject.clear();
                 return (Const.exit);

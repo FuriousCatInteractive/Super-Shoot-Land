@@ -2,17 +2,20 @@ package Screens;
 
 import Entities.Player;
 import Tools.*;
+
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
-
-import java.io.IOException;
-import java.nio.file.Paths;
+import org.jsfml.window.event.Event.Type;
 
 /**
- * Created by coco on 14-11-16.
+ * @Class SelectPerso
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe pour le menu de choix des personnages
+ *
  */
 public class SelectPerso extends cScreen implements iMenu{
 
@@ -25,6 +28,9 @@ public class SelectPerso extends cScreen implements iMenu{
 
     public static int persoSelect;
 
+    /**
+     * Constructeur
+     */
     public SelectPerso() {
         pos = new Vector2i(0,0);
         menu = 0;
@@ -33,7 +39,7 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     /**
-     * créer et charge les éléments du screen
+     * Créer et charge les éléments du screen
      * @param App
      */
     private void loadScreenObjects(RenderWindow App){
@@ -41,8 +47,8 @@ public class SelectPerso extends cScreen implements iMenu{
         AppX = App.getSize().x;
         AppY = App.getSize().y;
         int taille_Font_base = (int)(0.06*AppY);
-        int offsetX =AppX/3-20;
-        int offsety = AppY/20;
+       // int offsetX =AppX/3-20;
+       // int offsety = AppY/20;
 
         int hauteur_min = AppY/8;
         int largeur_min = AppX/8;
@@ -74,7 +80,7 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     /**
-     * méthode principale qui fait l'update
+     * Méthode principale qui fait l'update
      * @param App
      * @return
      */
@@ -121,7 +127,7 @@ public class SelectPerso extends cScreen implements iMenu{
         for (Event event : App.pollEvents())
         {
             // Window closed
-            if (event.type == event.type.CLOSED)
+            if (event.type == Type.CLOSED)
             {
                 screenObject.clear();
                 return (Const.exit);
@@ -141,7 +147,7 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     /**
-     * regarde les événements liés à la souris
+     * Regarde les événements liés à la souris
      * @param event
      * @param App
      * @return
@@ -169,7 +175,7 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     /**
-     * regarde les évenements liés au clavier
+     * Regarde les évenements liés au clavier
      * @param event
      * @param App
      * @return
@@ -210,7 +216,7 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     /**
-     * hilight si selectionné
+     * Highlight si selectionné
      * @param numero
      */
     public void menuSelectionne(int numero){
@@ -223,7 +229,7 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     /**
-     * si clic ou entrée on change de screen
+     * Si clic ou entrée on change de screen
      * @return
      */
     public int choixValide(){
@@ -232,7 +238,7 @@ public class SelectPerso extends cScreen implements iMenu{
     }
 
     /**
-     * charge le perso coorespondant au num
+     * Charge le perso coorespondant au num
      * sélectionnéà l'écran précédent
      */
     public void loadImagePerso(int num)        {

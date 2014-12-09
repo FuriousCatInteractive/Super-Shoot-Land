@@ -1,15 +1,11 @@
 package Entities;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-import Graphics.EntityTexture;
-import Screens.GameLoop;
+import java.util.ArrayList;
 import Screens.cScreen;
 import org.jsfml.graphics.Drawable;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
-import org.jsfml.graphics.Texture;
 
 import Tools.Const;
 

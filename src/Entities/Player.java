@@ -12,7 +12,11 @@ import Tools.Const;
 import static Graphics.EntityTexture.*;
 
 /**
- * Created by coco on 14-11-20.
+ * @Class Player
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe représentant un joueur
+ *
  */
 public class Player extends MovingEntity implements  Runnable {
 
@@ -28,12 +32,12 @@ public class Player extends MovingEntity implements  Runnable {
     public boolean up = false;
     public boolean down = false;
 
-    public float yorigin = 0;////////////////////////////////////////////////////////////////////
+    public float yorigin = 0;
     public boolean enaMoveFinJUMP;
 
     public boolean direction = true;
 
-    public float vitesse = 4;//App.getSize().x/150;
+    public float vitesse = 4;
 
     public int[] state = IDLE;
 
@@ -73,7 +77,7 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     /**
-     * vérifit et met à jour les variables du player
+     * Méthode qui vérifie et met à jour les variables du player
      */
     public void updatePplayerPhysics() {
 
@@ -81,10 +85,8 @@ public class Player extends MovingEntity implements  Runnable {
         setVitesseY((float) (-1.0f * ((v_y * t) - ((Player.g * t * t) / 2000))));
         //On calcule maintenant les valeurs absolues
         movePerso(getVitesseX(), 1.0f * getVitesseY());
-        //System.out.println("-->"+ getVitesseY()+" state "+ state[0]);
 
         if (state == JUMP /*|| */) {
-            //  System.out.println("up="+up+" t="+t);
             if (up) {
                 t += 0.70f;
                 if (yorigin - getGlobalBounds().top > 4 * getLocalBounds().height) {
@@ -117,7 +119,7 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     /**
-     * appellée quand touche shoot appuyée
+     * Méthode appelée quand touche shoot appuyée
      */
     public void PlayerShoot() {
         if (state != JUMP) {
@@ -128,7 +130,6 @@ public class Player extends MovingEntity implements  Runnable {
 
             try {
 
-                //FIXME particule selon le personnage ?
                 tex.loadFromFile(Paths.get(Const.IMG_PATH+"particle.png"));
                 tex.setSmooth(true);
                 s.setTexture(tex);
@@ -154,14 +155,13 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     /**
-     * appellée quand touche jump appuyée
+     *Méthode appelée quand touche jump appuyée
      */
-    public void PLayerJump() {
+    public void PlayerJump() {
         cScreen.jump.play();
         if(isGrounded) {
             yorigin = getGlobalBounds().top;
             if (state == WALK) {
-                // System.out.println( getVitesseX());
                 setVitesseX(getVitesseX());
             }
             state = JUMP;
@@ -173,9 +173,9 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     /**
-     * appellée quand touche gauche ou droite appuyée
+     * Méthode appelée quand touche gauche ou droite appuyée
      */
-    public void PLayerWalk(boolean dir) {
+    public void PlayerWalk(boolean dir) {
         if (isCollied == false) {
             if (dir == LEFT)
                 setVitesseX(-vitesse);
@@ -193,7 +193,7 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     /**
-     * appellée quand touche gauche ou droie relachée
+     * Méhode appelée quand touche gauche ou droie relachée
      */
     public void PlayerIdle() {
         if (state == WALK) {
@@ -222,7 +222,7 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     /**
-     * pour le thread
+     * Méthode run pour le thread
      */
     @Override
     public void run() {
@@ -252,13 +252,12 @@ public class Player extends MovingEntity implements  Runnable {
     }
 
     /**
-     * déplace la hitbox en même temps que le perso
+     * Méthode qui déplace la hitbox en même temps que le perso
      */
     public void updateHitbox() {
         IntRect big = new IntRect(this.getGlobalBounds());
         int x, y, w, h;
 
-        //System.out.println("pika!");
         x = big.left + big.width / 2 - big.width / 6;
         y = big.top + big.height - (int) (big.height / 1.75);
         w = big.width / 3;
@@ -272,7 +271,7 @@ public class Player extends MovingEntity implements  Runnable {
 
 
     /**
-     * vérifit les collisions avec le reste des éléments du jeu
+     * Méthode vérifie les collisions avec le reste des éléments du jeu
      *
      * @param array
      */
@@ -287,7 +286,7 @@ public class Player extends MovingEntity implements  Runnable {
                     //vérifit si les pieds sur terre
                     int lim = hitboxTemp.top + hitboxTemp.height;
 
-                    int resbottom = res.top + res.height;
+                    //int resbottom = res.top + res.height;
                     // System.out.println("top="+hitboxTemp.top +  " bottom res=" + resbottom +" "+down);
 
                  /*   if (hitboxTemp.top <= resbottom && up ) {
@@ -318,15 +317,24 @@ public class Player extends MovingEntity implements  Runnable {
             }
         }
 
-        //System.out.println(" a pa collision");
         return 10;
     }
 
+    /**
+     * Méthode pour déplacer le personnage
+     * @param dx
+     * @param dy
+     */
     public void movePerso(float dx, float dy) {
         super.move(dx, dy);
         hitbox = new IntRect(hitbox.left + (int) dx, hitbox.top + (int) dy, hitbox.width, hitbox.height);
     }
 
+    /**
+     * Méthode verifiant si le joueur est au sol
+     * @param array
+     * @return
+     */
     private boolean isGrounded(ArrayList<Drawable> array) {
         // System.out.println("test");
         IntRect hitboxTemp = new IntRect(hitbox.left/*+(int)vitesseX*/, hitbox.top +15, hitbox.width, hitbox.height);
@@ -342,6 +350,9 @@ public class Player extends MovingEntity implements  Runnable {
         return false;
     }
 
+    /**
+     * Méthode verifiant si le joueur est sorti de l'écran
+     */
     private void verifOutOfTableau(){
         if(hitbox.top>=GameLoop.AppY){
             HP=0;
@@ -349,6 +360,10 @@ public class Player extends MovingEntity implements  Runnable {
         }
     }
 
+    /**
+     * Méthode vérifiant si le joueur est mort
+     * @return mort
+     */
     public boolean isDead(){
         if(HP<=0)
             return true;
@@ -356,6 +371,9 @@ public class Player extends MovingEntity implements  Runnable {
             return  false;
     }
 
+    /**
+     * Méthode permettant de reset la position du joueur
+     */
     public void playerReset(){
         HP=100;
         state=IDLE;

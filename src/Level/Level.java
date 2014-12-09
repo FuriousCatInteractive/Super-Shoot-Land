@@ -1,11 +1,13 @@
 package Level;
 
-import org.jsfml.graphics.RenderWindow;
-
 import java.util.Random;
 
 /**
- * Created by Corentin on 29/11/2014.
+ * @Class Level
+ * @author Corentin RAOULT, Yannis M'RAD, Steven FOUGERON
+ * 
+ * Classe représentant un niveau
+ *
  */
 public class Level {
 
@@ -14,14 +16,14 @@ public class Level {
    private int largeur, hauteur;
 
     /**
-     * constructeur par défault 10 lignes 10 colonnes
+     * Constructeur par défaut 10 lignes 10 colonnes
      */
     public Level(){
         this(10,10);
     }
 
     /**
-     * constructeur utilisé
+     * Constructeur utilisé
      * @param larg
      * @param haut
      */
@@ -33,7 +35,7 @@ public class Level {
     }
 
     /**
-     * rempli une map de 0 et de 1 pour les plateformes
+     * Remplit une map de 0 et de 1 pour les plateformes
      * @return
      */
     private void generateMap(){
@@ -59,7 +61,7 @@ public class Level {
     }
 
     /**
-     * affiche la map binaire
+     * Affiche la map binaire
      */
     private void afficheMapBinaire(){
         for(int i =0;i<hauteur;i++){
@@ -71,7 +73,7 @@ public class Level {
     }
 
     /**
-     * rempli la ligne de la valeur
+     * Remplit la ligne de la valeur
      * @param numLigne
      * @param val
      */
@@ -80,7 +82,7 @@ public class Level {
     }
 
     /**
-     * créer une plateforme
+     * Créer une plateforme
      * @param numLigne
      * @param val
      * @param debut
