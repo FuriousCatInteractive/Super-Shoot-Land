@@ -47,7 +47,7 @@ public class SelectMode extends cScreen implements iMenu{
         loadText(" Online", AppX/2+offsetX,AppY/2+offsety,taille_Font_base);
         loadText(" Back", AppX/2+offsetX,2*AppY/3+offsety,taille_Font_base);
 
-        loadText("Super Shoot Land", AppX/2,AppY/15,(int)1.1*taille_Font_base);
+        loadText("Select Mode", AppX/2,AppY/15,(int)1.1*taille_Font_base);
         ((Text)screenObject.get(3)).setColor(light_green);
         loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20,taille_Font_base/2);
         ((Text)screenObject.get(4)).setColor(light_green);
@@ -174,6 +174,8 @@ public class SelectMode extends cScreen implements iMenu{
                 cScreen.select.play();
                 if(menu>nb_choix_menu-1)
                     menu = 0;
+                if(menu==1)
+                    menu++;
             }
 
             if (KeyboardActions.isMovingUp()) {
@@ -181,6 +183,8 @@ public class SelectMode extends cScreen implements iMenu{
                 cScreen.select.play();
                 if(menu<0)
                     menu = 2;
+                if(menu==1)
+                    menu--;
             }
 
             if (KeyboardActions.isAttacking()) {
@@ -188,6 +192,7 @@ public class SelectMode extends cScreen implements iMenu{
                 screenObject.clear();
                 return choixValide();
             }
+
         }
         //si on ne quitte pas cet écran
         return 100;

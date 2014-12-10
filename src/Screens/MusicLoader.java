@@ -12,7 +12,7 @@ public class MusicLoader extends Thread {
     public void run(){
         System.out.println("début loadmusic");
         cScreen.musicBackground = cScreen.loadMusic("res/sound/theme-ssb.ogg" );
-        cScreen.musicStage1=cScreen.loadMusic("res/sound/tower.ogg");
+        cScreen.musicStage1=cScreen.loadMusic("res/sound/battlefield.ogg");
         cScreen.getReady=cScreen.loadMusic("res/sound/getready.ogg");
         cScreen.gameOver = cScreen.loadMusic("res/sound/Wha-Wha.ogg");
         cScreen.victory = cScreen.loadMusic("res/sound/FF7_victory.ogg");

@@ -69,6 +69,7 @@ public class MainMenu extends cScreen implements iMenu{
 
 
         musicBackground.play();
+        musicBackground.setLoop(true);
 
         loadScreenObjects(App);
 

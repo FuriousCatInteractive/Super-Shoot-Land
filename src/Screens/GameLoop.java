@@ -70,8 +70,6 @@ public class GameLoop extends cScreen {
             p1 = loadPerso(SelectPerso.persoSelect);
         }
 
-
-
         lvltest = new Level(20,(AppX/AppY)*20);
         loadLevelToGame(App);
 
@@ -136,8 +134,6 @@ public class GameLoop extends cScreen {
             inputGL.run();
             if (returnValue <= 50)
                 return returnValue;
-
-
 
             p1.run();
             p2.run();
@@ -244,7 +240,7 @@ public class GameLoop extends cScreen {
      */
     private  int  messageVictoire(Player p){
         musicStage1.stop();
-
+        musicBackground.setLoop(true);
         victory.play();
         newRect(AppX, AppY/4, 0 ,AppY/2-AppY/8, dark_green);
         if(p ==p1)
@@ -260,14 +256,23 @@ public class GameLoop extends cScreen {
 
     private void updateList(){
         for (int i =screenObject.size() - 1; i > -1; i--) {
-            if (screenObject.get(i) instanceof Player || screenObject.get(i) instanceof Text) {
+            if (screenObject.get(i) instanceof Player
+                    || screenObject.get(i) instanceof Text
+                    || screenObject.get(i) instanceof RectangleShape ) {
                 screenObject.remove(i);
             }
         }
-        loadText("P1: "+p1.getHP(), AppX/8,10,AppY/25);
-        loadText("P2: "+p2.getHP(), 7*AppX/8,10,AppY/25);
+        int x;
+        int y=15;
+        loadText("P1: ", AppX/16,y,AppY/25);
+        loadText(" :P2", 15*AppX/16,y,AppY/25);
         ((Text)screenObject.get(screenObject.size()-1)).setColor(dark_green);
         ((Text)screenObject.get(screenObject.size()-2)).setColor(dark_green);
+
+        int largeur=AppX/4;
+        int hauteur=AppY/30;
+        newRect(p1.getHP()*largeur/100, hauteur, AppX/12 , (int) (y/1.5), dark_green);
+        newRect(p2.getHP()*largeur/100, hauteur, 5*AppX/6+AppX/12+largeur/100-p2.getHP()*largeur/100-AppX/100, (int) (y/1.5), dark_green);
         screenObject.add(p1);
         screenObject.add(p2);
 

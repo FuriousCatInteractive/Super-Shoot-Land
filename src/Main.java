@@ -24,11 +24,9 @@ public class Main {
     	GameConfig.configKeyBindings();
 
 
-
-
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int WINDOW_H =600;// (int)tailleEcran.getHeight();
-        int WINDOW_W =700;// (int)tailleEcran.getWidth();
+        int WINDOW_H = 600;//(int)tailleEcran.getHeight();
+        int WINDOW_W = 700;//(int)tailleEcran.getWidth();
 
         RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO"/*,-1*/);//-1=fullscreen
         window1.setFramerateLimit(60);

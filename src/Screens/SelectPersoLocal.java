@@ -47,14 +47,14 @@ public class SelectPersoLocal extends cScreen{
         loadFont( "res/font/Volter__28Goldfish_29.ttf");
         AppX = App.getSize().x;
         AppY = App.getSize().y;
-        int taille_Font_base = (int)(0.06*AppY);
+        int taille_Font_base = (int)(0.09*AppY);
         int offsetX =AppX/3-20;
         int offsety = AppY/20;
 
         int hauteur_min = AppY/8;
         int largeur_min = AppX/8;
-        int ecart_min = AppX/30;
-        int origin_y_min = AppY/5+ecart_min;
+        int ecart_min = AppX/50;
+        int origin_y_min = AppY/5+ecart_min*2;
         int origin_x_min = AppX/2-largeur_min/2;
 
         loadText(">",origin_x_min-20, origin_y_min+20+0*(ecart_min+hauteur_min),taille_Font_base);
@@ -73,17 +73,18 @@ public class SelectPersoLocal extends cScreen{
         loadImage("res/img/miniature_link.png",origin_x_min, origin_y_min+2*(ecart_min+hauteur_min), largeur_min,hauteur_min );
         loadImage("res/img/miniature_megaman.png",origin_x_min, origin_y_min+3*(ecart_min+hauteur_min), largeur_min,hauteur_min );
 
-        loadText("Select your Character", AppX/2,AppY/15,(int)1.6*taille_Font_base);
+
+        loadText("Select your Character", AppX/2,AppY/15,(int)1.009*taille_Font_base);
         ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
 
-        loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20, (int) (taille_Font_base/1.5));
+
+        loadText("Furious Cat Interactive - 2014",AppX/2, AppY-AppY/20, taille_Font_base/2);
         ((Text)screenObject.get(screenObject.size()-1)).setColor(light_green);
 
         newRect(AppX, AppY/5, 0 ,0, dark_green);
         newRect(AppX, 10, 0 ,AppY/5, light_green);
         newRect(AppX, AppY/11, 0 ,10*AppY/11, dark_green);
         newRect(AppX, 10, 0 ,10*AppY/11-10, light_green);
-
 
     }
 
@@ -94,7 +95,7 @@ public class SelectPersoLocal extends cScreen{
      */
     public int Run(RenderWindow App){
 
-       // musicBackground.play();
+        // musicBackground.play();
 
         loadScreenObjects(App);
 
@@ -108,8 +109,6 @@ public class SelectPersoLocal extends cScreen{
 
         while (Running)
         {
-
-
             int returnValue = eventManager(App);
             if(returnValue<=50)
                 return  returnValue;
@@ -117,6 +116,10 @@ public class SelectPersoLocal extends cScreen{
             menuSelectionne(menu, 1);
             menuSelectionne(menu2, 2);
 
+            /*if(ok1)
+                messageReady(1);
+            else if (ok2)
+                messageReady(2);*/
 
             screenObject.remove(screenObject.size()-1);
             loadImagePerso(menu+1,1);
@@ -203,88 +206,86 @@ public class SelectPersoLocal extends cScreen{
         //Key pressed
         if (event.type == Event.Type.KEY_PRESSED){
             event.asKeyEvent();
-            
+
             int activePlayer = KeyboardActions.getPlayerKey(event);
-			
-			switch(activePlayer)
-			{
-				case Const.PLAYER1:
 
-		            if (KeyboardActions.quitKeyPressed()){
-		                screenObject.clear();
-		                return  mainMenu;
-		            }
+            switch(activePlayer)
+            {
+                case Const.PLAYER1:
 
-		            if (KeyboardActions.isMovingDown()){
-		            	cScreen.select.play();
-		                menu++;
-		                if(menu>nb_choix_menu-1)
-		                    menu = 0;
-		            }
+                    if(!ok1){
+                         if (KeyboardActions.isMovingDown()){
+                            cScreen.select.play();
+                            menu++;
+                            if(menu>nb_choix_menu-1)
+                                menu = 0;
+                        }
 
-		            if (KeyboardActions.isMovingUp()) {
-		            	cScreen.select.play();
-		                menu--;
-		                if(menu<0)
-		                    menu = nb_choix_menu-1;
-		            }
+                        if (KeyboardActions.isMovingUp()) {
+                            cScreen.select.play();
+                            menu--;
+                            if(menu<0)
+                                menu = nb_choix_menu-1;
+                        }
 
-		            //touche d'attaque pour valider les choix
-		            if (KeyboardActions.isAttacking()) {
-		            	cScreen.pick.play();
-		                ok1=true;
-		            }
-		            
-					break;
-					
-				case Const.PLAYER2:
-					if (KeyboardActions.isMovingDown()){
-						cScreen.select.play();
-		                menu2++;
-		                if(menu2>nb_choix_menu-1)
-		                    menu2 = 0;
-		            }
+                        //touche d'attaque pour valider les choix
+                        if (KeyboardActions.isAttacking()) {
+                            cScreen.pick.play();
+                            ok1=true;
+                        }
+                    }
+                    if (KeyboardActions.quitKeyPressed()){
+                        screenObject.clear();
+                        return  mainMenu;
+                    }
+                    break;
 
-		            if (KeyboardActions.isMovingUp()) {
-		            	cScreen.select.play();
-		                menu2--;
-		                if(menu2<0)
-		                    menu2 = nb_choix_menu-1;
-		            }
+                case Const.PLAYER2:
 
-		            if (KeyboardActions.isAttacking()) {
-		            	cScreen.pick.play();
-		                ok2=true;
-		            }
-		            
-					break;
-					
-					default:
-						break;	
-			} 
-			
-			if(ok1 && ok2)
-			{
-				 persoSelect1=menu+1;
-                 persoSelect2=menu2+1;
-                 cScreen.musicBackground.stop();
-                 cScreen.getReady.play();
-                 
-                 try {
-					Thread.sleep((long) cScreen.getReady.getBuffer().getDuration().asSeconds()+500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-                 
-                 screenObject.clear();
-                 return choixValide();
-			}
-			
-			
+                    if(!ok2) {
+                        if (KeyboardActions.isMovingDown()) {
+                            cScreen.select.play();
+                            menu2++;
+                            if (menu2 > nb_choix_menu - 1)
+                                menu2 = 0;
+                        }
+
+                        if (KeyboardActions.isMovingUp()) {
+                            cScreen.select.play();
+                            menu2--;
+                            if (menu2 < 0)
+                                menu2 = nb_choix_menu - 1;
+                        }
+
+                        if (KeyboardActions.isAttacking()) {
+                            cScreen.pick.play();
+                            ok2 = true;
+                        }
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            if(ok1 && ok2)
+            {
+                persoSelect1=menu+1;
+                persoSelect2=menu2+1;
+                cScreen.musicBackground.stop();
+                cScreen.getReady.play();
+
+                try {
+                    Thread.sleep((long) cScreen.getReady.getBuffer().getDuration().asSeconds()+500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                screenObject.clear();
+                return choixValide();
+            }
         }
-        
-        
-        
         //si on ne quitte pas cet écran
         return 100;
     }
@@ -297,7 +298,7 @@ public class SelectPersoLocal extends cScreen{
     public void menuSelectionne(int num, int identifiant){
         for(int i =0; i<nb_choix_menu;i++)        {
             int it=i+(identifiant-1)*nb_choix_menu;
-           // System.out.println(it);
+            // System.out.println(it);
             if( i==num)
                 ((Text)screenObject.get(it)).setColor(light_green);
             else
@@ -344,5 +345,11 @@ public class SelectPersoLocal extends cScreen{
                 loadImage("res/img/max_pikachu.png", x, y, w, h);
                 break;
         }
+    }
+
+    public void messageReady(int id){
+        newRect((id-1)*AppX/2+AppX-AppX/32, AppY/16, AppX/16 ,AppY/32, dark_green);
+
+        loadText("Player 1 win!!!", AppX / 2, AppY/2-20, AppX/30);
     }
 }
