@@ -1,15 +1,19 @@
-﻿#Projet
+﻿#Super Shoot Land
 ##8INF957  - UQAC
 ##Automne 2014
 
-###Steven FOUGERON, Yannis M'RAD, Corentin RAOULT 
+###Steven FOUGERON, Yannis M'RAD, Corentin RAOULT
+
+![logo](res/img/logo_readme.png)
 
 ##Présentation:
 
-Ce projet est un petit jeu vidéo de type platformer/shooter inspiré de Super Smsh Land (http://www.supersmashland.com/). Ce dernier à été conçut avec GameMaker mais dont nous avons donc repris les assets sonores et graphiques 	.
+Ce projet est un petit jeu vidéo de type platformer/shooter inspiré de [Super Smash Land](http://www.supersmashland.com/). Ce dernier à été conçut avec GameMaker mais dont nous avons donc repris les assets sonores et graphiques 	.
 Chaque joueur contrôle un personnage capable de sauter/bouger/tirer qui a pour but de faire tomber ou tuer l'adversaire.
-Le jeu utilise la librairie JSFML (https://github.com/pdinklag/JSFML/wiki) qui est un binding de la SFML qui est écite en C++.
-Cette librairie permet de faciliter la gestion des collisons, le chargement des textures et des sprite sheets ainsi que la gestion des inputs.
+Le jeu utilise la librairie [JSFML](https://github.com/pdinklag/JSFML/wiki) qui est un binding de la SFML qui est écite en C++.
+Cette librairie permet de faciliter la gestion des collisons, le chargement des textures et des sprite sheets ainsi que la gestion des inputs. 
+
+Pour jouer téléchargez la release version 0.1 [ici](https://github.com/FuriousCatInteractive/projet-poo/releases).
 
 ##Contôles par défault:
 * joueur 1:
@@ -30,13 +34,15 @@ Cette librairie permet de faciliter la gestion des collisons, le chargement des 
 * menus, musiques, feedbacks..
 
 
-##Nombre d'heures investies
+##screenshots
 
-modélisation: Temps prévu : 2h, Temps effectif : ~1h30 mins
-développement:  Temps prévu : 80h, Temps effectif : ~100h
-débogage: Temps prévu : 10h, Temps effectif : ~13h mins
+![screenshot1](res/img/screenshot (5).png)
+![screenshot2](res/img/screenshot (1).png)
+![screenshot3](res/img/screenshot (4).png)
+![screenshot4](res/img/screenshot (2).png)
 
 
+#Quelques détails techniques
 
 ##Gestion des entrées clavier
 

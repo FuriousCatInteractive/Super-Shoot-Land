@@ -6,6 +6,8 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
 import org.jsfml.window.VideoMode;
 
+import java.awt.*;
+
 
 /**
  * @Class Main
@@ -24,11 +26,12 @@ public class Main {
     	GameConfig.configKeyBindings();
 
 
-        //Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int WINDOW_H = 600;//(int)tailleEcran.getHeight();
-        int WINDOW_W = 700;//(int)tailleEcran.getWidth();
 
-        RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO"/*,-1*/);//-1=fullscreen
+        Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int WINDOW_H = (int)tailleEcran.getHeight();
+        int WINDOW_W =  (int)tailleEcran.getWidth();
+
+        RenderWindow window1 = new RenderWindow(new VideoMode(WINDOW_W,WINDOW_H), "Projet POO",-1);//-1=fullscreen
         window1.setFramerateLimit(60);
         window1.setKeyRepeatEnabled(true);
 
